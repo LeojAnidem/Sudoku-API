@@ -6,8 +6,7 @@ type DeleteAmountByElement = 2 | 3 | 4 | 5 | 6 | 7;
 type Difficult = "easy" | "normal" | "hard";
 
 interface BoardElement {
-	element: number[];
-	amountToDelete: DeleteAmountByElement;
+	element: number[]
 }
 
 interface Board {
@@ -15,8 +14,8 @@ interface Board {
 }
 
 interface DelAmount {
-	totalAmount: number,
-	rangeDel: [number, number]
+	totalAmount: number;
+	rangeDel: [number, number];
 }
 
 const generateNumsArr = (): number[] => {
@@ -78,15 +77,14 @@ const generateSudokuBoard = (): SudokuBoard => {
 };
 
 const getAmountDel = (difficult: Difficult): DelAmount => {
-
 	// Los numeros mostrados por dificultad son un rango del minimo y
 	// maximo valor de numeros que deben quedar disponibles en el
 	// tablero, el resto sera eliminado
 	const amountsByDifficult = {
-		easy:[34, 38],
-		normal:[30, 32],
+		easy: [34, 38],
+		normal: [30, 32],
 		hard: [23, 28],
-	}
+	};
 
 	// 81 es el # total de elementos en la tabla de sudoku
 	const [min, max] = amountsByDifficult[difficult];
@@ -99,73 +97,104 @@ const getRandomInRange = (min: number, max: number): number => {
 	return Math.floor(Math.random() * (max - min) + min);
 };
 
-const getArrDel = (
-	difficult: Difficult
-): DeleteAmountByElement[] => {
+const getArrDel = (difficult: Difficult): DeleteAmountByElement[] => {
 	// restrictionNumber es un arreglo que contiene la cantidad minima y maxima
 	// de elementos a borrar por cada BoardElement
 	const amountsByBoardElement = new Array(9).fill(0);
-	const {totalAmount, rangeDel} = getAmountDel(difficult);
+	const { totalAmount, rangeDel } = getAmountDel(difficult);
 	const [min, max] = [...rangeDel];
 
 	// De forma aleatoria creara un array con nueve elementos, cada elemento puede
 	// tener un valor entre 1 y 9, la suma de todos los elementos debe ser igual a
 	// totalAmount
-	const randomizeDeletes = (amountDel: number, arr: number[]): DeleteAmountByElement[] => {
+	const randomizeDeletes = (
+		amountDel: number,
+		arr: number[],
+	): DeleteAmountByElement[] => {
 		let countDel = amountDel;
 
 		const arrMod = arr.map((elmt, index) => {
-				const valToSet = getRandomInRange(min, max);
-				countDel -= elmt;
+			const valToSet = getRandomInRange(min, max);
+			countDel -= elmt;
 
-				if (countDel <= 0 && index !== arr.length) return 0;
+			if (countDel <= 0 && index !== arr.length) return 0;
 
-				return valToSet;
+			return valToSet;
 		});
 
-		const sumTotal = arrMod.reduce((a, b)=> a + b)
+		const sumTotal = arrMod.reduce((a, b) => a + b);
 		if (arrMod.some((elmt) => elmt === 0) || sumTotal !== amountDel) {
 			return randomizeDeletes(amountDel, arr);
 		}
 
-		return arrMod as DeleteAmountByElement[]
+		return arrMod as DeleteAmountByElement[];
 	};
 
-	return randomizeDeletes(totalAmount, amountsByBoardElement)
+	return randomizeDeletes(totalAmount, amountsByBoardElement);
 };
 
-const getRandomIndex = (indexArr: number[]): number[] => {
-	const { repeat } = indexArr.reduce(
-		(acc, currVal) => {
-			if (acc.values.includes(currVal)) {
-				acc.repeat = true;
-			}
+const getRandomIdxArr = (length: number): number[] => {
+	const idxArr = new Array(length).fill(0);
 
-			acc.values.push(currVal);
-			return acc;
-		},
-		{ values: new Array(0), repeat: false },
-	);
+	const setValues = (indexArr: number[]): number[] => {
+		const { repeat } = indexArr.reduce(
+			(acc, currVal) => {
+				if (acc.values.includes(currVal)) {
+					acc.repeat = true;
+				}
 
-	if (repeat) {
-		const newIndexArr = indexArr.map(() => getRandomInRange(0, 8));
-		return getRandomIndex(newIndexArr);
-	}
+				acc.values.push(currVal);
+				return acc;
+			},
+			{ values: new Array(0), repeat: false },
+		);
 
-	return indexArr;
+		if (repeat) {
+			const newIndexArr = indexArr.map(() => getRandomInRange(0, 8));
+			return setValues(newIndexArr);
+		}
+
+		return indexArr;
+	};
+
+	return setValues(idxArr);
 };
 
-const BoardElement: FC<BoardElement> = ({ element, amountToDelete }) => {
-	const emptyAmountArr = new Array(amountToDelete).fill(0)
-	const indexDel = getRandomIndex(emptyAmountArr)
-	const copyElmt = [...element]
-	indexDel.forEach(iDel => {copyElmt[iDel] = 0})
+const getUnSolvedBoard = (
+	solvedBoard: SudokuBoard,
+	difficult: Difficult,
+): SudokuBoard => {
+	// Segun la dificultad obtenemos un array de 9 elementos, cada elemento
+	// representa la cantidad de # a eliminar en cada grilla/elementBoard
+	const amountDelByElmt = getArrDel(difficult);
 
+	const arrUnsolved = new Array(0)
+
+	// Eliminamos n cantidad de elementos de cada array del board,
+	// reemplazandolo con 0's
+	solvedBoard.forEach((elementArr, idx) => {
+		// copiamos el array para evitar editar el original
+		const arrDelElements = [...elementArr];
+
+		// generamos un nuevo array con indices al azar entre 1 y 9 sin
+		// repeticiones, la longitud del array dependera de amountDelByElmt
+		const idxDelArr = getRandomIdxArr(amountDelByElmt[idx]);
+
+		// reemplazamos con ceros segun los indices generados
+		idxDelArr.forEach(idxDel => {arrDelElements[idxDel] = 0})
+
+		arrUnsolved.push(arrDelElements)
+	});
+
+	return arrUnsolved;
+};
+
+const BoardElement: FC<BoardElement> = ({ element }) => {
 	return (
 		<div className="grid_sk">
-			{copyElmt.map((num, i) => (
+			{element.map((num, i) => (
 				<div className="grid_item_sk" key={`element-${i}`}>
-					{num === 0 ? '' : num}
+					{num === 0 ? "" : num}
 				</div>
 			))}
 		</div>
@@ -173,21 +202,25 @@ const BoardElement: FC<BoardElement> = ({ element, amountToDelete }) => {
 };
 
 const Board: FC<Board> = ({ difficult }) => {
-	const game = {
-		solved: generateSudokuBoard(),
-		unSolved: []
-	}
-	const amountDelByElmt = getArrDel(difficult)
 
-	console.log(game)
+	const createGame = (difficult: Difficult) => {
+		const board = generateSudokuBoard()
+
+		return {
+			solved: board,
+			unSolved: getUnSolvedBoard(board, difficult)
+		}
+	}
+
+	const game = createGame(difficult)
+	console.log(game);
 
 	return (
 		<div className="grid_sk gap-3">
-			{game.solved.map((row, i) => (
+			{game.unSolved.map((row, i) => (
 				<BoardElement
 					key={`boardElement-${i}`}
 					element={row}
-					amountToDelete={amountDelByElmt[i]}
 				/>
 			))}
 		</div>
