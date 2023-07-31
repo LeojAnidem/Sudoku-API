@@ -78,27 +78,21 @@ const generateSudokuBoard = (): SudokuBoard => {
 };
 
 const getAmountDel = (difficult: Difficult): DelAmount => {
+
+	// Los numeros mostrados por dificultad son un rango del minimo y
+	// maximo valor de numeros que deben quedar disponibles en el
+	// tablero, el resto sera eliminado
 	const amountsByDifficult = {
-		easy: {
-			totalAmount: [34, 38],
-			delRestriction: [2, 7]
-		},
-		normal:{
-			totalAmount: [30, 32],
-			delRestriction: [2, 7]
-		},
-		hard: {
-			totalAmount: [23, 28],
-			delRestriction: [2, 7]
-		},
-	};
+		easy:[34, 38],
+		normal:[30, 32],
+		hard: [23, 28],
+	}
 
-	const { totalAmount, delRestriction } = amountsByDifficult[difficult];
-	const [minRestr, maxRestr] = delRestriction;
-	const [min, max] = totalAmount;
-	const randomNumber = getRandomInRange(min, max);
+	// 81 es el # total de elementos en la tabla de sudoku
+	const [min, max] = amountsByDifficult[difficult];
+	const randomNumber = 81 - getRandomInRange(min, max);
 
-	return { totalAmount: randomNumber, rangeDel: [minRestr, maxRestr] };
+	return { totalAmount: randomNumber, rangeDel: [1, 9] };
 };
 
 const getRandomInRange = (min: number, max: number): number => {
@@ -112,12 +106,10 @@ const getArrDel = (
 	// de elementos a borrar por cada BoardElement
 	const amountsByBoardElement = new Array(9).fill(0);
 	const {totalAmount, rangeDel} = getAmountDel(difficult);
-
-	const restrictionNumber = [...rangeDel];
-	const [min, max] = restrictionNumber;
+	const [min, max] = [...rangeDel];
 
 	// De forma aleatoria creara un array con nueve elementos, cada elemento puede
-	// tener un valor entre 2 y 7, la suma de todos los elementos debe ser igual a
+	// tener un valor entre 1 y 9, la suma de todos los elementos debe ser igual a
 	// totalAmount
 	const randomizeDeletes = (amountDel: number, arr: number[]): DeleteAmountByElement[] => {
 		let countDel = amountDel;
@@ -136,7 +128,6 @@ const getArrDel = (
 			return randomizeDeletes(amountDel, arr);
 		}
 
-		console.log(totalAmount, arrMod.reduce((a,b) => a + b), arrMod)
 		return arrMod as DeleteAmountByElement[]
 	};
 
@@ -182,11 +173,17 @@ const BoardElement: FC<BoardElement> = ({ element, amountToDelete }) => {
 };
 
 const Board: FC<Board> = ({ difficult }) => {
+	const game = {
+		solved: generateSudokuBoard(),
+		unSolved: []
+	}
 	const amountDelByElmt = getArrDel(difficult)
+
+	console.log(game)
 
 	return (
 		<div className="grid_sk gap-3">
-			{generateSudokuBoard().map((row, i) => (
+			{game.solved.map((row, i) => (
 				<BoardElement
 					key={`boardElement-${i}`}
 					element={row}
@@ -201,7 +198,7 @@ export const Sudoku = () => {
 	return (
 		<Card className="!bg-dark-tremor-brand-subtle">
 			<Title>Sudoku</Title>
-			<Board difficult="hard" />
+			<Board difficult="easy" />
 		</Card>
 	);
 };
