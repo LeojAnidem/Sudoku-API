@@ -1,6 +1,6 @@
 import { Card, Title } from "@tremor/react";
-import { FC } from "react";
-import { createSudoku } from "../api/sudoku";
+import { FC, useEffect, useState } from "react";
+import axios from "axios";
 
 type Difficult = "easy" | "normal" | "hard";
 
@@ -10,6 +10,12 @@ interface BoardElement {
 
 interface Board {
 	difficult: Difficult;
+}
+
+interface Game {
+	solved: number[][],
+	unsolved: number[][],
+	difficult: Difficult
 }
 
 const BoardElement: FC<BoardElement> = ({ element }) => {
@@ -25,8 +31,24 @@ const BoardElement: FC<BoardElement> = ({ element }) => {
 };
 
 const Board: FC<Board> = ({ difficult }) => { 
-	const game = createSudoku(difficult)
-	console.log(game);
+	const [game, setGame] = useState<Game>({
+		solved: [],
+		unsolved: [],
+		difficult: 'easy'
+	})
+
+	const getSudokuData = async () => {
+		try {
+			const {data} = await axios.get(`http://localhost:3001/api/${difficult}`)
+			setGame(data)
+		} catch(err) {
+			console.error(err)
+		}
+	}
+
+	useEffect(() => {
+		getSudokuData()
+	}, [])
 
 	return (
 		<div className="grid_sk gap-3">
