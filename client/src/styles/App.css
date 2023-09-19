@@ -1,16 +1,17 @@
 .main_bg {
-  @apply w-full h-screen p-6 
+  @apply w-full h-screen
   grid justify-center items-center
   bg-dark-tremor-background
 }
 
 .grid_sk {
-  @apply grid grid-cols-3 grid-rows-3
-  gap-1
+  @apply grid grid-cols-3 grid-rows-3 border
+  border-tremor-content-strong
 }
 
 .grid_item_sk {
-  @apply w-10 h-10 text-dark-tremor-content-emphasis
+  @apply w-9 h-9 text-dark-tremor-content-emphasis
   flex items-center justify-center
-  bg-dark-tremor-brand rounded-md
+  bg-dark-tremor-brand-muted border
+  border-tremor-content-strong
 }

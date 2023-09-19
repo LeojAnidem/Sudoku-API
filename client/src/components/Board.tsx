@@ -6,7 +6,7 @@ import { BoardElement } from "./BoardElement";
 
 const BoardRender: FC<IBoardRender> = ({board}) => {
 	return (
-		<div className="grid_sk gap-3">
+		<div className="grid_sk">
 			{
 				board.unsolved.map((row, i) => (
 					<BoardElement

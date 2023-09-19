@@ -1,6 +1,11 @@
 import { ISudokuData } from "./apiTypes";
 
-export type Difficult = "easy" | "normal" | "hard";
+export enum Difficult {
+	Easy = 'easy',
+	Normal = 'normal',
+	Hard = 'hard'
+}
+
 export type BoardType = number[][]
 
 export interface IBoardElement {
