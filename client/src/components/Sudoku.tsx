@@ -9,7 +9,7 @@ export const Sudoku = () => {
 				<TabList>
 					{Object.values(Difficult).map(difficult => {
 						return (
-							<Tab>
+							<Tab key={`difficultTab-${difficult}`}>
 								{difficult}
 							</Tab>
 						)

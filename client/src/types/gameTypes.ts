@@ -6,6 +6,13 @@ export enum Difficult {
 	Hard = 'hard'
 }
 
+export type PositionType = {
+	row: Number,
+	col: Number
+}
+
+export type ChangeEvent = React.ChangeEvent<HTMLInputElement>
+
 export type BoardType = number[][]
 
 export interface IBoardElement {
@@ -18,4 +25,9 @@ export interface IBoardRender {
 
 export interface IBoard {
 	difficult: Difficult;
+}
+
+export interface IinputElemnt {
+	pos: PositionType
+	correctVal: Number
 }
