@@ -10,7 +10,7 @@
 }
 
 .grid_item_sk {
-  @apply w-9 h-9 text-dark-tremor-content-emphasis
+  @apply w-10 h-10 text-dark-tremor-content-emphasis
   flex items-center justify-center
   bg-dark-tremor-brand-muted border
   border-tremor-content-strong
