@@ -2,17 +2,15 @@ import { FC } from "react";
 import { IBoardElement } from "../types/gameTypes";
 import { InputElement } from "./InputElement";
 
-export const BoardElement: FC<IBoardElement> = ({ element }) => {
+export const BoardElement: FC<IBoardElement> = ({ boardElt }) => {
 	return (
 		<div className="grid_sk">
-			{element.map((num, i) => (
-				<div className="grid_item_sk" key={`element-${i}`}>
-					{num === 0 
-						? <InputElement
-								pos={{row:i, col: 1}} 
-								correctVal={num}
-							/>
-						: num 
+			{boardElt.map((elt, i) => (
+				<div className="grid_item_sk" key={`boardElt-${i}`}>
+					{
+						elt.isUnsolved
+							? <InputElement pos={elt.pos} correctVal={elt.value}/>
+							: `${elt.value}`
 					}
 				</div>
 			))}

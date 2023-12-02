@@ -2,16 +2,18 @@ import { FC, useEffect, useState } from "react";
 import { INIT_DATA_SUDOKU, getSudokuData } from "../services/sudokuApi";
 import '../styles/loader.css';
 import { IBoard, IBoardRender } from "../types/gameTypes";
+import { createBoardGame } from "../utils/boardFn";
 import { BoardElement } from "./BoardElement";
 
 const BoardRender: FC<IBoardRender> = ({board}) => {
+	const boardGame = createBoardGame(board)
 	return (
 		<div className="grid_sk">
 			{
-				board.unsolved.map((row, i) => (
+				boardGame.map((arr, i) => (
 					<BoardElement
 						key={`boardElement-${i}`}
-						element={row}
+						boardElt={arr}
 					/>
 				))
 			}

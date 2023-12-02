@@ -15,8 +15,14 @@ export type ChangeEvent = React.ChangeEvent<HTMLInputElement>
 
 export type BoardType = number[][]
 
+export interface IElement {
+	value: Number,
+	pos: PositionType,
+	isUnsolved: Boolean
+}
+
 export interface IBoardElement {
-	element: number[]
+	boardElt: IElement[]
 }
 
 export interface IBoardRender {
