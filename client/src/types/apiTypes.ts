@@ -1,4 +1,4 @@
-import { BoardType, Difficult } from "./gameTypes";
+import { BoardType, Difficult, IElement } from "./gameTypes";
 
 export interface ISudokuData {
 	solved: BoardType,
@@ -8,5 +8,5 @@ export interface ISudokuData {
 
 export interface IFetchSudokuData {
   difficult: Difficult,
-  setState: React.Dispatch<React.SetStateAction<ISudokuData>>
+  setState: React.Dispatch<React.SetStateAction<IElement[][]>>
 }

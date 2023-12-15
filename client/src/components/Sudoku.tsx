@@ -1,13 +1,34 @@
-import { Grid } from "@tremor/react";
+import { useEffect, useState } from "react";
+import { INIT_DATA_SUDOKU, getSudokuData } from "../services/sudokuApi";
 import { Difficult } from "../types/gameTypes";
-import { Board } from "./Board";
-import { DifficultTab } from "./DifficultTab";
+import { BoardElement } from "./BoardElement";
+import { Loading } from "./Loading";
 
-export const Sudoku = () => {
+export const Sudoku = () => { 
+	const [gameBoard, setGameBoard] = useState(INIT_DATA_SUDOKU)
+	const difficult = Difficult.Easy
+
+	useEffect(() => {
+		getSudokuData({difficult, setState: setGameBoard})
+	}, [difficult])
+
 	return (
-		<Grid className="gap-8">
-			<DifficultTab />
-			<Board difficult={Difficult.Easy} />
-		</Grid>
+		<>
+			{gameBoard.length
+				? (
+					<div className="grid_sk">
+						{
+							gameBoard.map((arr, i) => (
+								<BoardElement
+									key={`boardElement-${i}`}
+									boardElt={arr}
+								/>
+							))
+						}
+					</div>
+				)
+				: <Loading />
+			}
+		</>
 	);
 };

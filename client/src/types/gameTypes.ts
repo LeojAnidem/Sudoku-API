@@ -1,5 +1,3 @@
-import { ISudokuData } from "./apiTypes";
-
 export enum Difficult {
 	Easy = 'easy',
 	Normal = 'normal',
@@ -23,14 +21,6 @@ export interface IElement {
 
 export interface IBoardElement {
 	boardElt: IElement[]
-}
-
-export interface IBoardRender {
-	board: ISudokuData
-}
-
-export interface IBoard {
-	difficult: Difficult;
 }
 
 export interface IinputElemnt {
