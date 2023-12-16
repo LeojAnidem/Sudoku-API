@@ -1,3 +1,5 @@
+import { Dispatch, ReactNode } from "react"
+
 export enum Difficult {
 	Easy = 'easy',
 	Normal = 'normal',
@@ -7,6 +9,28 @@ export enum Difficult {
 export type PositionType = {
 	row: Number,
 	col: Number
+}
+
+export type GameType = {
+	board: IElement[][],
+	difficult: Difficult,
+	lifes: number,
+	score: number
+}
+
+export type GameAction = 
+	| { type: 'CHANGE_DIFFICULT'; difficult: Difficult}
+	| { type: 'INCREMENT_SCORE'; amount: number}
+	| { type: 'UPDATE_BOARD'; board: IElement[][] }
+	| { type: 'DECREMENT_LIFES' }
+
+export type ContextProviderProps = {
+	children?: ReactNode
+}
+
+export interface GameContextType {
+  state: GameType;
+  dispatch: Dispatch<GameAction>;
 }
 
 export type ChangeEvent = React.ChangeEvent<HTMLInputElement>
@@ -24,6 +48,13 @@ export interface IBoardElement {
 }
 
 export interface IinputElemnt {
-	pos: PositionType
+	pos: PositionType,
 	correctVal: Number
+}
+
+export const INITIAL_STATE:GameType = {
+  board: [],
+  difficult: Difficult.Easy,
+  lifes: 3,
+  score: 0
 }

@@ -5,14 +5,13 @@ import { createBoardGame } from "../utils/boardFn"
 
 const SUDOKU_API_URL = 'http://localhost:3001/api'
 
-export const INIT_DATA_SUDOKU: IElement[][] = []
-
-export const getSudokuData = async ({difficult, setState}: IFetchSudokuData) => {
+export const getSudokuData = async ({difficult}: IFetchSudokuData) => {
   try {
     const {data} : {data: ISudokuData} = await axios.get(`${SUDOKU_API_URL}/${difficult}`)
-    const parsedData = createBoardGame(data)
-    setState(parsedData)
+    return createBoardGame(data)
   } catch(err) {
+    const data: IElement[][] = []
     console.error(err)
+    return data
   }
 }
