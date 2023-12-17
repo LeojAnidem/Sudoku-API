@@ -2,7 +2,7 @@ import { Range } from "../types/sudokuTypes.js";
 
 // Elige un numero aleatorio entre un rango de numeros
 export const getRandomInRange = (min: number, max: number): number => {
-	return Math.floor(Math.random() * (max - min) + min);
+	return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
 // Reordenar el array de forma aleatoria

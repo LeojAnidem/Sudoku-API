@@ -1,9 +1,9 @@
 import { Dispatch, ReactNode } from "react"
 
 export enum Difficult {
-	Easy = 'easy',
-	Normal = 'normal',
-	Hard = 'hard'
+	Easy = 'Easy',
+	Medium = 'Medium',
+	Hard = 'Hard'
 }
 
 export type PositionType = {
@@ -15,14 +15,16 @@ export type GameType = {
 	board: IElement[][],
 	difficult: Difficult,
 	lifes: number,
-	score: number
+	score: number,
+	selectGroup: PositionType | {}
 }
 
 export type GameAction = 
 	| { type: 'CHANGE_DIFFICULT'; difficult: Difficult}
-	| { type: 'INCREMENT_SCORE'; amount: number}
+	| { type: 'INCREMENT_SCORE'}
 	| { type: 'UPDATE_BOARD'; board: IElement[][] }
 	| { type: 'DECREMENT_LIFES' }
+	| { type: 'SELECT_GROUP'; position: PositionType }
 
 export type ContextProviderProps = {
 	children?: ReactNode
@@ -49,12 +51,14 @@ export interface IBoardElement {
 
 export interface IinputElemnt {
 	pos: PositionType,
-	correctVal: Number
+	correctVal: Number,
+	disabled: Boolean
 }
 
 export const INITIAL_STATE:GameType = {
   board: [],
   difficult: Difficult.Easy,
   lifes: 3,
-  score: 0
+  score: 0,
+	selectGroup: {}
 }

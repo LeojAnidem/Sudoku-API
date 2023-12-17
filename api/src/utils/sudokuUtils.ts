@@ -6,9 +6,9 @@ import {
 } from "./arrayMethods.js";
 
 const DIFFICULT_NUMS_RESOLVES = {
-	easy: [36, 42],
-	normal: [30, 34],
-	hard: [20, 26],
+	Easy: [36, 42],
+	Medium: [30, 34],
+	Hard: [20, 26],
 };
 
 const BOARD_ELEMENTS = 81;
@@ -76,7 +76,7 @@ export const getDeleteInfo = (difficult: Difficult): DeleteInfo => {
 	const [min, max] = DIFFICULT_NUMS_RESOLVES[difficult];
 	const numsTotalToDelete = BOARD_ELEMENTS - getRandomInRange(min, max);
 
-	return { numsTotalToDelete, rangeDeleteByElement: [1, 9] };
+	return { numsTotalToDelete, rangeDeleteByElement: [1, 8] };
 };
 
 // Obtenemos el numero a eliminar por cada elemento del tablero/board

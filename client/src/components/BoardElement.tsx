@@ -7,11 +7,11 @@ export const BoardElement: FC<IBoardElement> = ({ boardElt }) => {
 		<div className="grid_sk">
 			{boardElt.map((elt, i) => (
 				<div className="grid_item_sk" key={`boardElt-${i}`}>
-					{
-						elt.isUnsolved
-							? <InputElement pos={elt.pos} correctVal={elt.value}/>
-							: `${elt.value}`
-					}
+					<InputElement
+						pos={elt.pos}
+						correctVal={elt.value}
+						disabled={elt.isUnsolved}
+					/>
 				</div>
 			))}
 		</div>

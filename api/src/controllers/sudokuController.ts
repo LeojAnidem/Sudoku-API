@@ -3,7 +3,7 @@ import { getSudoku } from "../services/sudokuServices.js";
 import { Difficult } from "../types/sudokuTypes.js";
 
 export const get: RequestHandler = (_req, res, next) => {
-	res.send(getSudoku(Difficult.Normal));
+	res.send(getSudoku(Difficult.Easy));
 };
 
 export const getByDifficult: RequestHandler = (req, res, next) => {

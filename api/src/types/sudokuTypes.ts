@@ -2,9 +2,9 @@ export type Board = number[][];
 export type Range = [number, number];
 
 export enum Difficult {
-	Easy = 'easy',
-	Normal = 'normal',
-	Hard = 'hard'
+	Easy = 'Easy',
+	Medium = 'Medium',
+	Hard = 'Hard'
 }
 
 export interface DeleteInfo {

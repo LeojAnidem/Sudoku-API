@@ -26,6 +26,11 @@ const gameReducer = (state:GameType, action:GameAction) => {
         ...state,
         lifes: state.lifes--
       }
+    case 'SELECT_GROUP' :
+      return {
+        ...state,
+        selectGroup: action.position
+      }
     default:
       return state
   }
