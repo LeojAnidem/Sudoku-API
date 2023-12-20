@@ -19,24 +19,27 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 	useEffect(() => setCurVal(''), [state.difficult])
 
 	const handleClic = (value: Number) => dispatch({ type: "SELECTING", position, value })
-
-	const handleOnChange = (e: ChangeEvent) => {
+	
+	const handleOnInput = (e: ChangeEvent) => {
+		// La linea a continuacion es necesaria, si la eliminas
+		// el input:Number no funcionara correctamente y permitira
+		// que puedas escribir cosas como '2----2222++1', lo que
+		// claramente es un error no deseado
+		
 		if (e.target.value === '') {
-			// La linea a continuacion es necesaria, si la eliminas
-			// el input:Number no funcionara correctamente y permitira
-			// que puedas escribir cosas como '2----2222++1', lo que
-			// claramente es un error no deseado
-			e.target.value = ''
+			e.target.value = '' // impide que puedas digitar '- o +' como valor
 			return setCurVal('')
 		}
-		
+	}
+
+	const handleOnChange = (e: ChangeEvent) => {
 		const val = parseInt(e.target.value)
 		const max = parseInt(e.target.max)
 		const min = parseInt(e.target.min)
+		if (val < min || val > max) return setCurVal('')
 
 		dispatch({ type: "SELECTING", position, value: val })
 		
-		if (val < min || val > max) return setCurVal('')
 		if (val === value) {console.log('Correct!', position)}
 		
 		return setCurVal(`${val}`)
@@ -67,6 +70,7 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 						max={9}
 						onChange={handleOnChange}
 						onClick={() => handleClic(parseInt(curVal))}
+						onInput={handleOnInput}
 						value={curVal}
 					/>
 			}

@@ -11,21 +11,25 @@ const gameReducer = (state:GameType, action:GameAction) => {
         ...state,
         difficult: action.difficult,
       }
+
     case 'UPDATE_BOARD' :
       return {
         ...state,
         board: action.board
       }
+
     case 'INCREMENT_SCORE' :
       return {
         ...state,
         score: state.score + 150
       }
+
     case 'DECREMENT_LIFES' :
       return {
         ...state,
         lifes: state.lifes--
       }
+
     case 'SELECTING' :
       // Esta accion se encarga de establecer cuales son los
       // elementos que estan en la misma fila, columna, grupo
@@ -41,17 +45,17 @@ const gameReducer = (state:GameType, action:GameAction) => {
         return arr.map((elt, i) => {
           const isSameRow = action.position.row === elt.position.row
           const isSameCol = action.position.col === elt.position.col
+          const isFocusInput = isSameCol && isSameRow && elt.isUnsolved
 
+          isFocusInput ? elt.inputValue = action.value : null
+            
           elt.isSelected = {
             isInGroup: elt.position === groupPos[i],
             isInRowOrCol: isSameRow || isSameCol,
             isOnCenter: isSameCol && isSameRow,
-            isSameValue: action.value === elt.value
-            // FIXME: Solucionar isSameValue, cuando un input tiene un
-            // valor establecido y marcamos el mismo valor en otro
-            // el primero no se marca como que tuvieran el mismo valor
-            // esto se debe a que no toma el valor actual, sino el que
-            // deberia ser (osea, el valor correcto)
+            isSameValue: elt.inputValue
+              ? action.value === elt.inputValue 
+              : action.value === elt.value
           }
 
           return elt
@@ -62,6 +66,7 @@ const gameReducer = (state:GameType, action:GameAction) => {
         ...state,
         board: filter
       }
+
     default:
       return state
   }

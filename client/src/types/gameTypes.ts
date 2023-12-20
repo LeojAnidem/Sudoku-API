@@ -50,6 +50,7 @@ export interface IElement {
 	position: PositionType,
 	isUnsolved: Boolean,
 	isSelected: SelectType
+	inputValue: Number | undefined
 }
 
 export interface IBoardElement {
