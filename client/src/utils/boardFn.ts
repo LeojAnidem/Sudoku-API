@@ -1,6 +1,14 @@
 import { ISudokuData } from "../types/apiTypes";
 import { IElement } from "../types/gameTypes";
 
+// La API de donde recopilamos los datos para nuestro sudoku
+// nos devuelve los valores en nueve arrays donde cada array
+// representa una fila y sus elementos individuales las columnas.
+// La forma en la que construi la estructura del cliente requiere
+// que los datos sean reorganizados de tal forma que cada array
+// contenga un grupo de elementos, por ejemplo: las filas del 0 al
+// 2, junto con las columnas del 0 al 2, pertenecerian a un grupo,
+// que pasaria a ser el primer array (indice 0) del nuevo arreglo.
 const organizeToBoardElement = (boardData:IElement[][]) => {
 	const organizeArr = [];
 
@@ -19,18 +27,26 @@ const organizeToBoardElement = (boardData:IElement[][]) => {
   return organizeArr;
 }
 
+// Funcion que convierte el objeto obtenido de nuestra API, en un arreglo
+// que contiene nueve arreglos del tipo IElement
 const convertBoardToData = (board: ISudokuData) => {
-  const boardData = [];
+  const boardData: IElement[][] = [];
 	const {solved, unsolved} = board
 
   for (let row = 0; row < solved.length; row++) {
-    const group = [];
+    const group: IElement[] = [];
 
     for (let col = 0; col < solved[row].length; col++) {
 			const elt: IElement = {
 				value: solved[row][col],
-				pos: {col, row},
+				position: {col, row},
 				isUnsolved: unsolved[row][col] === 0,
+        isSelected: {
+          isInGroup: false,
+          isInRowOrCol: false,
+          isOnCenter: false,
+          isSameValue: false
+        }
 			}
 			group.push(elt);
 		}

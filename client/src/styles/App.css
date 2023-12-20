@@ -15,3 +15,15 @@
   bg-dark-tremor-brand-muted border
   border-tremor-content-strong
 }
+
+.selected {
+  @apply bg-dark-tremor-brand-emphasis bg-opacity-40
+  text-tremor-brand-faint border
+  border-dark-tremor-brand-faint border-opacity-40
+  !important
+}
+
+.selected__val {
+  @apply bg-tremor-brand-emphasis opacity-100
+  !important
+}

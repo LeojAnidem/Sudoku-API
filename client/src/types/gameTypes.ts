@@ -11,12 +11,18 @@ export type PositionType = {
 	col: Number
 }
 
+export type SelectType = {
+	isSameValue: Boolean,
+	isInRowOrCol: Boolean,
+	isOnCenter: Boolean,
+	isInGroup: Boolean
+}
+
 export type GameType = {
 	board: IElement[][],
 	difficult: Difficult,
 	lifes: number,
-	score: number,
-	selectGroup: PositionType | {}
+	score: number
 }
 
 export type GameAction = 
@@ -24,7 +30,7 @@ export type GameAction =
 	| { type: 'INCREMENT_SCORE'}
 	| { type: 'UPDATE_BOARD'; board: IElement[][] }
 	| { type: 'DECREMENT_LIFES' }
-	| { type: 'SELECT_GROUP'; position: PositionType }
+	| { type: 'SELECTING'; position: PositionType; value: Number }
 
 export type ContextProviderProps = {
 	children?: ReactNode
@@ -41,24 +47,18 @@ export type BoardType = number[][]
 
 export interface IElement {
 	value: Number,
-	pos: PositionType,
-	isUnsolved: Boolean
+	position: PositionType,
+	isUnsolved: Boolean,
+	isSelected: SelectType
 }
 
 export interface IBoardElement {
 	boardElt: IElement[]
 }
 
-export interface IinputElemnt {
-	pos: PositionType,
-	correctVal: Number,
-	disabled: Boolean
-}
-
 export const INITIAL_STATE:GameType = {
   board: [],
   difficult: Difficult.Easy,
   lifes: 3,
-  score: 0,
-	selectGroup: {}
+  score: 0
 }
