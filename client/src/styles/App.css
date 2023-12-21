@@ -17,13 +17,20 @@
 }
 
 .selected {
-  @apply bg-dark-tremor-brand-emphasis bg-opacity-40
-  text-tremor-brand-faint border
-  border-dark-tremor-brand-faint border-opacity-40
-  !important
+  @apply bg-dark-tremor-background-muted
+  border-2 border-dark-tremor-brand-muted
 }
 
 .selected__val {
-  @apply bg-tremor-brand-emphasis opacity-100
-  !important
+  @apply bg-dark-tremor-brand-subtle
+  border-2 border-dark-tremor-brand-muted
+}
+
+.selected__focus {
+  @apply bg-dark-tremor-background-muted
+  border-2 border-dark-tremor-brand-subtle
+}
+
+.selected__wrong {
+  @apply bg-red-600
 }

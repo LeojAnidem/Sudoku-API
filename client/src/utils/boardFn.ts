@@ -45,7 +45,8 @@ const convertBoardToData = (board: ISudokuData) => {
           isInGroup: false,
           isInRowOrCol: false,
           isOnCenter: false,
-          isSameValue: false
+          isSameValue: false,
+          isWrong: false
         },
         inputValue: undefined
 			}

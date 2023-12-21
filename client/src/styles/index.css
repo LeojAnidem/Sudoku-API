@@ -8,4 +8,7 @@
     -webkit-appearance: none;
     margin: 0;
   }
+
+  input { appearance: none }
+  input:focus { outline: none }
 }

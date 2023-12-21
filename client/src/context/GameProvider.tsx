@@ -1,6 +1,6 @@
 import { FC, createContext, useEffect, useReducer } from "react";
 import { getSudokuData } from "../services/sudokuApi";
-import { ContextProviderProps, GameAction, GameContextType, GameType, INITIAL_STATE, PositionType } from "../types/gameTypes";
+import { ContextProviderProps, GameAction, GameContextType, GameType, IElement, INITIAL_STATE, PositionType } from "../types/gameTypes";
 
 export const GameContext = createContext<GameContextType>({state: INITIAL_STATE, dispatch: () => {}})
 
@@ -34,7 +34,7 @@ const gameReducer = (state:GameType, action:GameAction) => {
       // Esta accion se encarga de establecer cuales son los
       // elementos que estan en la misma fila, columna, grupo
       // y tienen el mismo valor que el elemento seleccionado
-      const filter = state.board.map(arr => {
+      const filter: IElement[][] = state.board.map(arr => {
         // buscamos cual array contiene el elemento que hemos seleccionado
         const groupPos: PositionType[] = []
         const isMenberGroup = arr.some(elt => elt.position === action.position)
@@ -43,28 +43,40 @@ const gameReducer = (state:GameType, action:GameAction) => {
           ? groupPos.push(...(arr.map(elt => elt.position))) : null
 
         return arr.map((elt, i) => {
+          const isInGroup = elt.position === groupPos[i]
           const isSameRow = action.position.row === elt.position.row
           const isSameCol = action.position.col === elt.position.col
+          
           const isFocusInput = isSameCol && isSameRow && elt.isUnsolved
-
           isFocusInput ? elt.inputValue = action.value : null
-            
-          elt.isSelected = {
-            isInGroup: elt.position === groupPos[i],
-            isInRowOrCol: isSameRow || isSameCol,
-            isOnCenter: isSameCol && isSameRow,
-            isSameValue: elt.inputValue
-              ? action.value === elt.inputValue 
-              : action.value === elt.value
+          
+          const isSameValue = elt.isUnsolved
+            ? action.value === elt.inputValue
+            : action.value === elt.value
+
+          elt.isSelected.isInGroup = isInGroup
+          elt.isSelected.isInRowOrCol = isSameRow || isSameCol
+          elt.isSelected.isOnCenter = isSameCol && isSameRow
+          elt.isSelected.isSameValue = isSameValue
+
+          if (!elt.isSelected.isWrong) {
+            // Debo encontrar una manera de que al digitar un numero en el
+            // input seleccionado me reste vida en el caso de que ese numero
+            // se encuentre en la misma fila o columna, pero el numero debera
+            // mantener el estado de isWrong hasta que el error sea removido
           }
 
           return elt
         })
       })
 
+      const isSomeWrongVal = filter.some(arr => arr.some(elt => elt.isSelected.isWrong))
+      console.log(isSomeWrongVal, state.lifes)
+
       return {
         ...state,
-        board: filter
+        board: filter,
+        lifes: isSomeWrongVal ? state.lifes - 1 : state.lifes
       }
 
     default:

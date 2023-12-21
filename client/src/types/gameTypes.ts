@@ -15,7 +15,8 @@ export type SelectType = {
 	isSameValue: Boolean,
 	isInRowOrCol: Boolean,
 	isOnCenter: Boolean,
-	isInGroup: Boolean
+	isInGroup: Boolean,
+	isWrong: Boolean
 }
 
 export type GameType = {

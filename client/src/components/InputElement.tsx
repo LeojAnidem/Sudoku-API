@@ -5,18 +5,21 @@ import { ChangeEvent, IElement } from "../types/gameTypes"
 export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSelected }) => {
 	const {state, dispatch} = useContext(GameContext)
 	const [curVal, setCurVal] = useState('')
-
-	const {isInGroup, isInRowOrCol, isOnCenter, isSameValue} = isSelected
-	const isExclusive = !isOnCenter && !isInRowOrCol
-	const canExclusive = isExclusive && (!isUnsolved || curVal !== '')
-
-	const selectClassName = {
-		rowOrCol: isInRowOrCol ? 'selected' : '',
-		sameVal: isSameValue && isExclusive ? 'selected__val' : '',
-		sameValOnInput: isSameValue && canExclusive  ? 'selected__val' : ''
-	}
-
+	const {isInGroup, isInRowOrCol, isOnCenter, isSameValue, isWrong} = isSelected
+	
 	useEffect(() => setCurVal(''), [state.difficult])
+	
+	const selectClassName = {
+		rowOrCol: isInRowOrCol && !isOnCenter ? 'selected' : '',
+		onCenter: isOnCenter ? 'selected__focus' : '',
+		sameVal: isSameValue && !isOnCenter && !isInRowOrCol && !isInGroup
+			? 'selected__val' : '',
+		inGroup: isInGroup && !isOnCenter && !isInRowOrCol
+			? 'selected' : '',
+		noEffect: !isOnCenter && !isInRowOrCol && !isSameValue && !isInGroup
+			? 'bg-transparent' : '',
+		wrong: isWrong ? 'selected__wrong' : ''
+	}
 
 	const handleClic = (value: Number) => dispatch({ type: "SELECTING", position, value })
 	
@@ -53,6 +56,9 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 							w-full h-full flex items-center justify-center
 							${selectClassName.rowOrCol}
 							${selectClassName.sameVal}
+							${selectClassName.inGroup}
+							${selectClassName.onCenter}
+							${selectClassName.wrong}
 						`}
 						onClick={() => handleClic(value)}
 					>
@@ -61,9 +67,13 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 				: <input
 						className={`
 							w-full h-full cursor-pointer flex text-center
-							text-dark-tremor-brand bg-transparent
+							text-dark-tremor-brand font-semibold text-lg
+							${selectClassName.noEffect}
 							${selectClassName.rowOrCol}
-							${selectClassName.sameValOnInput}
+							${selectClassName.sameVal}
+							${selectClassName.inGroup}
+							${selectClassName.onCenter}
+							${selectClassName.wrong}
 						`}
 						type="number"
 						min={1}
