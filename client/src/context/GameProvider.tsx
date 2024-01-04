@@ -59,11 +59,14 @@ const gameReducer = (state:GameType, action:GameAction) => {
           elt.isSelected.isOnCenter = isSameCol && isSameRow
           elt.isSelected.isSameValue = isSameValue
 
-          if (!elt.isSelected.isWrong) {
-            // Debo encontrar una manera de que al digitar un numero en el
-            // input seleccionado me reste vida en el caso de que ese numero
-            // se encuentre en la misma fila o columna, pero el numero debera
-            // mantener el estado de isWrong hasta que el error sea removido
+          // Detecta si algun valor se repite en la fila, columna o grupo
+          
+          if (!elt.isSelected.isWrong && (isSameRow || isSameCol || isInGroup)) {
+            elt.isSelected.isWrong = elt.isSelected.isOnCenter
+              ? elt.isUnsolved ? elt.isSelected.isSameValue : false
+              : elt.isSelected.isSameValue
+
+            if (elt.isSelected.isWrong && elt.isSelected.isOnCenter) state.lifes -= 1 
           }
 
           return elt
@@ -75,8 +78,7 @@ const gameReducer = (state:GameType, action:GameAction) => {
 
       return {
         ...state,
-        board: filter,
-        lifes: isSomeWrongVal ? state.lifes - 1 : state.lifes
+        board: filter
       }
 
     default:
