@@ -34,6 +34,8 @@ const gameReducer = (state:GameType, action:GameAction) => {
       // Esta accion se encarga de establecer cuales son los
       // elementos que estan en la misma fila, columna, grupo
       // y tienen el mismo valor que el elemento seleccionado
+      const selectionGroup: IElement[] = []
+      
       const filter: IElement[][] = state.board.map(arr => {
         // buscamos cual array contiene el elemento que hemos seleccionado
         const groupPos: PositionType[] = []
@@ -59,22 +61,65 @@ const gameReducer = (state:GameType, action:GameAction) => {
           elt.isSelected.isOnCenter = isSameCol && isSameRow
           elt.isSelected.isSameValue = isSameValue
 
-          // Detecta si algun valor se repite en la fila, columna o grupo
-          
-          if (!elt.isSelected.isWrong && (isSameRow || isSameCol || isInGroup)) {
-            elt.isSelected.isWrong = elt.isSelected.isOnCenter
-              ? elt.isUnsolved ? elt.isSelected.isSameValue : false
-              : elt.isSelected.isSameValue
-
-            if (elt.isSelected.isWrong && elt.isSelected.isOnCenter) state.lifes -= 1 
-          }
+          const isInSelection = isSameRow || isSameCol || isInGroup
+          if (isInSelection) selectionGroup.push(elt)
 
           return elt
         })
       })
 
-      const isSomeWrongVal = filter.some(arr => arr.some(elt => elt.isSelected.isWrong))
-      console.log(isSomeWrongVal, state.lifes)
+      // const isSomeWrongVal = filter.some(arr => arr.some(elt => elt.isSelected.isWrong))
+      // console.log(isSomeWrongVal, state.lifes)
+
+      const showDuplicatePos = (arr: any[], numberToFind: Number = 0, minRepeats = 2) => {
+        const result: number[] = []
+        const positions: {[key: string] : number[]} = {}
+
+        arr.forEach((val, i) => {
+          if (typeof val !== 'undefined' && !Number.isNaN(val)) {
+            positions[val] = positions[val] || []
+            positions[val].push(i)
+          }
+        })
+
+        if (numberToFind !== 0) {
+          if (positions[numberToFind as number].length >= minRepeats)
+            result.push(...positions[numberToFind as number])
+
+          return result.sort((a, b) => a - b)
+        }
+
+        Object.keys(positions).forEach((val) => {
+          const posArr = positions[val]
+          if (posArr.length >= minRepeats) result.push(...posArr)
+        })
+
+        return result.sort((a, b) => a - b)
+      }
+      
+      const valuesInSelection = selectionGroup.map(elt => elt.isUnsolved ? elt.inputValue : elt.value)
+      const onCenterElt = selectionGroup.filter(elt => elt.isSelected.isOnCenter)[0]
+      const canFindVal = !Number.isNaN(onCenterElt.inputValue) && typeof onCenterElt.inputValue !== 'undefined'
+        
+      if (onCenterElt.isUnsolved && canFindVal) {
+        const idxErrors = showDuplicatePos(valuesInSelection, onCenterElt.inputValue)
+        const eltError = idxErrors.map(idx => selectionGroup[idx])
+
+        console.log(idxErrors, valuesInSelection)
+        
+        // pasar filterWithErrors a board
+        const filterWithErrors = filter.map(arr => {
+          return arr.map(elt => {
+            if (!elt.isSelected.isWrong) {
+              elt.isSelected.isWrong = eltError.includes(elt)
+            } else {
+              // desmarcar cuando el valor cambie
+              
+            }
+          })
+        })
+      }
+
 
       return {
         ...state,
