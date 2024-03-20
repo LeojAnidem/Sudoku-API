@@ -6,9 +6,14 @@ export enum Difficult {
 	Hard = 'Hard'
 }
 
+export type BoardPositionType = {
+	groupIndex: number,
+	indexInGroup: number
+}
+
 export type PositionType = {
-	row: Number,
-	col: Number
+	row: number,
+	col: number
 }
 
 export type SelectType = {
@@ -19,11 +24,18 @@ export type SelectType = {
 	isWrong: Boolean
 }
 
+export type errorBoard = {
+	errorPos: PositionType,
+	errorVal: number,
+	asociatedErrorPos: PositionType[]
+}
+
 export type GameType = {
 	board: IElement[][],
 	difficult: Difficult,
 	lifes: number,
-	score: number
+	score: number,
+	errors: errorBoard[]
 }
 
 export type GameAction = 
@@ -31,7 +43,7 @@ export type GameAction =
 	| { type: 'INCREMENT_SCORE'}
 	| { type: 'UPDATE_BOARD'; board: IElement[][] }
 	| { type: 'DECREMENT_LIFES' }
-	| { type: 'SELECTING'; position: PositionType; value: Number }
+	| { type: 'SELECTING'; position: PositionType; value: number }
 
 export type ContextProviderProps = {
 	children?: ReactNode
@@ -47,11 +59,11 @@ export type ChangeEvent = React.ChangeEvent<HTMLInputElement>
 export type BoardType = number[][]
 
 export interface IElement {
-	value: Number,
+	value: number,
 	position: PositionType,
 	isUnsolved: Boolean,
 	isSelected: SelectType
-	inputValue: Number | undefined
+	inputValue: number | undefined
 }
 
 export interface IBoardElement {
@@ -62,5 +74,6 @@ export const INITIAL_STATE:GameType = {
   board: [],
   difficult: Difficult.Easy,
   lifes: 3,
-  score: 0
+  score: 0,
+	errors: []
 }

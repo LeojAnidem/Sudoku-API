@@ -1,5 +1,5 @@
 import { ISudokuData } from "../types/apiTypes";
-import { IElement } from "../types/gameTypes";
+import { BoardPositionType, IElement, PositionType } from "../types/gameTypes";
 
 // La API de donde recopilamos los datos para nuestro sudoku
 // nos devuelve los valores en nueve arrays donde cada array
@@ -61,4 +61,48 @@ const convertBoardToData = (board: ISudokuData) => {
 export const createBoardGame = (board: ISudokuData) => {
 	const boardData = convertBoardToData(board)
 	return organizeToBoardElement(boardData)
+}
+
+export const getBoardPosition = (position: PositionType) => {
+  const {row, col} = position
+  
+  if (row < 0 || row > 8 || col < 0 || col > 8) {
+    console.error('Coordenadas fuera de los límites.');
+    return;
+  }
+
+  const groupIndex = Math.floor(row / 3) * 3 + Math.floor(col / 3);
+  const indexInGroup = (row % 3) * 3 + (col % 3);
+
+  const boardPos: BoardPositionType = {
+    groupIndex, indexInGroup
+  }
+
+  return boardPos
+}
+
+export const idxDuplicateVals = (arr: any[], numberToFind: number = 0, minRepeats = 2) => {
+  const result: number[] = []
+  const positions: {[key: string] : number[]} = {}
+
+  arr.forEach((val, i) => {
+    if (typeof val !== 'undefined' && !Number.isNaN(val)) {
+      positions[val] = positions[val] || []
+      positions[val].push(i)
+    }
+  })
+
+  if (numberToFind !== 0) {
+    if (positions[numberToFind as number].length >= minRepeats)
+      result.push(...positions[numberToFind as number])
+
+    return result.sort((a, b) => a - b)
+  }
+
+  Object.keys(positions).forEach((val) => {
+    const posArr = positions[val]
+    if (posArr.length >= minRepeats) result.push(...posArr)
+  })
+
+  return result.sort((a, b) => a - b)
 }
