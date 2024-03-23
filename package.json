@@ -6,7 +6,7 @@
   "scripts": {
     "dev:server": "cd api && npm run dev",
     "dev:client": "cd client && npm run dev",
-    "git:up": "git add . && git commit && git push -u origin main",
+    "git:up": "git add . && git commit && git push -u origin",
     "git:commit": "git add . && git commit",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
