@@ -24,6 +24,7 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 	const handleClic = (value: number) => {
 		dispatch({ type: "SELECTING", position, value })
 		// Verificar si aun quedan vidas restantes
+		// buscar acerca de pipAiLogo
 	}
 	
 	const handleOnInput = (e: ChangeEvent) => {
