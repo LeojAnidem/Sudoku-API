@@ -21,7 +21,10 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 		wrong: isWrong ? 'selected__wrong' : ''
 	}
 
-	const handleClic = (value: number) => dispatch({ type: "SELECTING", position, value })
+	const handleClic = (value: number) => {
+		dispatch({ type: "SELECTING", position, value })
+		// Verificar si aun quedan vidas restantes
+	}
 	
 	const handleOnInput = (e: ChangeEvent) => {
 		// La linea a continuacion es necesaria, si la eliminas
