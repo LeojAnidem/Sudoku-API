@@ -32,5 +32,6 @@
 }
 
 .selected__wrong {
-  @apply bg-red-600
+  @apply !bg-red-700 border-[3px] rounded-sm
+  border-dark-tremor-brand-muted
 }

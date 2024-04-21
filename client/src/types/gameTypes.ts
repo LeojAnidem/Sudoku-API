@@ -25,9 +25,9 @@ export type SelectType = {
 }
 
 export type errorBoard = {
-	errorPos: PositionType,
+	errorPos: BoardPositionType,
 	errorVal: number,
-	asociatedErrorPos: PositionType[]
+	asociatedErrorPos: BoardPositionType[]
 }
 
 export type GameType = {
