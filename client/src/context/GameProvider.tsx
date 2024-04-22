@@ -21,15 +21,23 @@ const gameReducer = (state:GameType, action:GameAction) => {
       }
 
     case 'INCREMENT_SCORE' :
+      // usar variable global timer para aumentar el score
+      // mientras menos tiempo halla pasado, mas puntos se dara
+      // 150 -> 5:00 min - 4:00 min
+      // 130 -> 3:59 min - 3:00 min
+      // 110 -> 2:59 min - 2:30 min
+      // 080 -> 1:59 min - 1:00 min
+      // 050 -> 1:59 min - 1:00 min
+      
       return {
         ...state,
         score: state.score + 150
       }
 
-    case 'DECREMENT_LIFES' :
+    case 'CHECK_GAME_OVER' :
       return {
         ...state,
-        lifes: state.lifes--
+        defeat: state.lifes <= 0,
       }
 
     case 'SELECTING' : 
