@@ -34,7 +34,6 @@ export type GameType = {
 	board: IElement[][],
 	difficult: Difficult,
 	lifes: number,
-	score: number,
 	errors: errorBoard[],
 	defeat: boolean,
 	time: number
@@ -42,7 +41,6 @@ export type GameType = {
 
 export type GameAction = 
 	| { type: 'CHANGE_DIFFICULT'; difficult: Difficult}
-	| { type: 'INCREMENT_SCORE'}
 	| { type: 'UPDATE_BOARD'; board: IElement[][] }
 	| { type: 'CHECK_GAME_OVER' }
 	| { type: 'SELECTING'; position: PositionType; value: number }
@@ -76,7 +74,6 @@ export const INITIAL_STATE:GameType = {
   board: [],
   difficult: Difficult.Easy,
   lifes: 3,
-  score: 0,
 	errors: [],
 	defeat: false,
 	time: 300000, /*5 minutos en milisegundos*/

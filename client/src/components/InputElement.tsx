@@ -24,13 +24,6 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 
 	const handleClic = (value: number) => {
 		dispatch({ type: "SELECTING", position, value })
-		
-		// podria aplicarse el score aqui o en el input, verificar
-		// si se ha bajado la cantidad de vidas
-		// crear una copia del estado variable life antes de
-		// que se ejecute selecting y despues que acabe, compararla
-		// con el estado actual y si ha cambiado lanzar check_game_over
-		// , en caso de que no lanzar increment score.
 
 		// Verificar si aun quedan vidas restantes
 		dispatch({type: "CHECK_GAME_OVER"})
