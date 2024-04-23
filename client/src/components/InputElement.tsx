@@ -52,12 +52,16 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 		const val = parseInt(e.target.value)
 		const max = parseInt(e.target.max)
 		const min = parseInt(e.target.min)
-		if (val < min || val > max) return setCurVal('')
-
+		
+		// En caso que el numero digitado sea mayor a la cifra impuesta
+		// se procedera a llamar al metodo dispatch para que actualice los
+		// valores del board
+		if (val < min || val > max) {
+			dispatch({ type: "SELECTING", position, value: val })
+			return setCurVal('')
+		}
+		
 		dispatch({ type: "SELECTING", position, value: val })
-		
-		if (val === value) {console.log('Correct!', position)}
-		
 		return setCurVal(`${val}`)
 	}
 
