@@ -48,72 +48,92 @@ const gameReducer = (state: GameType, action: GameAction) => {
       const eltBPos = getBoardPosition(action.position)
       const selectElt = updBoard[eltBPos.groupIndex][eltBPos.indexInGroup]
       
-      // Verificamos si hay un numero que se repita en los elt selecionados
-      const errorPositions: BoardPositionType[] = allEltInSelection
+      // Solo aplicar si es un input
+      if (selectElt.isUnsolved && !selectElt.isSelected.isSameValue) {
+        // Verificamos si hay un numero que se repita en los elt selecionados
+        const errorPositions: BoardPositionType[] = allEltInSelection
         .filter(({ isSelected }) => isSelected.isSameValue)
         .map(({ position }) => getBoardPosition(position))
-      
-      // Agregamos el error
-      if (selectElt.isUnsolved && errorPositions.length) {
-        
-        // Creamos el objeto error
-        const nError: errorBoard = {
-          errorPos: eltBPos,
-          asociatedErrorPos: errorPositions,
-          errorVal: action.value
-        }
 
-        // Buscamos si entre los errores asociados se encuentra un input
-        // en caso de ser asi, buscamos si ya existe un error creado, si
-        // ese es el caso agregramos la posicion del error actual a sus errores
-        // asociados. Caso contrario creamos un nuevo error.
-        nError.asociatedErrorPos.forEach(errP => {
-          if (updBoard[errP.indexInGroup][errP.groupIndex].isUnsolved) {
-            const idxExistErr = selectingErr.findIndex(({errorPos}) => isEqual(errorPos, errP))
-            
-            if (idxExistErr >= 0) {
-              selectingErr[idxExistErr].asociatedErrorPos.push(nError.errorPos)
-            } else {
-              selectingErr.push({
-                errorPos: errP,
-                asociatedErrorPos: [nError.errorPos],
-                errorVal: nError.errorVal
-              })
-            }
+        // verificamos si existe un error
+        if (errorPositions.length) {
+          // Creamos el objeto error
+          const nError: errorBoard = {
+            errorPos: eltBPos,
+            asociatedErrorPos: errorPositions,
+            errorVal: action.value
           }
-        })
-
-        selectingLifes -= 1
-        selectingErr.push(nError)
-      }
-
-      // Eliminamos el estado de error
-      const errFocusIdx = selectingErr.findIndex(err => isEqual(err.errorPos, eltBPos))
   
-      // Si un input seleccionado cambia, verificar en los errores asociados si se incluye un input
-      // si ese es el caso, eliminar el elemento del error asociado de ese input, verificar si 
-      // si ese input tiene errores asociados, en caso de no tenerlo, eliminamos el error relacionado
-      // a ese input
-
-      if (errFocusIdx >= 0) {
-        const errFocus = selectingErr[errFocusIdx]
-        const doChangeVal = errFocus.errorVal !== action.value && !isNaN(errFocus.errorVal)
-
-        // verificanis que el error haya cambiado
-        if (doChangeVal) {
-          updBoard[eltBPos.groupIndex][eltBPos.indexInGroup].isSelected.isWrong = false
-
-          errFocus.asociatedErrorPos.forEach(({ indexInGroup, groupIndex }) => {
-            updBoard[groupIndex][indexInGroup].isSelected.isWrong = false
+          // Buscamos si entre los errores asociados se encuentra un input
+          // en caso de ser asi, buscamos si ya existe un error creado, si
+          // ese es el caso agregramos la posicion del error actual a sus errores
+          // asociados. Caso contrario creamos un nuevo error.
+          nError.asociatedErrorPos.forEach(errP => {
+            const isInput = updBoard[errP.groupIndex][errP.indexInGroup].isUnsolved
+            if (isInput) {
+              const idxExistErr = selectingErr.findIndex(({errorPos}) => isEqual(errorPos, errP))
+              
+              if (idxExistErr >= 0) {
+                selectingErr[idxExistErr].asociatedErrorPos.push(nError.errorPos)
+              } else {
+                selectingErr.push({
+                  errorPos: errP,
+                  asociatedErrorPos: [nError.errorPos],
+                  errorVal: nError.errorVal
+                })
+              }
+            }
           })
           
-          console.log(`Selecting Err Before`, selectingErr)
-          // eliminamos el error
-          selectingErr.splice(errFocusIdx, 1)
+          // Reducimos la vida y agregamos el error al estado
+          selectingLifes -= 1
+          selectingErr.push(nError)
+
+        } else {
+          // Buscamos la ubicacion de todos los lugares en el que el error
+          // estuviera asociado
+          const idxAscErrIn = selectingErr.reduce((acc: BoardPositionType[], cur, errIdx) => {
+            cur.asociatedErrorPos.forEach((ascErr, ascIdx) => {
+              if (isEqual(ascErr, eltBPos)) {
+                acc.push({
+                  groupIndex: errIdx,
+                  indexInGroup: ascIdx
+                })
+              }
+            })
+
+            return acc
+          }, [])
+
+          // Eliminamos el error de esas ubicaciones
+          if (idxAscErrIn.length) {
+            // Eliminamos el error asociado
+            idxAscErrIn.forEach(({groupIndex, indexInGroup}) => {
+              selectingErr[groupIndex].asociatedErrorPos.splice(indexInGroup, 1)
+
+              // Si el error no tiene errores asociados eliminamos el error
+              if (selectingErr[groupIndex].asociatedErrorPos.length <= 0) {
+                selectingErr.splice(groupIndex, 1)
+              }
+            })
+          }
+
+          // Desactivamos el estado de error en los errores solucionados
+          const idxOldErr = selectingErr.findIndex(err => isEqual(err.errorPos, eltBPos))
+          
+          if (idxOldErr >= 0) {
+            const {errorPos, asociatedErrorPos} = selectingErr[idxOldErr]
+            updBoard[errorPos.groupIndex][errorPos.indexInGroup].isSelected.isWrong = false
+
+            asociatedErrorPos.forEach(({groupIndex, indexInGroup}) => {
+              updBoard[groupIndex][indexInGroup].isSelected.isWrong = false
+            })
+
+            // se elimina de la lista de errores el error solucionado
+            selectingErr.splice(idxOldErr, 1)
+          }
         }
       }
-      
-      console.log(`Selecting Err After`, selectingErr)
 
       // establecemos error para todos los valores
       selectingErr.forEach(({asociatedErrorPos, errorPos}) => {

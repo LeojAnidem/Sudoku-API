@@ -136,14 +136,19 @@ export const updatedSelectGroup = (board: IElement[][], eltCenterPos: PositionTy
       elt.isSelected.isOnCenter = isEqual(eltCenterPos, elt.position)
       elt.isSelected.isInRowOrCol = eltCenterPos.row === elt.position.row || eltCenterPos.col === elt.position.col
       
-      // Guardamos el valor actual del input elt
-      if (elt.isUnsolved && eltCenterPos === elt.position) elt.inputValue = selectVal
-
       // Verificamos si existe algun elemento que tenga el mismo valor
       if (!isEqual(eltCenterPos, elt.position)) 
         elt.isSelected.isSameValue = elt.isUnsolved
           ? elt.inputValue === selectVal
           : elt.value === selectVal
+
+			// El valor de sameValue para los input representara si cambio su
+			// valor o no
+			if (isEqual(eltCenterPos, elt.position) && elt.isUnsolved) 
+				elt.isSelected.isSameValue = elt.inputValue === selectVal
+
+			// Guardamos el valor actual del input elt
+      if (elt.isUnsolved && eltCenterPos === elt.position) elt.inputValue = selectVal
 
       // Almacenamos todos los elts selecionados
       if (elt.isSelected.isInRowOrCol || elt.isSelected.isInGroup)
