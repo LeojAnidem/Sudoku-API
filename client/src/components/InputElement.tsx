@@ -24,9 +24,6 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 
 	const handleClic = (value: number) => {
 		dispatch({ type: "SELECTING", position, value })
-
-		// Verificar si aun quedan vidas restantes
-		dispatch({type: "CHECK_GAME_OVER"})
 	}
 	
 	const handleOnInput = (e: ChangeEvent) => {
@@ -35,6 +32,9 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 		// que puedas escribir cosas como '2----2222++1', lo que
 		// claramente es un error no deseado
 		
+		// Agregar validacion para que no se pueda escribir mas de un numero
+		// Agregar validacion no se pueda copiar contenido arrastrando el mouse
+
 		if (e.target.value === '') {
 			e.target.value = '' // impide que puedas digitar '- o +' como valor
 			return setCurVal('')
@@ -45,16 +45,12 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 		const val = parseInt(e.target.value)
 		const max = parseInt(e.target.max)
 		const min = parseInt(e.target.min)
-		
-		// En caso que el numero digitado sea mayor a la cifra impuesta
-		// se procedera a llamar al metodo dispatch para que actualice los
-		// valores del board
-		if (val < min || val > max) {
-			dispatch({ type: "SELECTING", position, value: val })
-			return setCurVal('')
-		}
-		
+		if (val < min || val > max) return setCurVal('')
+
 		dispatch({ type: "SELECTING", position, value: val })
+		
+		if (val === value) {console.log('Correct!', position)}
+		
 		return setCurVal(`${val}`)
 	}
 

@@ -1,11 +1,11 @@
 import { useContext, useEffect } from "react"
 import { GameContext } from "../context/GameProvider"
-import useCountdown from "../hooks/useCountdown"
+import { useCountdown } from "../hooks/useCountdown"
 import { formatSecondsToString, timeObjToSeconds } from "../utils/boardFn"
 
 export const CountDownComponent = () => {
   const { state, dispatch } = useContext(GameContext)
-  const { secondsLeft, start } = useCountdown()
+  const { secondsLeft, start, pause } = useCountdown()
 
   useEffect(() => {
     if (state.time.minutes <= 0) return
@@ -16,6 +16,19 @@ export const CountDownComponent = () => {
     if (secondsLeft <= 0 && state.time.minutes > 0) 
       dispatch({type: "CHECK_GAME_OVER"})
   }, [secondsLeft])
+
+  // No borrar o mover, por alguna razon
+  // que no comprendo solo actualiza el estado aqui
+  // llevo 3 horas observando el motivo y no lo he
+  // encontrado.
+  //
+  // #horas_usadas_revisando_error = 3
+  useEffect(() => {
+    if (state.lifes <= 0) {
+      pause()
+      dispatch({type: "CHECK_GAME_OVER"})
+    }
+  }, [state.lifes])
 
   return (
     <div>

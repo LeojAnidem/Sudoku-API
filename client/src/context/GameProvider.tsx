@@ -1,9 +1,8 @@
 import { isEqual } from "lodash";
 import { FC, createContext, useEffect, useReducer } from "react";
-import useCountdown from "../hooks/useCountdown";
 import { getSudokuData } from "../services/sudokuApi";
 import { BoardPositionType, ContextProviderProps, Difficult, GameAction, GameContextType, GameType, INITIAL_STATE, Time, errorBoard } from "../types/gameTypes";
-import { getBoardPosition, timeObjToSeconds, updatedSelectGroup } from "../utils/boardFn";
+import { getBoardPosition, updatedSelectGroup } from "../utils/boardFn";
 
 export const GameContext = createContext<GameContextType>({ state: INITIAL_STATE, dispatch: () => { } })
 
@@ -49,7 +48,9 @@ const gameReducer = (state: GameType, action: GameAction) => {
     case 'UPDATE_BOARD':
       return {
         ...state,
-        board: action.board
+        board: action.board,
+        lifes: 3,
+        errors: [],
       }
 
     case 'CHECK_GAME_OVER':

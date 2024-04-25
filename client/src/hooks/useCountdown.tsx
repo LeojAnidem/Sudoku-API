@@ -1,22 +1,63 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function useCountdown() {
-  const [secondsLeft, setSecondsLeft] = useState(0)
+
+
+
+export const useCountdown = () => {
+  type time = {
+    secondsLeft: number,
+    isPaused: boolean
+  }
+
+  const INITIAL_STATE: time = {
+    secondsLeft: 0,
+    isPaused: false
+  }
+  
+  const [timerState, setTimerState] = useState(INITIAL_STATE)
+  const {secondsLeft, isPaused} = timerState
+
+
   const countdownId = useRef(0)
 
   useEffect(() => {
-    if (secondsLeft <= 0) return
-
-    countdownId.current = setInterval(() => {
-      setSecondsLeft(prev => prev - 1)
-    }, 1000)
+    if (!isPaused) {
+      countdownId.current = setInterval(() => {
+        setTimerState((prev) => {
+          return {
+            ...prev,
+            secondsLeft: prev.secondsLeft - 1
+          }
+        })
+      }, 1000)
+    } else {
+      console.log('a')
+      clearInterval(countdownId.current)
+    }
 
     return () => clearInterval(countdownId.current)
-  }, [secondsLeft])
+  }, [isPaused])
 
-  const start = (seconds: number) => setSecondsLeft(seconds)
-  const pause = () => clearInterval(countdownId.current)
-  const resume = () => setSecondsLeft(prev => prev - 1)
+  const start = (seconds: number) => setTimerState((prev) => {
+    return {
+      ...prev,
+      secondsLeft: seconds
+    }
+  })
+  
+  const pause = () => setTimerState((prev) => {
+    return {
+      ...prev,
+      isPaused: true
+    }
+  })
+
+  const resume = () => setTimerState((prev) => {
+    return {
+      ...prev,
+      isPaused: false
+    }
+  })
   
   return {secondsLeft, start, pause, resume}
 }
