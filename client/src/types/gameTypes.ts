@@ -30,17 +30,23 @@ export type errorBoard = {
 	asociatedErrorPos: BoardPositionType[]
 }
 
+export type Time = {
+	minutes: number,
+	seconds: number
+}
+
 export type GameType = {
 	board: IElement[][],
 	difficult: Difficult,
 	lifes: number,
 	errors: errorBoard[],
 	defeat: boolean,
-	time: number
+	time: Time
 }
 
 export type GameAction = 
 	| { type: 'CHANGE_DIFFICULT'; difficult: Difficult}
+	| { type: 'SET_NEW_TYPE'; difficult: Difficult}
 	| { type: 'UPDATE_BOARD'; board: IElement[][] }
 	| { type: 'CHECK_GAME_OVER' }
 	| { type: 'SELECTING'; position: PositionType; value: number }
@@ -76,5 +82,8 @@ export const INITIAL_STATE:GameType = {
   lifes: 3,
 	errors: [],
 	defeat: false,
-	time: 300000, /*5 minutos en milisegundos*/
+	time: {
+		minutes: 8,
+		seconds: 0
+	},
 }

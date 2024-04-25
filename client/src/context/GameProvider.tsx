@@ -1,7 +1,7 @@
 import { isEqual } from "lodash";
 import { FC, createContext, useEffect, useReducer } from "react";
 import { getSudokuData } from "../services/sudokuApi";
-import { BoardPositionType, ContextProviderProps, GameAction, GameContextType, GameType, INITIAL_STATE, errorBoard } from "../types/gameTypes";
+import { BoardPositionType, ContextProviderProps, Difficult, GameAction, GameContextType, GameType, INITIAL_STATE, Time, errorBoard } from "../types/gameTypes";
 import { getBoardPosition, updatedSelectGroup } from "../utils/boardFn";
 
 export const GameContext = createContext<GameContextType>({ state: INITIAL_STATE, dispatch: () => { } })
@@ -9,9 +9,40 @@ export const GameContext = createContext<GameContextType>({ state: INITIAL_STATE
 const gameReducer = (state: GameType, action: GameAction) => {
   switch (action.type) {
     case 'CHANGE_DIFFICULT':
-      return {
+    return {
         ...state,
         difficult: action.difficult,
+      }
+    
+    case 'SET_NEW_TYPE':
+      const setTimeByDifficult = (difficult: Difficult):Time => {
+        switch (difficult) {
+          case Difficult.Easy :
+            return {
+              minutes: 8,
+              seconds: 0
+            }
+          case Difficult.Medium :
+            return {
+              minutes: 6,
+              seconds: 30
+            }
+          case Difficult.Hard :
+            return {
+              minutes: 5,
+              seconds: 0
+            }
+          default:
+            return {
+              minutes: 0,
+              seconds: 0
+            }
+        }
+      }
+
+      return {
+        ...state,
+        time: setTimeByDifficult(action.difficult)
       }
 
     case 'UPDATE_BOARD':
@@ -152,7 +183,11 @@ export const GameProvider: FC<ContextProviderProps> = ({ children }) => {
       const board = await getSudokuData({ difficult: state.difficult })
       dispatch({ type: 'UPDATE_BOARD', board })
     })()
+    
+    dispatch({ type: "SET_NEW_TYPE", difficult: state.difficult })
   }, [state.difficult])
+
+
 
   return (
     <GameContext.Provider value={{ state, dispatch }}>

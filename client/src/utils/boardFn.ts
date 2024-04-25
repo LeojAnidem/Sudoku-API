@@ -1,6 +1,6 @@
 import { isEqual } from "lodash";
 import { ISudokuData } from "../types/apiTypes";
-import { BoardPositionType, IElement, PositionType } from "../types/gameTypes";
+import { BoardPositionType, IElement, PositionType, Time } from "../types/gameTypes";
 
 // La API de donde recopilamos los datos para nuestro sudoku
 // nos devuelve los valores en nueve arrays donde cada array
@@ -162,4 +162,24 @@ export const updatedSelectGroup = (board: IElement[][], eltCenterPos: PositionTy
     updBoard,
     allEltInSelection
   }
+}
+
+// Convierte el tipo time a segundos
+export const timeObjToSeconds = ({minutes, seconds}: Time): number => {
+  return seconds <= 0 || seconds > 60
+    ? minutes * 60
+    : (minutes * 60) + seconds
+}
+
+// Convierte los segundos en string
+export const formatSecondsToString = (seconds: number):string => {
+  const hour = Math.floor(seconds / 3600)
+  const min = Math.floor(seconds / 60)
+  const sec = Math.floor(seconds - min * 60)
+
+  const hStr = `${hour < 10 ? `0${hour}` : hour}`
+  const mStr = `${min < 10 ? `0${min}` : min}`
+  const sStr = `${sec < 10 ? `0${sec}` : sec}`
+
+  return `${hour > 0 ? `${hStr}:` : ''}${mStr}:${sStr}`
 }
