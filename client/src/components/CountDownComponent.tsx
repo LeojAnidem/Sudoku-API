@@ -1,30 +1,21 @@
-import { useContext, useEffect, useRef, useState } from "react"
+import { useContext, useEffect } from "react"
 import { GameContext } from "../context/GameProvider"
+import useCountdown from "../hooks/useCountdown"
 import { formatSecondsToString, timeObjToSeconds } from "../utils/boardFn"
 
 export const CountDownComponent = () => {
-  const { state, dispatch} = useContext(GameContext)
-  const [countDown, setCoundown] = useState(timeObjToSeconds(state.time))
-  const timerId = useRef(0)
+  const { state, dispatch } = useContext(GameContext)
+  const { secondsLeft, start } = useCountdown()
 
   useEffect(() => {
-    setCoundown(timeObjToSeconds(state.time) - 1)
+    if (state.time.minutes <= 0) return
+    start(timeObjToSeconds(state.time) - 1)
   }, [state.time])
 
   useEffect(() => {
-    timerId.current = setInterval(() => {
-      setCoundown(prev => prev - 1)
-    }, 1000)
-
-    return () => clearInterval(timerId.current)
-  }, [])
-
-  useEffect(() => {
-    if (countDown <= 0) {
-      clearInterval(timerId.current)
+    if (secondsLeft <= 0 && state.time.minutes > 0) 
       dispatch({type: "CHECK_GAME_OVER"})
-    }
-  }, [countDown])
+  }, [secondsLeft])
 
   return (
     <div>
@@ -34,7 +25,7 @@ export const CountDownComponent = () => {
           font-semibold
         "
       >
-        Tiempo: {formatSecondsToString(countDown)}
+        Tiempo: {formatSecondsToString(secondsLeft)}
       </span>
     </div>
   )

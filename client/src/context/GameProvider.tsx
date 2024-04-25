@@ -1,8 +1,9 @@
 import { isEqual } from "lodash";
 import { FC, createContext, useEffect, useReducer } from "react";
+import useCountdown from "../hooks/useCountdown";
 import { getSudokuData } from "../services/sudokuApi";
 import { BoardPositionType, ContextProviderProps, Difficult, GameAction, GameContextType, GameType, INITIAL_STATE, Time, errorBoard } from "../types/gameTypes";
-import { getBoardPosition, updatedSelectGroup } from "../utils/boardFn";
+import { getBoardPosition, timeObjToSeconds, updatedSelectGroup } from "../utils/boardFn";
 
 export const GameContext = createContext<GameContextType>({ state: INITIAL_STATE, dispatch: () => { } })
 
@@ -14,7 +15,7 @@ const gameReducer = (state: GameType, action: GameAction) => {
         difficult: action.difficult,
       }
     
-    case 'SET_NEW_TYPE':
+    case 'SET_NEW_TIME':
       const setTimeByDifficult = (difficult: Difficult):Time => {
         switch (difficult) {
           case Difficult.Easy :
@@ -53,7 +54,8 @@ const gameReducer = (state: GameType, action: GameAction) => {
 
     case 'CHECK_GAME_OVER':
       // checar si el timer ha llegado a cero o las vidas se han agotado
-    
+      console.log('Perdiste')
+
       return {
         ...state,
         defeat: state.lifes <= 0,
@@ -183,11 +185,9 @@ export const GameProvider: FC<ContextProviderProps> = ({ children }) => {
       const board = await getSudokuData({ difficult: state.difficult })
       dispatch({ type: 'UPDATE_BOARD', board })
     })()
-    
-    dispatch({ type: "SET_NEW_TYPE", difficult: state.difficult })
+
+    dispatch({ type: "SET_NEW_TIME", difficult: state.difficult })
   }, [state.difficult])
-
-
 
   return (
     <GameContext.Provider value={{ state, dispatch }}>
