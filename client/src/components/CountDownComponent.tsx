@@ -3,6 +3,11 @@ import { GameContext } from "../context/GameProvider"
 import { useCountdown } from "../hooks/useCountdown"
 import { formatSecondsToString, timeObjToSeconds } from "../utils/boardFn"
 
+// Agregar Cambio de color cuando el tiempo llegue a cero
+// Igual con las vidas
+// Bloquear sudoku cuando se halla perdido, y dar oportunidad
+// de reintentar
+
 export const CountDownComponent = () => {
   const { state, dispatch } = useContext(GameContext)
   const { secondsLeft, start, pause } = useCountdown()

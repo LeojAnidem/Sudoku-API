@@ -1,8 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 
-
-
-
 export const useCountdown = () => {
   type time = {
     secondsLeft: number,
