@@ -59,7 +59,7 @@ const gameReducer = (state: GameType, action: GameAction) => {
 
       return {
         ...state,
-        defeat: state.lifes <= 0,
+        defeat: true,
       }
 
     case 'SELECTING':
@@ -108,7 +108,7 @@ const gameReducer = (state: GameType, action: GameAction) => {
           })
           
           // Reducimos la vida y agregamos el error al estado
-          selectingLifes -= 1
+          if (!state.defeat) selectingLifes -= 1
           selectingErr.push(nError)
 
         } else {

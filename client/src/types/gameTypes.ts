@@ -6,6 +6,18 @@ export enum Difficult {
 	Hard = 'Hard'
 }
 
+export type CountDownHook = {
+	secondsLeft: number,
+	start: (seconds: number) => void
+	pause: () => void
+	resume: () => void
+}
+
+export type Timer = {
+	secondsLeft: number,
+	isPaused: boolean
+}
+
 export type BoardPositionType = {
 	groupIndex: number,
 	indexInGroup: number
@@ -74,6 +86,14 @@ export interface IElement {
 
 export interface IBoardElement {
 	boardElt: IElement[]
+}
+
+export interface ICountDownComponent {
+	timer: CountDownHook
+}
+
+export interface ILifeComponent {
+	timer: CountDownHook
 }
 
 export const INITIAL_STATE:GameType = {

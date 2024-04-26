@@ -1,19 +1,14 @@
 import { useEffect, useRef, useState } from "react";
+import { CountDownHook, Timer } from "../types/gameTypes";
 
-export const useCountdown = () => {
-  type time = {
-    secondsLeft: number,
-    isPaused: boolean
-  }
-
-  const INITIAL_STATE: time = {
+export const useCountdown = (): CountDownHook => {
+  const INITIAL_STATE: Timer = {
     secondsLeft: 0,
     isPaused: false
   }
   
   const [timerState, setTimerState] = useState(INITIAL_STATE)
   const {secondsLeft, isPaused} = timerState
-
 
   const countdownId = useRef(0)
 

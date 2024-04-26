@@ -1,39 +1,25 @@
-import { useContext, useEffect } from "react"
+import { FC, useContext, useEffect } from "react"
 import { GameContext } from "../context/GameProvider"
-import { useCountdown } from "../hooks/useCountdown"
 import { formatSecondsToString, timeObjToSeconds } from "../utils/boardFn"
+import { ICountDownComponent } from "../types/gameTypes"
 
 // Agregar Cambio de color cuando el tiempo llegue a cero
 // Igual con las vidas
 // Bloquear sudoku cuando se halla perdido, y dar oportunidad
 // de reintentar
 
-export const CountDownComponent = () => {
+export const CountDownComponent: FC<ICountDownComponent> = ({ timer }) => {
   const { state, dispatch } = useContext(GameContext)
-  const { secondsLeft, start, pause } = useCountdown()
 
   useEffect(() => {
     if (state.time.minutes <= 0) return
-    start(timeObjToSeconds(state.time) - 1)
+    timer.start(timeObjToSeconds(state.time) - 1)
   }, [state.time])
 
   useEffect(() => {
-    if (secondsLeft <= 0 && state.time.minutes > 0) 
-      dispatch({type: "CHECK_GAME_OVER"})
-  }, [secondsLeft])
-
-  // No borrar o mover, por alguna razon
-  // que no comprendo solo actualiza el estado aqui
-  // llevo 3 horas observando el motivo y no lo he
-  // encontrado.
-  //
-  // #horas_usadas_revisando_error = 3
-  useEffect(() => {
-    if (state.lifes <= 0) {
-      pause()
-      dispatch({type: "CHECK_GAME_OVER"})
-    }
-  }, [state.lifes])
+    if (timer.secondsLeft <= 0 && state.time.minutes > 0)
+      dispatch({ type: "CHECK_GAME_OVER" })
+  }, [timer.secondsLeft])
 
   return (
     <div>
@@ -43,7 +29,7 @@ export const CountDownComponent = () => {
           font-semibold
         "
       >
-        Tiempo: {formatSecondsToString(secondsLeft)}
+        Tiempo: {formatSecondsToString(timer.secondsLeft)}
       </span>
     </div>
   )
