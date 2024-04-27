@@ -10,9 +10,9 @@ function App() {
 
 	return (
 		<div className="main_bg">
-			<div className="grid grid-flow-col">
-				<LifeComponent timer={timer}/>
+			<div className="grid grid-flow-col justify-between">
 				<CountDownComponent timer={timer}/>
+				<LifeComponent timer={timer}/>
 			</div>
 			<DifficultTab />
 			<Sudoku />

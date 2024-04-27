@@ -64,7 +64,7 @@ export const LifeComponent: FC<ILifeComponent> = ({ timer }) => {
   return (
     <div 
       className={`
-        w-min flex flex-col items-center
+        w-min h-min flex flex-col items-center
         ${!isDefeat
           ? 'bg-tremor-brand-emphasis'
           : 'bg-red-700'
