@@ -6,6 +6,15 @@ export enum Difficult {
 	Hard = 'Hard'
 }
 
+export type Life = {
+	isActive: boolean,
+	id: number
+}
+
+export interface IIcon {
+  className?: string
+}
+
 export type CountDownHook = {
 	secondsLeft: number,
 	start: (seconds: number) => void

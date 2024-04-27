@@ -3,8 +3,6 @@ import { GameContext } from "../context/GameProvider"
 import { formatSecondsToString, timeObjToSeconds } from "../utils/boardFn"
 import { ICountDownComponent } from "../types/gameTypes"
 
-// Agregar Cambio de color cuando el tiempo llegue a cero
-// Igual con las vidas
 // Bloquear sudoku cuando se halla perdido, y dar oportunidad
 // de reintentar
 
@@ -17,8 +15,10 @@ export const CountDownComponent: FC<ICountDownComponent> = ({ timer }) => {
   }, [state.time])
 
   useEffect(() => {
-    if (timer.secondsLeft <= 0 && state.time.minutes > 0)
+    if (timer.secondsLeft <= 0 && state.time.minutes > 0) {
+      timer.pause()
       dispatch({ type: "CHECK_GAME_OVER" })
+    }
   }, [timer.secondsLeft])
 
   return (
