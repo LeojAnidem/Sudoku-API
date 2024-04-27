@@ -51,6 +51,7 @@ const gameReducer = (state: GameType, action: GameAction) => {
         board: action.board,
         lifes: 3,
         errors: [],
+        defeat: false
       }
 
     case 'CHECK_GAME_OVER':
