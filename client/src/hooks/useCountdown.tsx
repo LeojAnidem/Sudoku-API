@@ -23,7 +23,6 @@ export const useCountdown = (): CountDownHook => {
         })
       }, 1000)
     } else {
-      console.log('a')
       clearInterval(countdownId.current)
     }
 

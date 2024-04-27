@@ -1,7 +1,7 @@
 import { FC, useContext, useEffect } from "react"
 import { GameContext } from "../context/GameProvider"
-import { formatSecondsToString, timeObjToSeconds } from "../utils/boardFn"
 import { ICountDownComponent } from "../types/gameTypes"
+import { formatSecondsToString, timeObjToSeconds } from "../utils/boardFn"
 
 // Bloquear sudoku cuando se halla perdido, y dar oportunidad
 // de reintentar
@@ -12,6 +12,7 @@ export const CountDownComponent: FC<ICountDownComponent> = ({ timer }) => {
   useEffect(() => {
     if (state.time.minutes <= 0) return
     timer.start(timeObjToSeconds(state.time) - 1)
+    timer.resume()
   }, [state.time])
 
   useEffect(() => {
