@@ -1,6 +1,6 @@
 import { isEqual } from "lodash";
 import { ISudokuData } from "../types/apiTypes";
-import { BoardPositionType, IElement, PositionType } from "../types/gameTypes";
+import { BoardPositionType, IElement, PositionType, Time } from "../types/gameTypes";
 
 // La API de donde recopilamos los datos para nuestro sudoku
 // nos devuelve los valores en nueve arrays donde cada array
@@ -136,14 +136,19 @@ export const updatedSelectGroup = (board: IElement[][], eltCenterPos: PositionTy
       elt.isSelected.isOnCenter = isEqual(eltCenterPos, elt.position)
       elt.isSelected.isInRowOrCol = eltCenterPos.row === elt.position.row || eltCenterPos.col === elt.position.col
       
-      // Guardamos el valor actual del input elt
-      if (elt.isUnsolved && eltCenterPos === elt.position) elt.inputValue = selectVal
-
       // Verificamos si existe algun elemento que tenga el mismo valor
       if (!isEqual(eltCenterPos, elt.position)) 
         elt.isSelected.isSameValue = elt.isUnsolved
           ? elt.inputValue === selectVal
           : elt.value === selectVal
+
+			// El valor de sameValue para los input representara si cambio su
+			// valor o no
+			if (isEqual(eltCenterPos, elt.position) && elt.isUnsolved) 
+				elt.isSelected.isSameValue = elt.inputValue === selectVal
+
+			// Guardamos el valor actual del input elt
+      if (elt.isUnsolved && eltCenterPos === elt.position) elt.inputValue = selectVal
 
       // Almacenamos todos los elts selecionados
       if (elt.isSelected.isInRowOrCol || elt.isSelected.isInGroup)
@@ -157,4 +162,24 @@ export const updatedSelectGroup = (board: IElement[][], eltCenterPos: PositionTy
     updBoard,
     allEltInSelection
   }
+}
+
+// Convierte el tipo time a segundos
+export const timeObjToSeconds = ({minutes, seconds}: Time): number => {
+  return seconds <= 0 || seconds > 60
+    ? minutes * 60
+    : (minutes * 60) + seconds
+}
+
+// Convierte los segundos en string
+export const formatSecondsToString = (seconds: number):string => {
+  const hour = Math.floor(seconds / 3600)
+  const min = Math.floor(seconds / 60)
+  const sec = Math.floor(seconds - min * 60)
+
+  const hStr = `${hour < 10 ? `0${hour}` : hour}`
+  const mStr = `${min < 10 ? `0${min}` : min}`
+  const sStr = `${sec < 10 ? `0${sec}` : sec}`
+
+  return `${hour > 0 ? `${hStr}:` : ''}${mStr}:${sStr}`
 }

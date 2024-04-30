@@ -7,6 +7,7 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 	const [curVal, setCurVal] = useState('')
 	const {isInGroup, isInRowOrCol, isOnCenter, isSameValue, isWrong} = isSelected
 	
+	// Si la dificultad cambia, se elimina todo en el tablero
 	useEffect(() => setCurVal(''), [state.difficult])
 	
 	const selectClassName = {
@@ -23,7 +24,6 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 
 	const handleClic = (value: number) => {
 		dispatch({ type: "SELECTING", position, value })
-		// Verificar si aun quedan vidas restantes
 		// buscar acerca de pipAiLogo
 	}
 	
@@ -33,6 +33,9 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 		// que puedas escribir cosas como '2----2222++1', lo que
 		// claramente es un error no deseado
 		
+		// Agregar validacion para que no se pueda escribir mas de un numero
+		// Agregar validacion no se pueda copiar contenido arrastrando el mouse
+
 		if (e.target.value === '') {
 			e.target.value = '' // impide que puedas digitar '- o +' como valor
 			return setCurVal('')
@@ -43,7 +46,11 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 		const val = parseInt(e.target.value)
 		const max = parseInt(e.target.max)
 		const min = parseInt(e.target.min)
-		if (val < min || val > max) return setCurVal('')
+		
+		if (val < min || val > max) {
+			dispatch({ type: "SELECTING", position, value: val })
+			return setCurVal('')
+		}
 
 		dispatch({ type: "SELECTING", position, value: val })
 		

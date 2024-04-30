@@ -1,89 +1,176 @@
 import { isEqual } from "lodash";
 import { FC, createContext, useEffect, useReducer } from "react";
 import { getSudokuData } from "../services/sudokuApi";
-import { BoardPositionType, ContextProviderProps, GameAction, GameContextType, GameType, INITIAL_STATE, errorBoard } from "../types/gameTypes";
+import { BoardPositionType, ContextProviderProps, Difficult, GameAction, GameContextType, GameType, INITIAL_STATE, Time, errorBoard } from "../types/gameTypes";
 import { getBoardPosition, updatedSelectGroup } from "../utils/boardFn";
 
-export const GameContext = createContext<GameContextType>({state: INITIAL_STATE, dispatch: () => {}})
+export const GameContext = createContext<GameContextType>({ state: INITIAL_STATE, dispatch: () => { } })
 
-const gameReducer = (state:GameType, action:GameAction) => {
+const gameReducer = (state: GameType, action: GameAction) => {
   switch (action.type) {
     case 'CHANGE_DIFFICULT':
-      return {
+    return {
         ...state,
         difficult: action.difficult,
       }
-
-    case 'UPDATE_BOARD' :
-      return {
-        ...state,
-        board: action.board
-      }
-
-    case 'INCREMENT_SCORE' :
-      return {
-        ...state,
-        score: state.score + 150
-      }
-
-    case 'DECREMENT_LIFES' :
-      return {
-        ...state,
-        lifes: state.lifes--
-      }
-
-    case 'SELECTING' : 
-      const selectingErr = [...state.errors]
-      let selectingLifes = state.lifes
-      
-      const {updBoard, allEltInSelection} = updatedSelectGroup(state.board, action.position, action.value)
-      const eltBPos = getBoardPosition(action.position)
-      const selectElt = updBoard[eltBPos.groupIndex][eltBPos.indexInGroup]
-      const errFocusIdx = selectingErr.findIndex(err => isEqual(err.errorPos, eltBPos))
-
-      // Verificamos si hay un numero que se repita en los elt selecionados
-      const errorPositions:BoardPositionType[] = allEltInSelection
-        .filter(({isSelected}) => isSelected.isSameValue)
-        .map(({position}) => getBoardPosition(position))
-      
-      // Creamos el objeto error
-      const nError:errorBoard = {
-        errorPos: eltBPos,
-        asociatedErrorPos: errorPositions,
-        errorVal: action.value
-      }
-
-      // Aplicamos el estado de error
-      if (selectElt.isUnsolved && errorPositions.length) {
-        updBoard[eltBPos.groupIndex][eltBPos.indexInGroup].isSelected.isWrong = true
-  
-        errorPositions.forEach(({indexInGroup, groupIndex}) => {
-          updBoard[groupIndex][indexInGroup].isSelected.isWrong = true
-        })
-
-        selectingLifes -= 1
-        selectingErr.push(nError)
-      }
-      
-      if (errFocusIdx >= 0) {
-        const errFocus = selectingErr[errFocusIdx]
-        const doChangeVal = errFocus.errorVal !== action.value && !isNaN(errFocus.errorVal)
-        
-        if (doChangeVal) {
-          updBoard[eltBPos.groupIndex][eltBPos.indexInGroup].isSelected.isWrong = false
-          
-          errFocus.asociatedErrorPos.forEach(({indexInGroup, groupIndex}) => {
-            updBoard[groupIndex][indexInGroup].isSelected.isWrong = false
-          })
-  
-          selectingErr.splice(errFocusIdx, 1)
+    
+    case 'SET_NEW_TIME':
+      const setTimeByDifficult = (difficult: Difficult):Time => {
+        switch (difficult) {
+          case Difficult.Easy :
+            return {
+              minutes: 8,
+              seconds: 0
+            }
+          case Difficult.Medium :
+            return {
+              minutes: 6,
+              seconds: 30
+            }
+          case Difficult.Hard :
+            return {
+              minutes: 5,
+              seconds: 0
+            }
+          default:
+            return {
+              minutes: 0,
+              seconds: 0
+            }
         }
       }
 
       return {
         ...state,
+        time: setTimeByDifficult(action.difficult)
+      }
+
+    case 'UPDATE_BOARD':
+      return {
+        ...state,
+        board: action.board,
+        lifes: 3,
+        errors: [],
+        defeat: false
+      }
+
+    case 'CHECK_GAME_OVER':
+      // checar si el timer ha llegado a cero o las vidas se han agotado
+      console.log('Perdiste')
+
+      return {
+        ...state,
+        defeat: true,
+      }
+
+    case 'SELECTING':
+      const selectingErr = [...state.errors]
+      let selectingLifes = state.lifes
+
+      const { updBoard, allEltInSelection } = updatedSelectGroup(state.board, action.position, action.value)
+      const eltBPos = getBoardPosition(action.position)
+      const selectElt = updBoard[eltBPos.groupIndex][eltBPos.indexInGroup]
+      
+      // Solo aplicar si es un input
+      if (selectElt.isUnsolved && !selectElt.isSelected.isSameValue) {
+        // Verificamos si hay un numero que se repita en los elt selecionados
+        const errorPositions: BoardPositionType[] = allEltInSelection
+        .filter(({ isSelected }) => isSelected.isSameValue)
+        .map(({ position }) => getBoardPosition(position))
+
+        // verificamos si existe un error
+        if (errorPositions.length) {
+          // Creamos el objeto error
+          const nError: errorBoard = {
+            errorPos: eltBPos,
+            asociatedErrorPos: errorPositions,
+            errorVal: action.value
+          }
+  
+          // Buscamos si entre los errores asociados se encuentra un input
+          // en caso de ser asi, buscamos si ya existe un error creado, si
+          // ese es el caso agregramos la posicion del error actual a sus errores
+          // asociados. Caso contrario creamos un nuevo error.
+          nError.asociatedErrorPos.forEach(errP => {
+            const isInput = updBoard[errP.groupIndex][errP.indexInGroup].isUnsolved
+            if (isInput) {
+              const idxExistErr = selectingErr.findIndex(({errorPos}) => isEqual(errorPos, errP))
+              
+              if (idxExistErr >= 0) {
+                selectingErr[idxExistErr].asociatedErrorPos.push(nError.errorPos)
+              } else {
+                selectingErr.push({
+                  errorPos: errP,
+                  asociatedErrorPos: [nError.errorPos],
+                  errorVal: nError.errorVal
+                })
+              }
+            }
+          })
+          
+          // Reducimos la vida y agregamos el error al estado
+          if (!state.defeat) selectingLifes -= 1
+          selectingErr.push(nError)
+
+        } else {
+          // Buscamos la ubicacion de todos los lugares en el que el error
+          // estuviera asociado
+          const idxAscErrIn = selectingErr.reduce((acc: BoardPositionType[], cur, errIdx) => {
+            cur.asociatedErrorPos.forEach((ascErr, ascIdx) => {
+              if (isEqual(ascErr, eltBPos)) {
+                acc.push({
+                  groupIndex: errIdx,
+                  indexInGroup: ascIdx
+                })
+              }
+            })
+
+            return acc
+          }, [])
+
+          // Eliminamos el error de esas ubicaciones
+          if (idxAscErrIn.length) {
+            // Eliminamos el error asociado
+            idxAscErrIn.forEach(({groupIndex, indexInGroup}) => {
+              selectingErr[groupIndex].asociatedErrorPos.splice(indexInGroup, 1)
+
+              // Si el error no tiene errores asociados eliminamos el error
+              if (selectingErr[groupIndex].asociatedErrorPos.length <= 0) {
+                selectingErr.splice(groupIndex, 1)
+              }
+            })
+          }
+
+          // Desactivamos el estado de error en los errores solucionados
+          const idxOldErr = selectingErr.findIndex(err => isEqual(err.errorPos, eltBPos))
+          
+          if (idxOldErr >= 0) {
+            const {errorPos, asociatedErrorPos} = selectingErr[idxOldErr]
+            updBoard[errorPos.groupIndex][errorPos.indexInGroup].isSelected.isWrong = false
+
+            asociatedErrorPos.forEach(({groupIndex, indexInGroup}) => {
+              updBoard[groupIndex][indexInGroup].isSelected.isWrong = false
+            })
+
+            // se elimina de la lista de errores el error solucionado
+            selectingErr.splice(idxOldErr, 1)
+          }
+        }
+      }
+
+      // establecemos error para todos los valores
+      selectingErr.forEach(({asociatedErrorPos, errorPos}) => {
+        updBoard[errorPos.groupIndex][errorPos.indexInGroup].isSelected.isWrong = true
+        
+        asociatedErrorPos.forEach(({indexInGroup, groupIndex}) => {
+          updBoard[groupIndex][indexInGroup].isSelected.isWrong = true
+        })
+      })
+
+      return {
+        ...state,
         board: updBoard,
-        errors: selectingErr,
+        errors: [...selectingErr],
         lifes: selectingLifes
       }
 
@@ -93,17 +180,19 @@ const gameReducer = (state:GameType, action:GameAction) => {
 }
 
 export const GameProvider: FC<ContextProviderProps> = ({ children }) => {
-  const [state, dispatch] = useReducer(gameReducer, INITIAL_STATE)  
+  const [state, dispatch] = useReducer(gameReducer, INITIAL_STATE)
 
   useEffect(() => {
     (async () => {
-      const board = await getSudokuData({difficult: state.difficult})
+      const board = await getSudokuData({ difficult: state.difficult })
       dispatch({ type: 'UPDATE_BOARD', board })
     })()
+
+    dispatch({ type: "SET_NEW_TIME", difficult: state.difficult })
   }, [state.difficult])
 
   return (
-    <GameContext.Provider value={{ state, dispatch}}>
+    <GameContext.Provider value={{ state, dispatch }}>
       {children}
     </GameContext.Provider>
   )

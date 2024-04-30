@@ -6,6 +6,27 @@ export enum Difficult {
 	Hard = 'Hard'
 }
 
+export type Life = {
+	isActive: boolean,
+	id: number
+}
+
+export interface IIcon {
+  className?: string
+}
+
+export type CountDownHook = {
+	secondsLeft: number,
+	start: (seconds: number) => void
+	pause: () => void
+	resume: () => void
+}
+
+export type Timer = {
+	secondsLeft: number,
+	isPaused: boolean
+}
+
 export type BoardPositionType = {
 	groupIndex: number,
 	indexInGroup: number
@@ -30,19 +51,25 @@ export type errorBoard = {
 	asociatedErrorPos: BoardPositionType[]
 }
 
+export type Time = {
+	minutes: number,
+	seconds: number
+}
+
 export type GameType = {
 	board: IElement[][],
 	difficult: Difficult,
 	lifes: number,
-	score: number,
-	errors: errorBoard[]
+	errors: errorBoard[],
+	defeat: boolean,
+	time: Time
 }
 
 export type GameAction = 
 	| { type: 'CHANGE_DIFFICULT'; difficult: Difficult}
-	| { type: 'INCREMENT_SCORE'}
+	| { type: 'SET_NEW_TIME'; difficult: Difficult}
 	| { type: 'UPDATE_BOARD'; board: IElement[][] }
-	| { type: 'DECREMENT_LIFES' }
+	| { type: 'CHECK_GAME_OVER' }
 	| { type: 'SELECTING'; position: PositionType; value: number }
 
 export type ContextProviderProps = {
@@ -70,10 +97,22 @@ export interface IBoardElement {
 	boardElt: IElement[]
 }
 
+export interface ICountDownComponent {
+	timer: CountDownHook
+}
+
+export interface ILifeComponent {
+	timer: CountDownHook
+}
+
 export const INITIAL_STATE:GameType = {
   board: [],
   difficult: Difficult.Easy,
   lifes: 3,
-  score: 0,
-	errors: []
+	errors: [],
+	defeat: false,
+	time: {
+		minutes: 0,
+		seconds: 0
+	},
 }
