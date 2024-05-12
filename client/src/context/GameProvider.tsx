@@ -44,6 +44,14 @@ const gameReducer = (state: GameType, action: GameAction) => {
         ...state,
         time: setTimeByDifficult(action.difficult)
       }
+    
+    case 'INCREMENT_LIFE':
+      const currLifes = state.lifes + 1
+
+      return {
+        ...state,
+        lifes: currLifes
+      }
 
     case 'UPDATE_BOARD':
       return {
@@ -54,13 +62,10 @@ const gameReducer = (state: GameType, action: GameAction) => {
         defeat: false
       }
 
-    case 'CHECK_GAME_OVER':
-      // checar si el timer ha llegado a cero o las vidas se han agotado
-      console.log('Perdiste')
-
+    case 'SET_GAME_OVER':
       return {
         ...state,
-        defeat: true,
+        defeat: action.isDefeat,
       }
 
     case 'SELECTING':

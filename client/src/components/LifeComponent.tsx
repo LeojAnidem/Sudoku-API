@@ -48,17 +48,29 @@ export const LifeComponent: FC<ILifeComponent> = ({ timer }) => {
   }, [state.difficult])
 
   useEffect(() => {
-    if (life.length !== state.lifes && life.length > 0) {
+    if (!state.defeat) {
+      if (life.length !== state.lifes && life.length > 0) {
+        const nLifeArr = [...life]
+        nLifeArr[state.lifes].isActive = false
+        setLife([...nLifeArr])
+      }
+  
+      if (state.lifes <= 0) {
+        timer.pause()
+        setIsDefeat(true)
+        dispatch({ type: "SET_GAME_OVER", isDefeat: true })
+      }
+
+    } else if (state.lifes > 0){
       const nLifeArr = [...life]
-      nLifeArr[state.lifes].isActive = false
-      setLife([...nLifeArr])
+      nLifeArr[0].isActive = true
+      setLife(() => [...nLifeArr])
+      
+      setIsDefeat(false)
+      dispatch({ type: "SET_GAME_OVER", isDefeat: false})
+      timer.resume()
     }
 
-    if (state.lifes <= 0) {
-      timer.pause()
-      setIsDefeat(true)
-      dispatch({ type: "CHECK_GAME_OVER" })
-    }
   }, [state.lifes])
 
   return (

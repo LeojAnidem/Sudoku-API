@@ -69,7 +69,8 @@ export type GameAction =
 	| { type: 'CHANGE_DIFFICULT'; difficult: Difficult}
 	| { type: 'SET_NEW_TIME'; difficult: Difficult}
 	| { type: 'UPDATE_BOARD'; board: IElement[][] }
-	| { type: 'CHECK_GAME_OVER' }
+	| { type: 'SET_GAME_OVER'; isDefeat: boolean }
+	| { type: 'INCREMENT_LIFE' }
 	| { type: 'SELECTING'; position: PositionType; value: number }
 
 export type ContextProviderProps = {
@@ -102,6 +103,14 @@ export interface ICountDownComponent {
 }
 
 export interface ILifeComponent {
+	timer: CountDownHook
+}
+
+export interface ISudoku {
+	timer: CountDownHook
+}
+
+export interface IFailComponent {
 	timer: CountDownHook
 }
 

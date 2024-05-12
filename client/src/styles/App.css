@@ -6,7 +6,7 @@
 
 .grid_sk {
   @apply grid grid-cols-3 grid-rows-3 border
-  border-tremor-content-strong
+  border-tremor-content-strong select-none
 }
 
 .grid_item_sk {
@@ -34,4 +34,38 @@
 .selected__wrong {
   @apply !bg-red-700 border-[3px] rounded-sm
   border-dark-tremor-brand-muted
+}
+
+.button__base {
+  @apply p-1 border-2 rounded-md
+}
+
+.button__blue {
+  @apply button__base
+  bg-dark-tremor-background
+  text-dark-tremor-brand-subtle
+  border-dark-tremor-brand-subtle
+  
+  hover:bg-dark-tremor-brand-subtle
+  hover:text-dark-tremor-background
+}
+
+.button__green {
+  @apply button__base
+  bg-dark-tremor-background
+  text-green-600
+  border-green-600
+
+  hover:bg-green-600
+  hover:text-white
+}
+
+.button__red {
+  @apply button__base
+  bg-dark-tremor-background
+  text-red-600
+  border-red-600
+
+  hover:bg-red-600
+  hover:text-white
 }
