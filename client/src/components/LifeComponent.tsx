@@ -45,7 +45,7 @@ export const LifeComponent: FC<ILifeComponent> = ({ timer }) => {
     life.map(el => el.isActive = true)
     setIsDefeat(false)
 
-  }, [state.difficult])
+  }, [state.difficult, state.sameDifficult])
 
   useEffect(() => {
     if (!state.defeat) {

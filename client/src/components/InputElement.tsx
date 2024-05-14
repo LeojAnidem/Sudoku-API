@@ -8,7 +8,7 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 	const {isInGroup, isInRowOrCol, isOnCenter, isSameValue, isWrong} = isSelected
 	
 	// Si la dificultad cambia, se elimina todo en el tablero
-	useEffect(() => setCurVal(''), [state.difficult])
+	useEffect(() => setCurVal(''), [state.difficult, state.sameDifficult])
 	
 	const selectClassName = {
 		rowOrCol: isInRowOrCol && !isOnCenter ? 'selected' : '',
