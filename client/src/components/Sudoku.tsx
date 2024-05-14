@@ -10,7 +10,7 @@ export const Sudoku = () => {
 		<>
 			{state.board.length
 				? (
-					<div className="grid_sk">
+					<div className="grid_sk relative">
 						{
 							state.board.map((arr, i) => (
 								<BoardElement

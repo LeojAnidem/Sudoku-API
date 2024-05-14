@@ -4,9 +4,6 @@ import { ICountDownComponent } from "../types/gameTypes"
 import { formatSecondsToString, timeObjToSeconds } from "../utils/boardFn"
 import { IconClock } from "./icons/IconClock"
 
-// Bloquear sudoku cuando se halla perdido, y dar oportunidad
-// de reintentar
-
 export const CountDownComponent: FC<ICountDownComponent> = ({ timer }) => {
   const { state, dispatch } = useContext(GameContext)
 
@@ -19,7 +16,7 @@ export const CountDownComponent: FC<ICountDownComponent> = ({ timer }) => {
   useEffect(() => {
     if (timer.secondsLeft <= 0 && state.time.minutes > 0) {
       timer.pause()
-      dispatch({ type: "CHECK_GAME_OVER" })
+      dispatch({ type: "SET_GAME_OVER", isDefeat: true })
     }
   }, [timer.secondsLeft])
 

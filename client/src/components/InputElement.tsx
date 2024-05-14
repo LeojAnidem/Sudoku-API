@@ -8,7 +8,7 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 	const {isInGroup, isInRowOrCol, isOnCenter, isSameValue, isWrong} = isSelected
 	
 	// Si la dificultad cambia, se elimina todo en el tablero
-	useEffect(() => setCurVal(''), [state.difficult])
+	useEffect(() => setCurVal(''), [state.difficult, state.sameDifficult])
 	
 	const selectClassName = {
 		rowOrCol: isInRowOrCol && !isOnCenter ? 'selected' : '',
@@ -60,11 +60,12 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 	}
 
 	return (
-		<>
+		<div className="grid_item_sk">
 			{!isUnsolved
 				? <span
 						className={`
 							w-full h-full flex items-center justify-center
+							select-none
 							${selectClassName.rowOrCol}
 							${selectClassName.sameVal}
 							${selectClassName.inGroup}
@@ -79,6 +80,7 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 						className={`
 							w-full h-full cursor-pointer flex text-center
 							text-dark-tremor-brand font-semibold text-lg
+							select-none
 							${selectClassName.noEffect}
 							${selectClassName.rowOrCol}
 							${selectClassName.sameVal}
@@ -93,8 +95,10 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 						onClick={() => handleClic(parseInt(curVal))}
 						onInput={handleOnInput}
 						value={curVal}
+						onFocus={() => handleClic(parseInt(curVal))}
+						disabled={state.defeat}
 					/>
 			}
-		</>
+		</div>
 	)
 }

@@ -63,14 +63,18 @@ export type GameType = {
 	errors: errorBoard[],
 	defeat: boolean,
 	time: Time
+	score: number,
+	sameDifficult: boolean
 }
 
 export type GameAction = 
-	| { type: 'CHANGE_DIFFICULT'; difficult: Difficult}
-	| { type: 'SET_NEW_TIME'; difficult: Difficult}
-	| { type: 'UPDATE_BOARD'; board: IElement[][] }
-	| { type: 'CHECK_GAME_OVER' }
 	| { type: 'SELECTING'; position: PositionType; value: number }
+	| { type: 'CHANGE_DIFFICULT'; difficult: Difficult}
+	| { type: 'UPDATE_BOARD'; board: IElement[][] }
+	| { type: 'SET_GAME_OVER'; isDefeat: boolean }
+	| { type: 'SET_SAME_DIFFICULT'; isSameDifficult: boolean }
+	| { type: 'INCREMENT_SCORE' }
+	| { type: 'INCREMENT_LIFE' }
 
 export type ContextProviderProps = {
 	children?: ReactNode
@@ -105,6 +109,14 @@ export interface ILifeComponent {
 	timer: CountDownHook
 }
 
+export interface ISudoku {
+	timer: CountDownHook
+}
+
+export interface IFailComponent {
+	timer: CountDownHook
+}
+
 export const INITIAL_STATE:GameType = {
   board: [],
   difficult: Difficult.Easy,
@@ -115,4 +127,6 @@ export const INITIAL_STATE:GameType = {
 		minutes: 0,
 		seconds: 0
 	},
+	score: 0,
+	sameDifficult: false
 }

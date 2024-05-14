@@ -9,12 +9,32 @@ export const GameContext = createContext<GameContextType>({ state: INITIAL_STATE
 const gameReducer = (state: GameType, action: GameAction) => {
   switch (action.type) {
     case 'CHANGE_DIFFICULT':
-    return {
+      return {
+          ...state,
+          difficult: action.difficult,
+        }
+    
+    case "SET_SAME_DIFFICULT":
+      return {
         ...state,
-        difficult: action.difficult,
+        sameDifficult: action.isSameDifficult
+      }
+
+    case 'INCREMENT_SCORE':
+      return {
+        ...state,
+        score: state.score + 50
       }
     
-    case 'SET_NEW_TIME':
+    case 'INCREMENT_LIFE':
+      const currLifes = state.lifes + 1
+
+      return {
+        ...state,
+        lifes: currLifes
+      }
+
+    case 'UPDATE_BOARD':
       const setTimeByDifficult = (difficult: Difficult):Time => {
         switch (difficult) {
           case Difficult.Easy :
@@ -42,25 +62,19 @@ const gameReducer = (state: GameType, action: GameAction) => {
 
       return {
         ...state,
-        time: setTimeByDifficult(action.difficult)
-      }
-
-    case 'UPDATE_BOARD':
-      return {
-        ...state,
         board: action.board,
         lifes: 3,
         errors: [],
-        defeat: false
+        defeat: false,
+        sameDifficult: false,
+        score: 0,
+        time: setTimeByDifficult(state.difficult)
       }
 
-    case 'CHECK_GAME_OVER':
-      // checar si el timer ha llegado a cero o las vidas se han agotado
-      console.log('Perdiste')
-
+    case 'SET_GAME_OVER':
       return {
         ...state,
-        defeat: true,
+        defeat: action.isDefeat,
       }
 
     case 'SELECTING':
@@ -188,8 +202,7 @@ export const GameProvider: FC<ContextProviderProps> = ({ children }) => {
       dispatch({ type: 'UPDATE_BOARD', board })
     })()
 
-    dispatch({ type: "SET_NEW_TIME", difficult: state.difficult })
-  }, [state.difficult])
+  }, [state.difficult, state.sameDifficult])
 
   return (
     <GameContext.Provider value={{ state, dispatch }}>
