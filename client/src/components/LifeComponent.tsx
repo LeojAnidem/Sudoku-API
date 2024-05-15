@@ -10,36 +10,32 @@ export const LifeComponent: FC<ILifeComponent> = ({ timer }) => {
   const [isDefeat, setIsDefeat] = useState(false)
 
   useEffect(() => {
-    if (life.length <= 0) {
-      const arr = new Array(state.lifes).fill(0)
-  
-      arr.forEach((_, i) => {
-        setLife(prev => {
-          return [
-            ...prev,
-            {
-              isActive: true,
-              id: i
-            }
-          ]
+    if (life.length <= 0 && state.lifes > 0) {
+      const arr: Life[] = new Array(state.lifes)
+        .fill(0)
+        .map((_, i) => {
+          return {
+            isActive: true,
+            id: i
+          }
         })
-      })
+  
+      setLife(() => [...arr])
     } 
 
     if (state.lifes > life.length && life.length > 0) {
       const diff = state.lifes - life.length
 
-      new Array(diff).fill(0).forEach((_, i) => {
-        setLife(prev => {
-          return [
-            ...prev,
-            {
-              isActive: true,
-              id: prev[life.length - 1].id + i
-            }
-          ]
+      const arr = new Array(diff)
+        .fill(0)
+        .map((_, i) => {
+          return {
+            isActive: true,
+            id: life.length + i
+          }
         })
-      })
+
+      setLife((prev) => [...prev, ...arr])
     }
 
     life.map(el => el.isActive = true)
@@ -52,7 +48,7 @@ export const LifeComponent: FC<ILifeComponent> = ({ timer }) => {
       if (life.length !== state.lifes && life.length > 0) {
         const nLifeArr = [...life]
         nLifeArr[state.lifes].isActive = false
-        setLife([...nLifeArr])
+        setLife(() => [...nLifeArr])
       }
   
       if (state.lifes <= 0) {

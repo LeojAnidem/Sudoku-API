@@ -1,15 +1,9 @@
-import { Difficult } from "../types/gameTypes"
+import { Difficult, OptionDifficult } from "../types/gameTypes"
 import { useContext, useEffect, useState } from "react"
 import { GameContext } from "../context/GameProvider"
 
 export const DifficultTab = () => {
   const { state, dispatch } = useContext(GameContext)
-
-  type OptionDifficult = {
-    value: Difficult,
-    isActive: boolean,
-    id: number
-  }
 
   const INITIAL_STATE: OptionDifficult[] = []
   const [options, setOptions] = useState(INITIAL_STATE)
@@ -39,7 +33,7 @@ export const DifficultTab = () => {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full select-none">
       <ul
         className="
           w-min relative overflow-hidden p-1.5 pr-2
@@ -51,10 +45,10 @@ export const DifficultTab = () => {
             <li
               key={`difficultTab-${option.id}`}
               onClick={() => handlerOnClic(option.value)}
+              onContextMenu={(e) => e.preventDefault()}
               className={`
                 h-full w-min px-4 relative cursor-pointer
                 text-lg font-bold
-                
                 ${option.isActive
                   ? 'bg-dark-tremor-brand-subtle text-white py-0.5'
                   : 'bg-dark-tremor-brand text-dark-tremor-background'

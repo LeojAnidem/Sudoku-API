@@ -24,7 +24,6 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 
 	const handleClic = (value: number) => {
 		dispatch({ type: "SELECTING", position, value })
-		// buscar acerca de pipAiLogo
 	}
 	
 	const handleOnInput = (e: ChangeEvent) => {
@@ -65,7 +64,7 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 				? <span
 						className={`
 							w-full h-full flex items-center justify-center
-							select-none
+							select-none cursor-pointer
 							${selectClassName.rowOrCol}
 							${selectClassName.sameVal}
 							${selectClassName.inGroup}
@@ -73,6 +72,7 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 							${selectClassName.wrong}
 						`}
 						onClick={() => handleClic(value)}
+						onContextMenu={(e) => e.preventDefault()}
 					>
 						{`${value}`}
 					</span>
@@ -96,6 +96,7 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 						onInput={handleOnInput}
 						value={curVal}
 						onFocus={() => handleClic(parseInt(curVal))}
+						onContextMenu={(e) => e.preventDefault()}
 						disabled={state.defeat}
 					/>
 			}

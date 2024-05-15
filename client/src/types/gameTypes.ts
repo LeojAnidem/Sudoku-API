@@ -56,6 +56,12 @@ export type Time = {
 	seconds: number
 }
 
+export type OptionDifficult = {
+	value: Difficult,
+	isActive: boolean,
+	id: number
+}
+
 export type GameType = {
 	board: IElement[][],
 	difficult: Difficult,
