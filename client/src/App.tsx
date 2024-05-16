@@ -1,22 +1,20 @@
 import { useContext } from "react";
 import { CountDownComponent } from "./components/CountDownComponent";
 import { DifficultTab } from "./components/DifficultTab";
+import { FailScreenComponent } from "./components/FailScreenComponent";
 import { LifeComponent } from "./components/LifeComponent";
 import { Sudoku } from "./components/Sudoku";
-import { useCountdown } from "./hooks/useCountdown";
-import "./styles/App.css";
 import { GameContext } from "./context/GameProvider";
-import { FailScreenComponent } from "./components/FailScreenComponent";
+import "./styles/App.css";
 
 function App() {
-	const timer = useCountdown()
 	const { state } = useContext(GameContext)
 
 	return (
 		<div className="main_bg">
 			<div className="grid grid-flow-col justify-between">
-				<CountDownComponent timer={timer}/>
-				<LifeComponent timer={timer}/>
+				<CountDownComponent />
+				<LifeComponent/>
 			</div>
 			<div
 				className="

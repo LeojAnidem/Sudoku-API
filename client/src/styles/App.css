@@ -42,12 +42,13 @@
 
 .button__blue {
   @apply button__base
-  bg-dark-tremor-background
-  text-dark-tremor-brand-subtle
+  bg-dark-tremor-brand-subtle
+  text-white
   border-dark-tremor-brand-subtle
   
-  hover:bg-dark-tremor-brand-subtle
+  hover:bg-dark-tremor-brand
   hover:text-dark-tremor-background
+  hover:border-dark-tremor-brand
 }
 
 .button__green {

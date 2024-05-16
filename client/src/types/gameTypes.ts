@@ -107,22 +107,6 @@ export interface IBoardElement {
 	boardElt: IElement[]
 }
 
-export interface ICountDownComponent {
-	timer: CountDownHook
-}
-
-export interface ILifeComponent {
-	timer: CountDownHook
-}
-
-export interface ISudoku {
-	timer: CountDownHook
-}
-
-export interface IFailComponent {
-	timer: CountDownHook
-}
-
 export const INITIAL_STATE:GameType = {
   board: [],
   difficult: Difficult.Easy,

@@ -1,13 +1,12 @@
-import { FC, useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { GameContext } from "../context/GameProvider"
-import { ILifeComponent, Life } from "../types/gameTypes"
+import { Life } from "../types/gameTypes"
 import { IconHeart } from "./icons/IconHeart"
 
-export const LifeComponent: FC<ILifeComponent> = ({ timer }) => {
+export const LifeComponent = () => {
   const INITIAL_STATE:Life[] = []
   const { state, dispatch } = useContext(GameContext)
   const [life, setLife] = useState(INITIAL_STATE)
-  const [isDefeat, setIsDefeat] = useState(false)
 
   useEffect(() => {
     if (life.length <= 0 && state.lifes > 0) {
@@ -39,7 +38,6 @@ export const LifeComponent: FC<ILifeComponent> = ({ timer }) => {
     }
 
     life.map(el => el.isActive = true)
-    setIsDefeat(false)
 
   }, [state.difficult, state.sameDifficult])
 
@@ -51,20 +49,15 @@ export const LifeComponent: FC<ILifeComponent> = ({ timer }) => {
         setLife(() => [...nLifeArr])
       }
   
-      if (state.lifes <= 0) {
-        timer.pause()
-        setIsDefeat(true)
+      if (state.lifes <= 0)
         dispatch({ type: "SET_GAME_OVER", isDefeat: true })
-      }
 
     } else if (state.lifes > 0){
       const nLifeArr = [...life]
       nLifeArr[0].isActive = true
       setLife(() => [...nLifeArr])
       
-      setIsDefeat(false)
       dispatch({ type: "SET_GAME_OVER", isDefeat: false})
-      timer.resume()
     }
 
   }, [state.lifes])
@@ -73,7 +66,7 @@ export const LifeComponent: FC<ILifeComponent> = ({ timer }) => {
     <div 
       className={`
         w-min h-min flex flex-col items-center
-        ${!isDefeat
+        ${!state.defeat
           ? 'bg-tremor-brand-emphasis'
           : 'bg-red-700'
         } 
@@ -103,7 +96,7 @@ export const LifeComponent: FC<ILifeComponent> = ({ timer }) => {
                 key={`I-Heart-${elt.id}`}
                 className={`
                   w-8 h-9
-                  ${!isDefeat 
+                  ${!state.defeat 
                     ? `${elt.isActive
                         ? 'fill-tremor-brand-emphasis stroke-none'
                         : 'stroke-tremor-brand-emphasis fill-none'

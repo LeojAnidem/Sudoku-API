@@ -1,11 +1,12 @@
-import { FC, useContext, useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { GameContext } from "../context/GameProvider"
-import { ICountDownComponent } from "../types/gameTypes"
+import { useCountdown } from "../hooks/useCountdown"
 import { formatSecondsToString, timeObjToSeconds } from "../utils/boardFn"
 import { IconClock } from "./icons/IconClock"
 
-export const CountDownComponent: FC<ICountDownComponent> = ({ timer }) => {
+export const CountDownComponent = () => {
   const { state, dispatch } = useContext(GameContext)
+  const timer = useCountdown()
 
   useEffect(() => {
     if (state.time.minutes <= 0) return
@@ -19,6 +20,21 @@ export const CountDownComponent: FC<ICountDownComponent> = ({ timer }) => {
       dispatch({ type: "SET_GAME_OVER", isDefeat: true })
     }
   }, [timer.secondsLeft])
+
+  useEffect(() => {
+    state.lifes <= 0
+      ? timer.pause() 
+      : timer.resume()
+
+    if (timer.secondsLeft <= 0 && state.lifes > 0) {
+      timer.start(timeObjToSeconds({
+        minutes: 2,
+        seconds: 59
+      }))
+      timer.resume()
+    }
+
+  }, [state.lifes])
 
   return (
     <div
