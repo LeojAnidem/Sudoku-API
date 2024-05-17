@@ -12,17 +12,23 @@ function App() {
 
 	return (
 		<div className="main_bg">
-			<div className="grid grid-flow-col justify-between">
-				<CountDownComponent />
-				<LifeComponent/>
-			</div>
 			<div
 				className="
 					relative flex flex-col items-center
 					justify-center gap-8
 				"
 			>
-				<DifficultTab />
+				<div className="grid grid-flow-col justify-between">
+					<CountDownComponent />
+				</div>
+				<div
+					className="
+						flex justify-between items-center gap-2
+					"
+				>
+					<LifeComponent/>
+					<DifficultTab />
+				</div>
 				<Sudoku />
 				{state.defeat ? <FailScreenComponent /> : <></>}
 			</div>

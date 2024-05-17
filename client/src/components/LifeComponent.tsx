@@ -73,7 +73,7 @@ export const LifeComponent = () => {
         rounded-lg
       `}
     >
-      <span
+      {/* <span
         className="
           pt-1 rounded-lg
           text-dark-tremor-background
@@ -81,7 +81,7 @@ export const LifeComponent = () => {
         "
       >
         Intentos
-      </span>
+      </span> */}
       
       <div
         className="
