@@ -19,12 +19,6 @@ const gameReducer = (state: GameType, action: GameAction) => {
         ...state,
         sameDifficult: action.isSameDifficult
       }
-
-    case 'INCREMENT_SCORE':
-      return {
-        ...state,
-        score: state.score + 50
-      }
     
     case 'INCREMENT_LIFE':
       const currLifes = state.lifes + 1
@@ -80,6 +74,7 @@ const gameReducer = (state: GameType, action: GameAction) => {
     case 'SELECTING':
       const selectingErr = [...state.errors]
       let selectingLifes = state.lifes
+      let selectingScore = state.score
 
       const { updBoard, allEltInSelection } = updatedSelectGroup(state.board, action.position, action.value)
       const eltBPos = getBoardPosition(action.position)
@@ -89,8 +84,8 @@ const gameReducer = (state: GameType, action: GameAction) => {
       if (selectElt.isUnsolved && !selectElt.isSelected.isSameValue) {
         // Verificamos si hay un numero que se repita en los elt selecionados
         const errorPositions: BoardPositionType[] = allEltInSelection
-        .filter(({ isSelected }) => isSelected.isSameValue)
-        .map(({ position }) => getBoardPosition(position))
+          .filter(({ isSelected }) => isSelected.isSameValue)
+          .map(({ position }) => getBoardPosition(position))
 
         // verificamos si existe un error
         if (errorPositions.length) {
@@ -153,6 +148,11 @@ const gameReducer = (state: GameType, action: GameAction) => {
                 selectingErr.splice(groupIndex, 1)
               }
             })
+          
+          // Si no hay ningun error y se ha ingresado un valor aumentamos el
+          // score en 50
+          } else if (!isNaN(action.value) && action.value <= 9) {
+            selectingScore += 50
           }
 
           // Desactivamos el estado de error en los errores solucionados
@@ -184,6 +184,7 @@ const gameReducer = (state: GameType, action: GameAction) => {
       return {
         ...state,
         board: updBoard,
+        score: selectingScore,
         errors: [...selectingErr],
         lifes: selectingLifes
       }

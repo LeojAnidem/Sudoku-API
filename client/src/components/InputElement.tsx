@@ -92,7 +92,6 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 						min={1}
 						max={9}
 						onChange={handleOnChange}
-						onClick={() => handleClic(parseInt(curVal))}
 						onInput={handleOnInput}
 						value={curVal}
 						onFocus={() => handleClic(parseInt(curVal))}
