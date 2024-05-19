@@ -66,23 +66,13 @@ export const LifeComponent = () => {
     <div 
       className={`
         w-min h-min flex flex-col items-center
-        ${!state.defeat
+        ${!life.every(e => !e.isActive)
           ? 'bg-tremor-brand-emphasis'
           : 'bg-red-700'
         } 
         rounded-lg
       `}
-    >
-      {/* <span
-        className="
-          pt-1 rounded-lg
-          text-dark-tremor-background
-          font-extrabold
-        "
-      >
-        Intentos
-      </span> */}
-      
+    > 
       <div
         className="
           flex bg-dark-tremor-background 
@@ -96,7 +86,7 @@ export const LifeComponent = () => {
                 key={`I-Heart-${elt.id}`}
                 className={`
                   w-8 h-9
-                  ${!state.defeat 
+                  ${!life.every(e => !e.isActive) 
                     ? `${elt.isActive
                         ? 'fill-tremor-brand-emphasis stroke-none'
                         : 'stroke-tremor-brand-emphasis fill-none'

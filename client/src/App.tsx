@@ -6,6 +6,7 @@ import { LifeComponent } from "./components/LifeComponent";
 import { Sudoku } from "./components/Sudoku";
 import { GameContext } from "./context/GameProvider";
 import "./styles/App.css";
+import { ScoreComponent } from "./components/ScoreComponent";
 
 function App() {
 	const { state } = useContext(GameContext)
@@ -15,11 +16,12 @@ function App() {
 			<div
 				className="
 					relative flex flex-col items-center
-					justify-center gap-8
+					justify-center gap-4
 				"
 			>
-				<div className="grid grid-flow-col justify-between">
+				<div className="w-full flex justify-between items-center">
 					<CountDownComponent />
+					<ScoreComponent />
 				</div>
 				<div
 					className="

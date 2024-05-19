@@ -39,29 +39,33 @@ export const CountDownComponent = () => {
   return (
     <div
       className={`
-        w-min h-min rounded-lg
+        w-min h-min rounded-lg select-none
         flex items-center
       `}
     > 
       <div
         className={`
-          p-1 rounded-full
+          p-1 rounded-full border-4
+        bg-dark-tremor-background
           ${timer.secondsLeft > 0
-            ? 'bg-tremor-brand-emphasis '
-            : 'bg-red-700'
+            ? 'border-tremor-brand-emphasis'
+            : 'border-red-700'
           }
         `}
       >
         <IconClock
           className={`
-            w-16 h-16 fill-dark-tremor-background
-            stroke-none
+            w-10 h-10 stroke-none
+            ${timer.secondsLeft > 0
+              ? 'fill-tremor-brand-emphasis'
+              : 'fill-red-700'
+            }
           `} 
         />
       </div>
       <div
         className={`
-          w-min h-min pr-2 py-1 rounded-lg relative
+          w-min h-min pr-1 py-1 rounded-lg relative
           ${timer.secondsLeft > 0
             ? 'bg-tremor-brand-emphasis'
             : 'bg-red-700'
@@ -69,19 +73,31 @@ export const CountDownComponent = () => {
         `}
       >
         <span
-          className="
-            text-dark-tremor-background
-            text-3xl font-extrabold relative z-[1]
-          "
+          className={`
+            text-2xl font-extrabold relative z-[1] pr-2
+            bg-dark-tremor-background rounded-md
+            ${timer.secondsLeft > 0
+              ? 'text-tremor-brand-emphasis'
+              : 'text-red-700'
+            }
+          `}
         >
           {formatSecondsToString(timer.secondsLeft)}
         </span>
         <div
           className={`
-            h-full w-5 absolute -left-2 top-0
+            h-full w-5 absolute -left-2.5 top-0
+            border-t-4 border-b-4
+            bg-dark-tremor-background
             ${timer.secondsLeft > 0
-              ? 'bg-tremor-brand-emphasis'
-              : 'bg-red-700'
+              ? `
+                  border-t-tremor-brand-emphasis
+                  border-b-tremor-brand-emphasis
+                `
+              : `
+                  border-t-red-700
+                  border-b-red-700
+                `
             }
           `}
         />
