@@ -99,7 +99,8 @@ export interface IElement {
 	position: PositionType,
 	isUnsolved: Boolean,
 	isSelected: SelectType
-	inputValue: number | undefined
+	inputValue: number | undefined,
+	canIncrementScore: Boolean
 }
 
 export interface IBoardElement {

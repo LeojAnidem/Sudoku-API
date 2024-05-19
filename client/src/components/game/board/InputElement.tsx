@@ -53,8 +53,6 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 
 		dispatch({ type: "SELECTING", position, value: val })
 		
-		if (val === value) {console.log('Correct!', position)}
-		
 		return setCurVal(`${val}`)
 	}
 

@@ -152,7 +152,10 @@ const gameReducer = (state: GameType, action: GameAction) => {
           // Si no hay ningun error y se ha ingresado un valor aumentamos el
           // score en 50
           } else if (!isNaN(action.value) && action.value <= 9) {
-            selectingScore += 50
+            if (selectElt.canIncrementScore) {
+              selectElt.canIncrementScore = false
+              selectingScore += 50
+            }
           }
 
           // Desactivamos el estado de error en los errores solucionados

@@ -50,6 +50,7 @@ const convertBoardToData = (board: ISudokuData) => {
 					isWrong: false,
 				},
 				inputValue: undefined,
+				canIncrementScore: true,
 			};
 			group.push(elt);
 		}
