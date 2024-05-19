@@ -1,6 +1,6 @@
 import { FC, useContext, useEffect, useState } from "react"
-import { GameContext } from "../context/GameProvider"
-import { ChangeEvent, IElement } from "../types/gameTypes"
+import { GameContext } from "../../../context/GameProvider"
+import { ChangeEvent, IElement } from "../../../types/gameTypes"
 
 export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSelected }) => {
 	const {state, dispatch} = useContext(GameContext)
