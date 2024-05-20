@@ -70,7 +70,7 @@ export type GameType = {
 	defeat: boolean,
 	time: Time
 	score: number,
-	sameDifficult: boolean
+	sameDifficult: boolean,
 }
 
 export type GameAction = 
@@ -88,6 +88,7 @@ export type ContextProviderProps = {
 export interface GameContextType {
   state: GameType;
   dispatch: Dispatch<GameAction>;
+	timer: CountDownHook
 }
 
 export type ChangeEvent = React.ChangeEvent<HTMLInputElement>
@@ -105,18 +106,4 @@ export interface IElement {
 
 export interface IBoardElement {
 	boardElt: IElement[]
-}
-
-export const INITIAL_STATE:GameType = {
-  board: [],
-  difficult: Difficult.Easy,
-  lifes: 3,
-	errors: [],
-	defeat: false,
-	time: {
-		minutes: 0,
-		seconds: 0
-	},
-	score: 0,
-	sameDifficult: false
 }

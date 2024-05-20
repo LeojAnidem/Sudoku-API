@@ -32,7 +32,10 @@ export const GameComponent = () => {
         <DifficultTab />
       </div>
       <Sudoku />
-      {state.defeat ? <FailScreenComponent /> : <></>}
+      {state.defeat && state.board.length > 0 
+        ? <FailScreenComponent /> 
+        : <></>
+      }
     </div>
   )
 }

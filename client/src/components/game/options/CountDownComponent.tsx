@@ -1,12 +1,10 @@
 import { useContext, useEffect } from "react"
 import { GameContext } from "../../../context/GameProvider"
-import { useCountdown } from "../../../hooks/useCountdown"
 import { formatSecondsToString, timeObjToSeconds } from "../../../utils/boardFn"
 import { IconClock } from "../../icons/IconClock"
 
 export const CountDownComponent = () => {
-  const { state, dispatch } = useContext(GameContext)
-  const timer = useCountdown()
+  const { state, dispatch, timer } = useContext(GameContext)
 
   useEffect(() => {
     if (state.time.minutes <= 0) return
