@@ -7,6 +7,7 @@ import { LifeComponent } from "./options/LifeComponent"
 import { ScoreComponent } from "./options/ScoreComponent"
 import { GameContext } from "../../context/GameProvider"
 import { QuestionComponent } from "./options/QuestionComponent"
+import { PauseButton } from "./options/PauseButton"
 
 export const GameComponent = () => {
   const { state } = useContext(GameContext)
@@ -18,8 +19,13 @@ export const GameComponent = () => {
         justify-center gap-4
       "
     >
-      <div className="w-full flex justify-between items-center">
+      <div 
+        className="
+          w-full flex justify-between items-center
+        "
+      >
         <CountDownComponent />
+        <PauseButton />
         <QuestionComponent />
         <ScoreComponent />
       </div>

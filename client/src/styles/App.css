@@ -14,6 +14,9 @@
   flex items-center justify-center
   bg-dark-tremor-brand-muted border
   border-tremor-content-strong
+
+  hover:border-dark-tremor-brand-subtle
+  hover:border-2
 }
 
 .selected {

@@ -62,7 +62,7 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 				? <span
 						className={`
 							w-full h-full flex items-center justify-center
-							select-none cursor-pointer
+							select-none cursor-pointer 
 							${selectClassName.rowOrCol}
 							${selectClassName.sameVal}
 							${selectClassName.inGroup}

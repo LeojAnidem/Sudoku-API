@@ -33,6 +33,7 @@ export const GameProvider: FC<ContextProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(gameReducer, INITIAL_STATE)
   const timer = useCountdown()
 
+  // mejorar llamada a la api
   const fetchAPI = () => {
     const interval = setInterval(async () => {
       const board = await getSudokuData({ difficult: state.difficult })
@@ -46,7 +47,6 @@ export const GameProvider: FC<ContextProviderProps> = ({ children }) => {
     }, 250)
   }
 
-  // mejorar llamada a la api
   useEffect(() => {
     fetchAPI()
   }, [state.difficult, state.sameDifficult])

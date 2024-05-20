@@ -48,7 +48,11 @@ export const DifficultTab = () => {
               onContextMenu={(e) => e.preventDefault()}
               className={`
                 h-full w-min px-4 relative cursor-pointer
-                text-lg font-bold
+                text-lg font-bold 
+
+                hover:bg-dark-tremor-brand-subtle
+                hover:text-white
+                
                 ${option.isActive
                   ? 'bg-dark-tremor-brand-subtle text-white py-0.5'
                   : 'bg-dark-tremor-brand text-dark-tremor-background'

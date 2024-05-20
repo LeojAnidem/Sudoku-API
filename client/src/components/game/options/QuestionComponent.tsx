@@ -2,10 +2,15 @@ import { IconInformation } from "../../icons/IconInformation"
 
 export const QuestionComponent = () => {
   return (
-    <>
-      <IconInformation
-        className="w-10 h-10 fill-tremor-brand-emphasis"
-      />
-    </>
+    <button
+      className="
+        w-12 h-12 select-none cursor-pointer
+        stroke-tremor-brand-emphasis
+
+        hover:stroke-tremor-brand-subtle
+      "
+    >
+      <IconInformation className="w-full h-full"/>
+    </button>
   )
 }
