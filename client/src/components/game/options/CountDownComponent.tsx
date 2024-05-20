@@ -38,9 +38,10 @@ export const CountDownComponent = () => {
 
   return (
     <div
+      onContextMenu={(e) => e.preventDefault()}
       className={`
         w-min h-min rounded-lg select-none
-        flex items-center
+        flex items-center max-w-[128px]
       `}
     > 
       <div

@@ -6,6 +6,7 @@ import { FailScreenComponent } from "./options/FailScreenComponent"
 import { LifeComponent } from "./options/LifeComponent"
 import { ScoreComponent } from "./options/ScoreComponent"
 import { GameContext } from "../../context/GameProvider"
+import { QuestionComponent } from "./options/QuestionComponent"
 
 export const GameComponent = () => {
   const { state } = useContext(GameContext)
@@ -19,6 +20,7 @@ export const GameComponent = () => {
     >
       <div className="w-full flex justify-between items-center">
         <CountDownComponent />
+        <QuestionComponent />
         <ScoreComponent />
       </div>
       <div

@@ -7,8 +7,10 @@ export const ScoreComponent = () => {
   
   return (
     <div
+      onContextMenu={(e) => e.preventDefault()}
       className="
         flex items-center justify-center gap-1
+        select-none
       "
     >
       <span

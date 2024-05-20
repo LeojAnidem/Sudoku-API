@@ -22,21 +22,6 @@ export const LifeComponent = () => {
       setLife(() => [...arr])
     } 
 
-    if (state.lifes > life.length && life.length > 0) {
-      const diff = state.lifes - life.length
-
-      const arr = new Array(diff)
-        .fill(0)
-        .map((_, i) => {
-          return {
-            isActive: true,
-            id: life.length + i
-          }
-        })
-
-      setLife((prev) => [...prev, ...arr])
-    }
-
     life.map(el => el.isActive = true)
 
   }, [state.difficult, state.sameDifficult])
@@ -63,7 +48,8 @@ export const LifeComponent = () => {
   }, [state.lifes])
 
   return (
-    <div 
+    <div
+      onContextMenu={(e) => e.preventDefault()}
       className={`
         w-min h-min flex flex-col items-center
         ${!life.every(e => !e.isActive)

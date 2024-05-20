@@ -72,6 +72,7 @@ export const FailScreenComponent = () => {
 						Object.values(Difficult).map((difficult) => {
 							return (
 								<button
+									key={`button-${difficult}`}
 									className="px-8 py-1 text-xl font-bold button__blue"
 									onClick={() => handleClic(difficult)}
 								>

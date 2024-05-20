@@ -22,7 +22,7 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 		wrong: isWrong ? 'selected__wrong' : ''
 	}
 
-	const handleClic = (value: number) => {
+	const handleClic = (value: number) => {		
 		dispatch({ type: "SELECTING", position, value })
 	}
 	
