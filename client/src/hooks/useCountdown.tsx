@@ -4,7 +4,7 @@ import { CountDownHook, Timer } from "../types/gameTypes";
 export const useCountdown = (): CountDownHook => {
   const INITIAL_STATE: Timer = {
     secondsLeft: 0,
-    isPaused: false
+    isPaused: true
   }
   
   const [timerState, setTimerState] = useState(INITIAL_STATE)
@@ -32,7 +32,8 @@ export const useCountdown = (): CountDownHook => {
   const start = (seconds: number) => setTimerState((prev) => {
     return {
       ...prev,
-      secondsLeft: seconds
+      secondsLeft: seconds,
+      isPaused: false
     }
   })
   

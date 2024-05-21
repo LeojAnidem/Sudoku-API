@@ -5,11 +5,11 @@ import { IconHeart } from "../../icons/IconHeart"
 
 export const LifeComponent = () => {
   const INITIAL_STATE:Life[] = []
-  const { state, dispatch } = useContext(GameContext)
+  const { state, dispatch, timer } = useContext(GameContext)
   const [life, setLife] = useState(INITIAL_STATE)
 
   useEffect(() => {
-    if (life.length <= 0 && state.lifes > 0) {
+    if (life.length <= 0 && state.lifes > 0 && state.status === GameStatus.loading) {
       const arr: Life[] = new Array(state.lifes)
         .fill(0)
         .map((_, i) => {
@@ -24,7 +24,7 @@ export const LifeComponent = () => {
 
     life.map(el => el.isActive = true)
 
-  }, [state.difficult, state.status])
+  }, [state.difficult])
 
   useEffect(() => {
     if (state.status === GameStatus.playing) {
@@ -34,10 +34,13 @@ export const LifeComponent = () => {
         setLife(() => [...nLifeArr])
       }
   
-      if (state.lifes <= 0)
+      if (state.lifes <= 0) {
         dispatch({ type: "SET_STATUS", status: GameStatus.gameOver })
-
-    } else if (state.lifes > 0){
+        timer.pause()
+      }
+    } 
+    
+    if (state.lifes > 0 && state.status === GameStatus.gameOver) {
       const nLifeArr = [...life]
       nLifeArr[0].isActive = true
       setLife(() => [...nLifeArr])

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { GameContext } from "../../../context/GameProvider"
-import { Difficult, OptionDifficult } from "../../../types/gameTypes"
+import { Difficult, GameStatus, OptionDifficult } from "../../../types/gameTypes"
 
 export const DifficultTab = () => {
   const { state, dispatch } = useContext(GameContext)
@@ -18,7 +18,7 @@ export const DifficultTab = () => {
 
       return optionObj
     })
-
+    
     const idxDifficult = nOptions.findIndex(({ value }) => value === state.difficult)
 
     if (idxDifficult >= 0)
@@ -29,7 +29,9 @@ export const DifficultTab = () => {
   }, [state.difficult])
 
   const handlerOnClic = (difficult: Difficult) => {
-    dispatch({ type: 'CHANGE_DIFFICULT', difficult })
+    if (state.status === GameStatus.playing) {
+      dispatch({ type: 'CHANGE_DIFFICULT', difficult })
+    }
   }
 
   return (
@@ -50,8 +52,10 @@ export const DifficultTab = () => {
                 h-full w-min px-4 relative cursor-pointer
                 text-lg font-bold 
 
-                hover:bg-dark-tremor-brand-subtle
-                hover:text-white
+                ${state.status === GameStatus.playing && `
+                  hover:bg-dark-tremor-brand-subtle
+                  hover:text-white
+                `}
                 
                 ${option.isActive
                   ? 'bg-dark-tremor-brand-subtle text-white py-0.5'

@@ -35,10 +35,9 @@ export const FailScreenComponent = () => {
 
 	const DifficultScreen = () => {
 		const handleClic = (difficult: Difficult) => {
-      if (state.difficult === difficult)
-        dispatch({type:"SET_STATUS", status: GameStatus.pause})
-
-			dispatch({type:"CHANGE_DIFFICULT", difficult})
+      state.difficult === difficult
+				? dispatch({type:"CHANGE_DIFFICULT", difficult, isSameDifficult: true})
+				:	dispatch({type:"CHANGE_DIFFICULT", difficult})
 		}
 
 		return (

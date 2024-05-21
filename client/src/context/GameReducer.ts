@@ -5,10 +5,15 @@ import { getBoardPosition, updatedSelectGroup } from "../utils/boardFn";
 export const gameReducer = (state: GameType, action: GameAction) => {
   switch (action.type) {
     case 'CHANGE_DIFFICULT':
+      const nDifficult = action.isSameDifficult
+        ? action.difficult
+        : action.difficult
+
       return {
           ...state,
-          difficult: action.difficult,
-          board: []
+          difficult: nDifficult,
+          board: [],
+          status: GameStatus.loading
         }
     
     case 'INCREMENT_LIFE':
@@ -52,7 +57,7 @@ export const gameReducer = (state: GameType, action: GameAction) => {
         errors: [],
         score: 0,
         time: setTimeByDifficult(state.difficult),
-        status: GameStatus.loading
+        state: GameStatus.loading
       }
 
     case 'SET_STATUS':

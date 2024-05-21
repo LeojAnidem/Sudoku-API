@@ -81,7 +81,7 @@ export type GameType = {
 
 export type GameAction = 
 	| { type: 'SELECTING'; position: PositionType; value: number }
-	| { type: 'CHANGE_DIFFICULT'; difficult: Difficult}
+	| { type: 'CHANGE_DIFFICULT'; difficult: Difficult, isSameDifficult?: boolean}
 	| { type: 'UPDATE_BOARD'; board: IElement[][] }
 	| { type: 'SET_STATUS'; status: GameStatus }
 	| { type: 'INCREMENT_LIFE' }

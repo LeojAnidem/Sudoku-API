@@ -8,9 +8,10 @@ export const CountDownComponent = () => {
   const { state, dispatch, timer } = useContext(GameContext)
 
   useEffect(() => {
-    if (state.time.minutes <= 0) return
-    timer.start(timeObjToSeconds(state.time) - 1)
-    timer.resume()
+    if (state.time.minutes > 0 && state.status === GameStatus.playing) {
+      timer.start(timeObjToSeconds(state.time) - 1)
+      timer.resume()
+    }
   }, [state.time])
 
   useEffect(() => {
@@ -21,10 +22,6 @@ export const CountDownComponent = () => {
   }, [timer.secondsLeft])
 
   useEffect(() => {
-    state.lifes <= 0
-      ? timer.pause() 
-      : timer.resume()
-
     if (state.status === GameStatus.gameOver) {
       dispatch({type: 'SET_STATUS', status: GameStatus.playing})
 
@@ -32,9 +29,9 @@ export const CountDownComponent = () => {
         minutes: 2,
         seconds: 59
       }))
+
       timer.resume()
     }
-
   }, [state.lifes])
 
   return (
