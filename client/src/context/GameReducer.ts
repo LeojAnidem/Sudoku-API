@@ -1,5 +1,5 @@
 import { isEqual } from "lodash";
-import { BoardPositionType, Difficult, GameAction, GameType, Time, errorBoard } from "../types/gameTypes";
+import { BoardPositionType, Difficult, GameAction, GameStatus, GameType, Time, errorBoard } from "../types/gameTypes";
 import { getBoardPosition, updatedSelectGroup } from "../utils/boardFn";
 
 export const gameReducer = (state: GameType, action: GameAction) => {
@@ -10,13 +10,6 @@ export const gameReducer = (state: GameType, action: GameAction) => {
           difficult: action.difficult,
           board: []
         }
-    
-    case "SET_SAME_DIFFICULT":
-      return {
-        ...state,
-        sameDifficult: action.isSameDifficult,
-        board: []
-      }
     
     case 'INCREMENT_LIFE':
       const currLifes = state.lifes + 1
@@ -57,16 +50,15 @@ export const gameReducer = (state: GameType, action: GameAction) => {
         board: action.board,
         lifes: 3,
         errors: [],
-        defeat: false,
-        sameDifficult: false,
         score: 0,
-        time: setTimeByDifficult(state.difficult)
+        time: setTimeByDifficult(state.difficult),
+        status: GameStatus.loading
       }
 
-    case 'SET_GAME_OVER':
+    case 'SET_STATUS':
       return {
         ...state,
-        defeat: action.isDefeat,
+        status: action.status,
       }
 
     case 'SELECTING':
@@ -116,7 +108,7 @@ export const gameReducer = (state: GameType, action: GameAction) => {
           })
           
           // Reducimos la vida y agregamos el error al estado
-          if (!state.defeat) selectingLifes -= 1
+          if (state.status === GameStatus.playing) selectingLifes -= 1
           selectingErr.push(nError)
 
         } else {

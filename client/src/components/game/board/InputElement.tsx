@@ -1,6 +1,6 @@
 import { FC, useContext, useEffect, useState } from "react"
 import { GameContext } from "../../../context/GameProvider"
-import { ChangeEvent, IElement } from "../../../types/gameTypes"
+import { ChangeEvent, GameStatus, IElement } from "../../../types/gameTypes"
 
 export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSelected }) => {
 	const {state, dispatch} = useContext(GameContext)
@@ -8,7 +8,7 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 	const {isInGroup, isInRowOrCol, isOnCenter, isSameValue, isWrong} = isSelected
 	
 	// Si la dificultad cambia, se elimina todo en el tablero
-	useEffect(() => setCurVal(''), [state.difficult, state.sameDifficult])
+	useEffect(() => setCurVal(''), [state.difficult, state.status])
 	
 	const selectClassName = {
 		rowOrCol: isInRowOrCol && !isOnCenter ? 'selected' : '',
@@ -94,7 +94,7 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 						value={curVal}
 						onFocus={() => handleClic(parseInt(curVal))}
 						onContextMenu={(e) => e.preventDefault()}
-						disabled={state.defeat}
+						disabled={state.status !== GameStatus.playing}
 					/>
 			}
 		</div>

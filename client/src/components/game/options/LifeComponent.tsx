@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { GameContext } from "../../../context/GameProvider"
-import { Life } from "../../../types/gameTypes"
+import { GameStatus, Life } from "../../../types/gameTypes"
 import { IconHeart } from "../../icons/IconHeart"
 
 export const LifeComponent = () => {
@@ -24,10 +24,10 @@ export const LifeComponent = () => {
 
     life.map(el => el.isActive = true)
 
-  }, [state.difficult, state.sameDifficult])
+  }, [state.difficult, state.status])
 
   useEffect(() => {
-    if (!state.defeat) {
+    if (state.status === GameStatus.playing) {
       if (life.length !== state.lifes && life.length > 0) {
         const nLifeArr = [...life]
         nLifeArr[state.lifes].isActive = false
@@ -35,14 +35,14 @@ export const LifeComponent = () => {
       }
   
       if (state.lifes <= 0)
-        dispatch({ type: "SET_GAME_OVER", isDefeat: true })
+        dispatch({ type: "SET_STATUS", status: GameStatus.gameOver })
 
     } else if (state.lifes > 0){
       const nLifeArr = [...life]
       nLifeArr[0].isActive = true
       setLife(() => [...nLifeArr])
       
-      dispatch({ type: "SET_GAME_OVER", isDefeat: false})
+      dispatch({ type: "SET_STATUS", status: GameStatus.playing})
     }
 
   }, [state.lifes])

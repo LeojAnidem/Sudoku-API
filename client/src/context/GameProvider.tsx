@@ -1,7 +1,7 @@
 import { FC, createContext, useEffect, useReducer } from "react";
 import { useCountdown } from "../hooks/useCountdown";
 import { getSudokuData } from "../services/sudokuApi";
-import { ContextProviderProps, Difficult, GameContextType, GameType } from "../types/gameTypes";
+import { ContextProviderProps, Difficult, GameContextType, GameStatus, GameType } from "../types/gameTypes";
 import { gameReducer } from "./GameReducer";
 
 const INITIAL_STATE:GameType = {
@@ -9,13 +9,12 @@ const INITIAL_STATE:GameType = {
   difficult: Difficult.Easy,
   lifes: 3,
 	errors: [],
-	defeat: false,
 	time: {
 		minutes: 0,
 		seconds: 0
 	},
 	score: 0,
-	sameDifficult: false,
+	status: GameStatus.playing
 }
 
 export const GameContext = createContext<GameContextType>({
@@ -41,6 +40,7 @@ export const GameProvider: FC<ContextProviderProps> = ({ children }) => {
       if (board.length > 0) {
         dispatch({ type: 'UPDATE_BOARD', board })
         clearInterval(interval)
+        dispatch({ type: 'SET_STATUS', status: GameStatus.playing })
       } else {
         console.log('Fallo al conectarse con la API')
       }
@@ -49,7 +49,7 @@ export const GameProvider: FC<ContextProviderProps> = ({ children }) => {
 
   useEffect(() => {
     fetchAPI()
-  }, [state.difficult, state.sameDifficult])
+  }, [state.difficult, state.status])
 
   return (
     <GameContext.Provider value={{ state, dispatch, timer }}>

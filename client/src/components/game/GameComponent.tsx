@@ -8,6 +8,7 @@ import { ScoreComponent } from "./options/ScoreComponent"
 import { GameContext } from "../../context/GameProvider"
 import { QuestionComponent } from "./options/QuestionComponent"
 import { PauseButton } from "./options/PauseButton"
+import { GameStatus } from "../../types/gameTypes"
 
 export const GameComponent = () => {
   const { state } = useContext(GameContext)
@@ -38,7 +39,7 @@ export const GameComponent = () => {
         <DifficultTab />
       </div>
       <Sudoku />
-      {state.defeat && state.board.length > 0 
+      {state.status === GameStatus.gameOver 
         ? <FailScreenComponent /> 
         : <></>
       }

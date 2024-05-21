@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react"
 import { GameContext } from "../../../context/GameProvider"
 import { formatSecondsToString, timeObjToSeconds } from "../../../utils/boardFn"
 import { IconClock } from "../../icons/IconClock"
+import { GameStatus } from "../../../types/gameTypes"
 
 export const CountDownComponent = () => {
   const { state, dispatch, timer } = useContext(GameContext)
@@ -15,7 +16,7 @@ export const CountDownComponent = () => {
   useEffect(() => {
     if (timer.secondsLeft <= 0 && state.time.minutes > 0) {
       timer.pause()
-      dispatch({ type: "SET_GAME_OVER", isDefeat: true })
+      dispatch({ type: "SET_STATUS", status: GameStatus.gameOver })
     }
   }, [timer.secondsLeft])
 
@@ -24,7 +25,9 @@ export const CountDownComponent = () => {
       ? timer.pause() 
       : timer.resume()
 
-    if (timer.secondsLeft <= 0 && state.lifes > 0) {
+    if (state.status === GameStatus.gameOver) {
+      dispatch({type: 'SET_STATUS', status: GameStatus.playing})
+
       timer.start(timeObjToSeconds({
         minutes: 2,
         seconds: 59
@@ -46,7 +49,7 @@ export const CountDownComponent = () => {
         className={`
           p-1 rounded-full border-4
         bg-dark-tremor-background
-          ${timer.secondsLeft > 0
+          ${state.status !== GameStatus.gameOver
             ? 'border-tremor-brand-emphasis'
             : 'border-red-700'
           }
@@ -55,7 +58,7 @@ export const CountDownComponent = () => {
         <IconClock
           className={`
             w-10 h-10 stroke-none
-            ${timer.secondsLeft > 0
+            ${state.status !== GameStatus.gameOver
               ? 'fill-tremor-brand-emphasis'
               : 'fill-red-700'
             }
@@ -65,7 +68,7 @@ export const CountDownComponent = () => {
       <div
         className={`
           w-min h-min pr-1 py-1 rounded-lg relative
-          ${timer.secondsLeft > 0
+          ${state.status !== GameStatus.gameOver
             ? 'bg-tremor-brand-emphasis'
             : 'bg-red-700'
           }
@@ -75,7 +78,7 @@ export const CountDownComponent = () => {
           className={`
             text-2xl font-extrabold relative z-[1] pr-2
             bg-dark-tremor-background rounded-md
-            ${timer.secondsLeft > 0
+            ${state.status !== GameStatus.gameOver
               ? 'text-tremor-brand-emphasis'
               : 'text-red-700'
             }
@@ -88,7 +91,7 @@ export const CountDownComponent = () => {
             h-full w-5 absolute -left-2.5 top-0
             border-t-4 border-b-4
             bg-dark-tremor-background
-            ${timer.secondsLeft > 0
+            ${state.status !== GameStatus.gameOver
               ? `
                   border-t-tremor-brand-emphasis
                   border-b-tremor-brand-emphasis

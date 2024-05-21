@@ -1,6 +1,6 @@
 import { useContext, useState } from "react"
 import { GameContext } from "../../../context/GameProvider"
-import { Difficult } from "../../../types/gameTypes"
+import { Difficult, GameStatus } from "../../../types/gameTypes"
 
 export const FailScreenComponent = () => {
 	const { state, dispatch } = useContext(GameContext)
@@ -36,7 +36,7 @@ export const FailScreenComponent = () => {
 	const DifficultScreen = () => {
 		const handleClic = (difficult: Difficult) => {
       if (state.difficult === difficult)
-        dispatch({type:"SET_SAME_DIFFICULT", isSameDifficult: state.difficult === difficult})
+        dispatch({type:"SET_STATUS", status: GameStatus.pause})
 
 			dispatch({type:"CHANGE_DIFFICULT", difficult})
 		}

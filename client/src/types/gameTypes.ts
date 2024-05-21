@@ -62,23 +62,28 @@ export type OptionDifficult = {
 	id: number
 }
 
+export enum GameStatus {
+	playing = 'Playing',
+	gameOver = 'Game Over',
+	pause = 'Pause',
+	loading = 'Loading'
+}
+
 export type GameType = {
 	board: IElement[][],
 	difficult: Difficult,
 	lifes: number,
 	errors: errorBoard[],
-	defeat: boolean,
 	time: Time
 	score: number,
-	sameDifficult: boolean,
+	status: GameStatus
 }
 
 export type GameAction = 
 	| { type: 'SELECTING'; position: PositionType; value: number }
 	| { type: 'CHANGE_DIFFICULT'; difficult: Difficult}
 	| { type: 'UPDATE_BOARD'; board: IElement[][] }
-	| { type: 'SET_GAME_OVER'; isDefeat: boolean }
-	| { type: 'SET_SAME_DIFFICULT'; isSameDifficult: boolean }
+	| { type: 'SET_STATUS'; status: GameStatus }
 	| { type: 'INCREMENT_LIFE' }
 
 export type ContextProviderProps = {
