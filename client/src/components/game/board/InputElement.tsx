@@ -22,8 +22,10 @@ export const InputElement: FC<IElement> = ({ position, value, isUnsolved, isSele
 		wrong: isWrong ? 'selected__wrong' : ''
 	}
 
-	const handleClic = (value: number) => {		
-		dispatch({ type: "SELECTING", position, value })
+	const handleClic = (value: number) => {	
+		if (state.status === GameStatus.playing) {
+			dispatch({ type: "SELECTING", position, value })
+		}
 	}
 	
 	const handleOnInput = (e: ChangeEvent) => {

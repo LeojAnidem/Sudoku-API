@@ -24,7 +24,7 @@ export const LifeComponent = () => {
 
     life.map(el => el.isActive = true)
 
-  }, [state.difficult])
+  }, [state.difficult, state.forceRestart])
 
   useEffect(() => {
     if (state.status === GameStatus.playing) {

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react"
 import { GameContext } from "../../../context/GameProvider"
-import { Difficult, GameStatus } from "../../../types/gameTypes"
+import { Difficult } from "../../../types/gameTypes"
 
 export const FailScreenComponent = () => {
 	const { state, dispatch } = useContext(GameContext)

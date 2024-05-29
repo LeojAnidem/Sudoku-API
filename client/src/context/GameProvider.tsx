@@ -53,7 +53,7 @@ export const GameProvider: FC<ContextProviderProps> = ({ children }) => {
 
   useEffect(() => {
     fetchAPI()
-  }, [state.difficult])
+  }, [state.difficult, state.forceRestart])
 
   return (
     <GameContext.Provider value={{ state, dispatch, timer }}>

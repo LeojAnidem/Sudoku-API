@@ -77,6 +77,7 @@ export type GameType = {
 	time: Time
 	score: number,
 	status: GameStatus
+	forceRestart?: boolean
 }
 
 export type GameAction = 

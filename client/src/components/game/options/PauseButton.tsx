@@ -22,18 +22,23 @@ export const PauseButton = () => {
 
   return (
     <button
-      className="
-        w-12 h-12 select-none cursor-pointer
-        stroke-tremor-brand-emphasis
-
-        hover:stroke-tremor-brand-subtle
-      "
+      className="w-12 h-12 select-none cursor-pointer"
       onClick={handleClic}
     >
       {
         isPause
-          ? <IconPlay className="w-full h-full"/>
-          : <IconPause className="w-full h-full" />
+          ? <IconPlay
+              className="
+                w-full h-full stroke-tremor-brand-emphasis
+                hover:stroke-tremor-brand-subtle
+              "
+            />
+          : <IconPause
+              className="
+                w-full h-full stroke-tremor-brand-emphasis
+                hover:stroke-tremor-brand-subtle
+              "
+            />
       }
       
     </button>
