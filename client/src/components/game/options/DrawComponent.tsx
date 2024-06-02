@@ -3,7 +3,10 @@ import { IconInformation } from "../../icons/IconInformation"
 export const DrawComponent = () => {
   return (
     <button
-      className="w-12 h-12 select-none cursor-pointer relative"
+      className="
+        w-12 h-12 select-none cursor-pointer relative
+      "
+      onContextMenu={(e) => e.preventDefault()}
     >
       <IconInformation
         className="

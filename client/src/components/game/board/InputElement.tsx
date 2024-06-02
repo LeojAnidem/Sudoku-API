@@ -2,7 +2,7 @@ import { FC, useContext, useEffect, useState } from "react"
 import { GameContext } from "../../../context/GameProvider"
 import { GameStatus } from "../../../types/gameEnum"
 import { IInputElement } from "../../../types/gameInterfaces"
-import { ChangeEvent } from "../../../types/gameTypes"
+import { ChangeEvent, KeyboardEvent } from "../../../types/gameTypes"
 
 export const InputElement: FC<IInputElement> = ({clickFn, className, position}) => {
 	const {state} = useContext(GameContext)
@@ -29,6 +29,11 @@ export const InputElement: FC<IInputElement> = ({clickFn, className, position}) 
 			: setCurVal(`${val}`)
 	}
 
+	const handleOnKeyDown = (e: KeyboardEvent) => {
+		if (e.key === 'ArrowUp' || e.key === 'ArrowDown')
+			e.preventDefault()
+	}
+
 	return (
 		<input
 			className={`
@@ -36,15 +41,16 @@ export const InputElement: FC<IInputElement> = ({clickFn, className, position}) 
 				text-dark-tremor-brand font-semibold text-lg
 				select-none ${className}
 			`}
-			type="number"
-			min={1}
-			max={9}
+			value={curVal}
 			onChange={handleOnChange}
 			onInput={handleOnInput}
-			value={curVal}
+			onKeyDown={handleOnKeyDown}
 			onFocus={() => clickFn(parseInt(curVal), position)}
-			onContextMenu={(e) => e.preventDefault()}
 			disabled={state.status !== GameStatus.playing}
-		/>
+			min={1}
+			max={9}
+			type="number"
+			onContextMenu={(e) => e.preventDefault()}
+			/>
 	)	
 }

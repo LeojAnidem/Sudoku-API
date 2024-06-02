@@ -10,6 +10,8 @@ import { Difficult, GameStatus } from "./gameEnum"
 
 	export type ChangeEvent = React.ChangeEvent<HTMLInputElement>
 
+	export type KeyboardEvent = React.KeyboardEvent<HTMLInputElement>
+
 // _______________________________________________
 // Base
 

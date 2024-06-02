@@ -17,6 +17,7 @@ export const PauseButton = () => {
     <button
       className="w-12 h-12 select-none cursor-pointer"
       onClick={handleClic}
+      onContextMenu={(e) => e.preventDefault()}
     >
       <IconPause
         className="
