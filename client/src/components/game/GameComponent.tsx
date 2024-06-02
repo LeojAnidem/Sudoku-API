@@ -1,14 +1,14 @@
 import { useContext } from "react"
+import { GameContext } from "../../context/GameProvider"
+import { GameStatus } from "../../types/gameEnum"
 import { Sudoku } from "./board/Sudoku"
 import { CountDownComponent } from "./options/CountDownComponent"
 import { DifficultTab } from "./options/DifficultTab"
-import { FailScreenComponent } from "./screens/FailScreenComponent"
+import { DrawComponent } from "./options/DrawComponent"
 import { LifeComponent } from "./options/LifeComponent"
-import { ScoreComponent } from "./options/ScoreComponent"
-import { GameContext } from "../../context/GameProvider"
-import { QuestionComponent } from "./options/QuestionComponent"
 import { PauseButton } from "./options/PauseButton"
-import { GameStatus } from "../../types/gameTypes"
+import { ScoreComponent } from "./options/ScoreComponent"
+import { FailScreenComponent } from "./screens/FailScreenComponent"
 import { PauseScreenComponent } from "./screens/PauseScreenComponent"
 
 export const GameComponent = () => {
@@ -24,7 +24,7 @@ export const GameComponent = () => {
       <div className="w-full flex justify-between items-center">
         <CountDownComponent />
         <PauseButton />
-        <QuestionComponent />
+        <DrawComponent />
         <ScoreComponent />
       </div>
       <div className="flex justify-between items-center gap-2">

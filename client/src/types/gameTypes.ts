@@ -1,115 +1,104 @@
-import { Dispatch, ReactNode } from "react"
+import { ReactNode } from "react"
+import { Difficult, GameStatus } from "./gameEnum"
 
-export enum Difficult {
-	Easy = 'Easy',
-	Medium = 'Medium',
-	Hard = 'Hard'
-}
+// _______________________________________________
+// React
 
-export type Life = {
-	isActive: boolean,
-	id: number
-}
+	export type ContextProviderProps = {
+		children?: ReactNode
+	}
 
-export interface IIcon {
-  className?: string
-}
+	export type ChangeEvent = React.ChangeEvent<HTMLInputElement>
 
-export type CountDownHook = {
-	secondsLeft: number,
-	start: (seconds: number) => void
-	pause: () => void
-	resume: () => void
-}
+// _______________________________________________
+// Base
 
-export type Timer = {
-	secondsLeft: number,
-	isPaused: boolean
-}
+	export type PositionType = {
+		row: number,
+		col: number
+	}
 
-export type BoardPositionType = {
-	groupIndex: number,
-	indexInGroup: number
-}
+	export type Time = {
+		minutes: number,
+		seconds: number
+	}
 
-export type PositionType = {
-	row: number,
-	col: number
-}
+	export type Life = {
+		isActive: boolean,
+		id: number
+	}
 
-export type SelectType = {
-	isSameValue: Boolean,
-	isInRowOrCol: Boolean,
-	isOnCenter: Boolean,
-	isInGroup: Boolean,
-	isWrong: Boolean
-}
+// _______________________________________________
+// Game Elements
 
-export type errorBoard = {
-	errorPos: BoardPositionType,
-	errorVal: number,
-	asociatedErrorPos: BoardPositionType[]
-}
+	export type BoardType = number[][]
 
-export type Time = {
-	minutes: number,
-	seconds: number
-}
+	export type BoardPositionType = {
+		groupIndex: number,
+		indexInGroup: number
+	}
 
-export type OptionDifficult = {
-	value: Difficult,
-	isActive: boolean,
-	id: number
-}
+	export type errorBoard = {
+		errorPos: BoardPositionType,
+		errorVal: number,
+		asociatedErrorPos: BoardPositionType[]
+	}
 
-export enum GameStatus {
-	playing = 'Playing',
-	gameOver = 'Game Over',
-	pause = 'Pause',
-	loading = 'Loading'
-}
+	export type SelectType = {
+		isSameValue: Boolean,
+		isInRowOrCol: Boolean,
+		isOnCenter: Boolean,
+		isInGroup: Boolean,
+		isWrong: Boolean
+	}
 
-export type GameType = {
-	board: IElement[][],
-	difficult: Difficult,
-	lifes: number,
-	errors: errorBoard[],
-	time: Time
-	score: number,
-	status: GameStatus
-	forceRestart?: boolean
-}
+	export type ElementType = {
+		value: number,
+		position: PositionType,
+		isUnsolved: Boolean,
+		isSelected: SelectType
+		inputValue: number | undefined,
+		canIncrementScore: Boolean
+	}
 
-export type GameAction = 
-	| { type: 'SELECTING'; position: PositionType; value: number }
-	| { type: 'CHANGE_DIFFICULT'; difficult: Difficult, isSameDifficult?: boolean}
-	| { type: 'UPDATE_BOARD'; board: IElement[][] }
-	| { type: 'SET_STATUS'; status: GameStatus }
-	| { type: 'INCREMENT_LIFE' }
+	export type OptionDifficult = {
+		value: Difficult,
+		isActive: boolean,
+		id: number
+	}
 
-export type ContextProviderProps = {
-	children?: ReactNode
-}
+// _______________________________________________
+// Status Game
 
-export interface GameContextType {
-  state: GameType;
-  dispatch: Dispatch<GameAction>;
-	timer: CountDownHook
-}
+	export type GameType = {
+		board: ElementType[][],
+		difficult: Difficult,
+		lifes: number,
+		errors: errorBoard[],
+		time: Time
+		score: number,
+		status: GameStatus
+		forceRestart?: boolean
+	}
 
-export type ChangeEvent = React.ChangeEvent<HTMLInputElement>
+	export type GameAction = 
+		| { type: 'SELECTING'; position: PositionType; value: number }
+		| { type: 'CHANGE_DIFFICULT'; difficult: Difficult, isSameDifficult?: boolean}
+		| { type: 'UPDATE_BOARD'; board: ElementType[][] }
+		| { type: 'SET_STATUS'; status: GameStatus }
+		| { type: 'INCREMENT_LIFE' }
 
-export type BoardType = number[][]
+// _______________________________________________
+// Hooks Types
 
-export interface IElement {
-	value: number,
-	position: PositionType,
-	isUnsolved: Boolean,
-	isSelected: SelectType
-	inputValue: number | undefined,
-	canIncrementScore: Boolean
-}
+	export type CountDownHookType = {
+		secondsLeft: number,
+		start: (seconds: number) => void
+		pause: () => void
+		resume: () => void
+	}
 
-export interface IBoardElement {
-	boardElt: IElement[]
-}
+	export type Timer = {
+		secondsLeft: number,
+		isPaused: boolean
+	}

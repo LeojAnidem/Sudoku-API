@@ -1,6 +1,6 @@
 import { isEqual } from "lodash";
 import { ISudokuData } from "../types/apiTypes";
-import { BoardPositionType, IElement, PositionType, Time } from "../types/gameTypes";
+import { BoardPositionType, IElement, PositionType, SelectType, Time } from "../types/gameTypes";
 
 // La API de donde recopilamos los datos para nuestro sudoku
 // nos devuelve los valores en nueve arrays donde cada array
@@ -183,4 +183,25 @@ export const formatSecondsToString = (seconds: number):string => {
   const sStr = `${sec < 10 ? `0${sec}` : sec}`
 
   return `${hour > 0 ? `${hStr}:` : ''}${mStr}:${sStr}`
+}
+
+// Aplica estilo a los elementos del sudoku dependiendo de ciertos parametros
+export const applyStyle = (isSelected: SelectType) => {
+	const {isInGroup, isInRowOrCol, isOnCenter, isSameValue, isWrong} = isSelected
+
+	const rowOrCol = isInRowOrCol && !isOnCenter ? 'selected' : ''
+	const onCenter = isOnCenter ? 'selected__focus' : ''
+	const wrong = isWrong ? 'selected__wrong' : ''
+	const inGroup = isInGroup && !isOnCenter && !isInRowOrCol ? 'selected' : ''
+
+	const sameVal = isSameValue && !isOnCenter && !isInRowOrCol && !isInGroup
+		? 'selected__val' : ''
+	
+	const noEffect = !isOnCenter && !isInRowOrCol && !isSameValue && !isInGroup
+		? 'bg-transparent' : ''
+	
+	return `
+		${rowOrCol} ${sameVal} ${inGroup} ${onCenter} ${wrong}
+		${noEffect}
+	`
 }

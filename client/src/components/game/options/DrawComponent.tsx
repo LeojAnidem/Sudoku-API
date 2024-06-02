@@ -1,6 +1,6 @@
 import { IconInformation } from "../../icons/IconInformation"
 
-export const QuestionComponent = () => {
+export const DrawComponent = () => {
   return (
     <button
       className="w-12 h-12 select-none cursor-pointer relative"

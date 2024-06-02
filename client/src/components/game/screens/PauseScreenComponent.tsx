@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { GameContext } from "../../../context/GameProvider"
-import { GameStatus } from "../../../types/gameTypes"
+import { GameStatus } from "../../../types/gameEnum"
 
 export const PauseScreenComponent = () => {
   const { dispatch, timer } = useContext(GameContext)

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { GameContext } from "../../../context/GameProvider"
-import { Difficult, GameStatus, OptionDifficult } from "../../../types/gameTypes"
+import { Difficult, GameStatus } from "../../../types/gameEnum"
+import { OptionDifficult } from "../../../types/gameTypes"
 
 export const DifficultTab = () => {
   const { state, dispatch } = useContext(GameContext)

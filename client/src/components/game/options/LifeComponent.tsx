@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { GameContext } from "../../../context/GameProvider"
-import { GameStatus, Life } from "../../../types/gameTypes"
+import { GameStatus } from "../../../types/gameEnum"
+import { Life } from "../../../types/gameTypes"
 import { IconHeart } from "../../icons/IconHeart"
 
 export const LifeComponent = () => {

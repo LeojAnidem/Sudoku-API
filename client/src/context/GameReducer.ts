@@ -1,5 +1,6 @@
 import { isEqual } from "lodash";
-import { BoardPositionType, Difficult, GameAction, GameStatus, GameType, Time, errorBoard } from "../types/gameTypes";
+import { Difficult, GameStatus } from "../types/gameEnum";
+import { BoardPositionType, GameAction, GameType, Time, errorBoard } from "../types/gameTypes";
 import { getBoardPosition, updatedSelectGroup } from "../utils/boardFn";
 
 export const gameReducer = (state: GameType, action: GameAction) => {

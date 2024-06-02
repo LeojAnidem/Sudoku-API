@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { CountDownHook, Timer } from "../types/gameTypes";
+import { CountDownHookType, Timer } from "../types/gameTypes";
 
-export const useCountdown = (): CountDownHook => {
+export const useCountdown = (): CountDownHookType => {
   const INITIAL_STATE: Timer = {
     secondsLeft: 0,
     isPaused: true
