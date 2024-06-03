@@ -4,10 +4,7 @@ import { IElement } from "../../../types/gameInterfaces"
 export const ElementComponent: FC<IElement> = ({value, clickFn, className, position}) => {
 	return (
 		<span
-			className={`
-				w-full h-full flex items-center justify-center
-				select-none cursor-pointer ${className}
-			`}
+			className={className}
 			onClick={() => clickFn(value, position)}
 			onContextMenu={(e) => e.preventDefault()}
 		>

@@ -30,7 +30,10 @@ export const DifficultTab = () => {
   }, [state.difficult])
 
   const handlerOnClic = (difficult: Difficult) => {
-    if (state.status === GameStatus.playing) {
+    const isPossibleChange = state.status === GameStatus.playing
+      || state.status === GameStatus.draw
+
+    if (isPossibleChange) {
       dispatch({ type: 'CHANGE_DIFFICULT', difficult })
     }
   }

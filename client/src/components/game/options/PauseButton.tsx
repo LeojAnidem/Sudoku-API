@@ -7,7 +7,10 @@ export const PauseButton = () => {
   const { state, dispatch, timer } = useContext(GameContext)
 
   const handleClic = () => {
-    if (state.status === GameStatus.playing) {
+    const isPossibleChange = state.status === GameStatus.playing
+      || state.status === GameStatus.draw
+
+    if (isPossibleChange) {
       timer.pause()
       dispatch({type: 'SET_STATUS', status: GameStatus.pause})
     }

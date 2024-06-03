@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { IIcon } from "../../types/gameTypes"
+import { IIcon } from "../../types/gameInterfaces"
 
 export const IconHeart: FC<IIcon> = ({ className = 'w-6 h-6' }) => {
   return (

@@ -37,9 +37,9 @@ export const InputElement: FC<IInputElement> = ({clickFn, className, position}) 
 	return (
 		<input
 			className={`
-				w-full h-full cursor-pointer flex text-center
-				text-dark-tremor-brand font-semibold text-lg
-				select-none ${className}
+				font-semibold text-lg
+				text-dark-tremor-brand 
+				${className}
 			`}
 			value={curVal}
 			onChange={handleOnChange}
@@ -51,6 +51,6 @@ export const InputElement: FC<IInputElement> = ({clickFn, className, position}) 
 			max={9}
 			type="number"
 			onContextMenu={(e) => e.preventDefault()}
-			/>
+		/>		
 	)	
 }

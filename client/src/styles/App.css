@@ -1,7 +1,10 @@
+body {
+  @apply bg-dark-tremor-background
+}
+
 .main_bg {
   @apply w-full h-screen
   grid justify-center items-center
-  bg-dark-tremor-background
 }
 
 .grid_sk {
@@ -17,6 +20,11 @@
 
   hover:border-dark-tremor-brand-subtle
   hover:border-2
+}
+
+.standard_btn {
+  @apply w-full h-full cursor-pointer select-none	
+  flex items-center justify-center text-center
 }
 
 .selected {
