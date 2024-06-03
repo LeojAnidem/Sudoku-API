@@ -50,6 +50,8 @@ export const InputElement: FC<IInputElement> = ({clickFn, className, position}) 
 		}
 
 		if (state.status === GameStatus.draw) {
+			setCurVal('')
+
 			if (val >= min && val <= max) {
 				const idIncludeVal = arrValues.findIndex((e) => e === val)
 	
