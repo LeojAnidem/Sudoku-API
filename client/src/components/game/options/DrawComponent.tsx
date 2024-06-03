@@ -13,13 +13,18 @@ export const DrawComponent = () => {
   }, [state.difficult, state.status])
 
   const handleOnClic = () => {
-    const nIsOn = !isOn
-    const setStatus: GameStatus = nIsOn
-      ? GameStatus.draw
-      : GameStatus.playing
+    const conditional = state.status === GameStatus.playing
+      || state.status === GameStatus.draw
     
-    dispatch({type: 'SET_STATUS', status: setStatus})
-    setIsOn(nIsOn)
+    if (conditional) {
+      const nIsOn = !isOn
+      const setStatus: GameStatus = nIsOn
+        ? GameStatus.draw
+        : GameStatus.playing
+      
+      dispatch({type: 'SET_STATUS', status: setStatus})
+      setIsOn(nIsOn)
+    }
   }
 
   return (
