@@ -3,6 +3,7 @@ import { GameContext } from "../../../context/GameProvider"
 import { GameStatus } from "../../../types/gameEnum"
 import { IInputElement } from "../../../types/gameInterfaces"
 import { ChangeEvent, KeyboardEvent } from "../../../types/gameTypes"
+import { fillArrWithBlanks } from "../../../utils/boardFn"
 
 export const InputElement: FC<IInputElement> = ({clickFn, className, position}) => {
 	const {state} = useContext(GameContext)
@@ -86,7 +87,6 @@ export const InputElement: FC<IInputElement> = ({clickFn, className, position}) 
     }
 	}
 
-	// Eliminar arrValues cuando se ingrese input
 	return (
 		<div className={`w-full h-full relative ${className}`}>
 			<div
@@ -104,7 +104,7 @@ export const InputElement: FC<IInputElement> = ({clickFn, className, position}) 
 				`}
 			>
 				{arrValues.length > 0 
-					? arrValues.map((val, i) => (
+					? fillArrWithBlanks(arrValues).map((val, i) => (
 							<span key={`DrawInput-${i}`}>
 								{val}
 							</span>

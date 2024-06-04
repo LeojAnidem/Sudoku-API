@@ -1,6 +1,6 @@
 import { isEqual } from "lodash";
 import { ISudokuData } from "../types/apiTypes";
-import { BoardPositionType, IElement, PositionType, SelectType, Time } from "../types/gameTypes";
+import { BoardPositionType, ElementType, PositionType, SelectType, Time } from "../types/gameTypes";
 
 // La API de donde recopilamos los datos para nuestro sudoku
 // nos devuelve los valores en nueve arrays donde cada array
@@ -10,7 +10,7 @@ import { BoardPositionType, IElement, PositionType, SelectType, Time } from "../
 // contenga un grupo de elementos, por ejemplo: las filas del 0 al
 // 2, junto con las columnas del 0 al 2, pertenecerian a un grupo,
 // que pasaria a ser el primer array (indice 0) del nuevo arreglo.
-const organizeToBoardElement = (boardData: IElement[][]) => {
+const organizeToBoardElement = (boardData: ElementType[][]) => {
 	const organizeArr = [];
 
 	for (let i = 0; i < boardData.length; i += 3) {
@@ -31,14 +31,14 @@ const organizeToBoardElement = (boardData: IElement[][]) => {
 // Funcion que convierte el objeto obtenido de nuestra API, en un arreglo
 // que contiene nueve arreglos del tipo IElement
 const convertBoardToData = (board: ISudokuData) => {
-	const boardData: IElement[][] = [];
+	const boardData: ElementType[][] = [];
 	const { solved, unsolved } = board;
 
 	for (let row = 0; row < solved.length; row++) {
-		const group: IElement[] = [];
+		const group: ElementType[] = [];
 
 		for (let col = 0; col < solved[row].length; col++) {
-			const elt: IElement = {
+			const elt: ElementType = {
 				value: solved[row][col],
 				position: { col, row },
 				isUnsolved: unsolved[row][col] === 0,
@@ -125,11 +125,11 @@ export const idxDuplicateVals = (
 // Se encarga de actualizar el estado de los elementos cercanos y que
 // compartan misma fila o columna del elemento seleccionado,
 // ademas de devolver los mismos en un array
-export const updatedSelectGroup = (board: IElement[][], eltCenterPos: PositionType, selectVal: number) => {
-  const isEltCtrInGroup = (group: IElement[]): boolean => group.some(elt => isEqual(elt.position, eltCenterPos))
+export const updatedSelectGroup = (board: ElementType[][], eltCenterPos: PositionType, selectVal: number) => {
+  const isEltCtrInGroup = (group: ElementType[]): boolean => group.some(elt => isEqual(elt.position, eltCenterPos))
   const groupSelectIdx = board.findIndex(group => isEltCtrInGroup(group))
   const selectGroupPox: PositionType[] = board[groupSelectIdx].map(({position}) => position)
-  const allEltInSelection: IElement[] = []
+  const allEltInSelection: ElementType[] = []
   
   const updBoard = board.map((group) => {
     return group.map(elt => {
@@ -204,4 +204,39 @@ export const applyStyle = (isSelected: SelectType) => {
 		${rowOrCol} ${sameVal} ${inGroup} ${onCenter} ${wrong}
 		${noEffect}
 	`
+}
+
+// Completa los espacios faltantes de un array de numeros del 1 al 9
+export const fillArrWithBlanks = (arr: number[], isFillMissingOn = false) => {
+	const INITIAL: number[] = []
+	const copyArr = [...arr]
+	const idxFirst = copyArr.findIndex(val => val === 1)
+	const idxLast = copyArr.findIndex(val => val === 9)
+
+	if (idxFirst < 0) copyArr.splice(0, 0, 1)
+	if (idxLast < 0) copyArr.splice(copyArr.length - 1, 0, 9)
+
+	const sortArr = copyArr.sort((a,b) => a - b)
+	console.log(sortArr)
+	const idxMissingNumbers = sortArr.reduce((acc, n, i) => {
+		const canSkipStep = i+1 >= sortArr.length || n+1 === sortArr[i+1]
+		if (!canSkipStep)
+			for(let it = n; it < sortArr[i+1] - 1; it++)
+				acc.push(it)
+
+		return acc
+	}, INITIAL)
+	
+	idxMissingNumbers.forEach((idx) => {
+		const itemVal = isFillMissingOn ? idx+1 : 0
+		sortArr.splice(idx, 0, itemVal)
+	})
+
+	return sortArr.map((val, i) => {
+		if (!isFillMissingOn) {
+			if (idxFirst < 0 && i === 0) return ''
+			if (idxLast < 0 && i === sortArr.length - 1) return ''
+		}
+		return val === 0 ? '' : val
+	})
 }
