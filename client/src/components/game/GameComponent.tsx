@@ -10,9 +10,23 @@ import { PauseButton } from "./options/PauseButton"
 import { ScoreComponent } from "./options/ScoreComponent"
 import { FailScreenComponent } from "./screens/FailScreenComponent"
 import { PauseScreenComponent } from "./screens/PauseScreenComponent"
+import { WinScreenComponent } from "./screens/WinScreenComponent"
 
 export const GameComponent = () => {
   const { state } = useContext(GameContext)
+
+  const returnScreenByStatus = (status: GameStatus) => {
+    switch(status) {
+      case GameStatus.gameOver :
+        return <FailScreenComponent /> 
+      case GameStatus.pause :
+        return <PauseScreenComponent /> 
+      case GameStatus.Win :
+        return <WinScreenComponent />
+      default :
+        return <></>
+    }
+  }
 
   return (
     <div
@@ -32,14 +46,7 @@ export const GameComponent = () => {
         <DifficultTab />
       </div>
       <Sudoku />
-      {
-        state.status === GameStatus.gameOver &&
-        <FailScreenComponent /> 
-      }
-      {
-        state.status === GameStatus.pause &&
-        <PauseScreenComponent /> 
-      }
+      {returnScreenByStatus(state.status)}
     </div>
   )
 }

@@ -6,7 +6,6 @@ import { getBoardPosition, updatedSelectGroup } from "../utils/boardFn";
 export const gameReducer = (state: GameType, action: GameAction) => {
   switch (action.type) {
     case 'CHANGE_DIFFICULT':
-
       return {
           ...state,
           difficult: action.difficult,
@@ -21,6 +20,20 @@ export const gameReducer = (state: GameType, action: GameAction) => {
       return {
         ...state,
         lifes: currLifes
+      }
+
+    case 'CHECK_WIN' :
+      const justUnsolvedElt = state.board.map(group => group.filter(elt => elt.isUnsolved))
+      const someUndefined = justUnsolvedElt
+        .flat()
+        .some(elt => typeof(elt.inputValue) === 'undefined')
+      
+      const isPossibleWin = !someUndefined && state.errors.length <= 0
+
+      return {
+        ...state,
+        status: isPossibleWin ? GameStatus.Win : GameStatus.playing,
+        errors: isPossibleWin ? [] : [...state.errors]
       }
 
     case 'UPDATE_BOARD':

@@ -75,7 +75,7 @@ export const LifeComponent = () => {
               <IconHeart
                 key={`I-Heart-${elt.id}`}
                 className={`
-                  w-8 h-9
+                  w-7 h-8
                   ${!life.every(e => !e.isActive) 
                     ? `${elt.isActive
                         ? 'fill-tremor-brand-emphasis stroke-none'

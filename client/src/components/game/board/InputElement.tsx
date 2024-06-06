@@ -6,7 +6,7 @@ import { ChangeEvent, KeyboardEvent } from "../../../types/gameTypes"
 import { fillArrWithBlanks } from "../../../utils/boardFn"
 
 export const InputElement: FC<IInputElement> = ({clickFn, className, position}) => {
-	const {state} = useContext(GameContext)
+	const {state, dispatch} = useContext(GameContext)
 	const INITIAL_STATE: number[] = []
 
 	const [curVal, setCurVal] = useState('')
@@ -44,10 +44,13 @@ export const InputElement: FC<IInputElement> = ({clickFn, className, position}) 
 		
 		if (state.status === GameStatus.playing) {
 			setArrValues([])
-			clickFn(val, position)
-			return (val < min || val > max) 
+			
+			val < min || val > max 
 				? setCurVal('')
 				: setCurVal(`${val}`)
+
+			clickFn(val, position)
+			dispatch({type: 'CHECK_WIN'})
 		}
 
 		if (state.status === GameStatus.draw) {
@@ -118,11 +121,7 @@ export const InputElement: FC<IInputElement> = ({clickFn, className, position}) 
 					text-dark-tremor-brand text-center
 					bg-transparent
 				`}
-				value={
-					state.status === GameStatus.playing
-						? curVal 
-						: ''
-				}
+				value={curVal}
 				onChange={handleOnChange}
 				onInput={handleOnInput}
 				onKeyDown={handleOnKeyDown}

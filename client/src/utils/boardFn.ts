@@ -217,7 +217,6 @@ export const fillArrWithBlanks = (arr: number[], isFillMissingOn = false) => {
 	if (idxLast < 0) copyArr.splice(copyArr.length - 1, 0, 9)
 
 	const sortArr = copyArr.sort((a,b) => a - b)
-	console.log(sortArr)
 	const idxMissingNumbers = sortArr.reduce((acc, n, i) => {
 		const canSkipStep = i+1 >= sortArr.length || n+1 === sortArr[i+1]
 		if (!canSkipStep)

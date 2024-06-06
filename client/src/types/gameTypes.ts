@@ -89,6 +89,7 @@ import { Difficult, GameStatus } from "./gameEnum"
 		| { type: 'UPDATE_BOARD'; board: ElementType[][] }
 		| { type: 'SET_STATUS'; status: GameStatus }
 		| { type: 'INCREMENT_LIFE' }
+		| { type: 'CHECK_WIN' }
 
 // _______________________________________________
 // Hooks Types

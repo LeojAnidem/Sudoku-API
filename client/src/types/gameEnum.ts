@@ -9,5 +9,6 @@ export enum GameStatus {
 	gameOver = 'Game Over',
 	pause = 'Pause',
 	loading = 'Loading',
-	draw = 'Draw'
+	draw = 'Draw',
+	Win = 'Win'
 }

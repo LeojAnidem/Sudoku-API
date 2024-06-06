@@ -23,13 +23,15 @@ export const CountDownComponent = () => {
 
   useEffect(() => {
     if (state.status === GameStatus.gameOver) {
-      dispatch({type: 'SET_STATUS', status: GameStatus.playing})
-
-      timer.start(timeObjToSeconds({
-        minutes: 2,
-        seconds: 59
-      }))
-
+      if (timer.secondsLeft <= 0) {
+        dispatch({type: 'SET_STATUS', status: GameStatus.playing})
+        
+        timer.start(timeObjToSeconds({
+          minutes: 2,
+          seconds: 59
+        }))
+      }
+      
       timer.resume()
     }
   }, [state.lifes])
