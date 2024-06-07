@@ -13,7 +13,7 @@ import { PauseScreenComponent } from "./screens/PauseScreenComponent"
 import { WinScreenComponent } from "./screens/WinScreenComponent"
 
 export const GameComponent = () => {
-  const { state } = useContext(GameContext)
+  const { state, dispatch, timer } = useContext(GameContext)
 
   const returnScreenByStatus = (status: GameStatus) => {
     switch(status) {
@@ -40,6 +40,13 @@ export const GameComponent = () => {
         <PauseButton />
         <DrawComponent />
         <ScoreComponent />
+        <button
+          className="text-white"
+          onClick={() => {
+            dispatch({type:"SET_STATUS", status: GameStatus.Win})
+            timer.pause()
+          }}
+        >Test</button>
       </div>
       <div className="flex justify-between items-center gap-2">
         <LifeComponent />
