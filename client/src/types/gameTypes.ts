@@ -69,6 +69,11 @@ import { Difficult, GameStatus } from "./gameEnum"
 		id: number
 	}
 
+	export type statics = {
+  name: string,
+  value: number | string
+}
+
 // _______________________________________________
 // Status Game
 

@@ -27,3 +27,7 @@ export interface IInputElement {
 export interface IBoardElement {
 	boardElt: ElementType[]
 }
+
+export interface IScreenComponent {
+	onClick?: (param?: any) => void
+}

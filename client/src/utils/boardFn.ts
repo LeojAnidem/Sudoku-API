@@ -1,6 +1,8 @@
 import { isEqual } from "lodash";
 import { ISudokuData } from "../types/apiTypes";
 import { BoardPositionType, ElementType, PositionType, SelectType, Time } from "../types/gameTypes";
+import { toPng } from "html-to-image";
+import { RefObject } from "react";
 
 // La API de donde recopilamos los datos para nuestro sudoku
 // nos devuelve los valores en nueve arrays donde cada array
@@ -238,4 +240,18 @@ export const fillArrWithBlanks = (arr: number[], isFillMissingOn = false) => {
 		}
 		return val === 0 ? '' : val
 	})
+}
+
+// Convert Html to Url Image
+export const convertHtmlToImageUrl = async(ref: RefObject<HTMLElement | null>) => {
+  if (!ref.current) return ''
+
+  try {
+    const dataUrl = await toPng(ref.current)
+    return dataUrl ?? ''
+
+  } catch (err) {
+    console.error('Error generando la imagen: ', err)
+    return ''
+  }
 }
