@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import { ReactNode, RefObject } from "react"
 import { Difficult, GameStatus } from "./gameEnum"
 
 // _______________________________________________
@@ -80,7 +80,8 @@ import { Difficult, GameStatus } from "./gameEnum"
 		time: Time
 		score: number,
 		status: GameStatus
-		forceRestart?: boolean
+		forceRestart?: boolean,
+		boardRef?: RefObject<HTMLElement | null>
 	}
 
 	export type GameAction = 
@@ -89,6 +90,7 @@ import { Difficult, GameStatus } from "./gameEnum"
 		| { type: 'UPDATE_BOARD'; board: ElementType[][] }
 		| { type: 'SET_STATUS'; status: GameStatus }
 		| { type: 'INCREMENT_LIFE' }
+		| { type: 'SET_BOARD_REF', ref: RefObject<HTMLElement | null>}
 		| { type: 'CHECK_WIN' }
 
 // _______________________________________________

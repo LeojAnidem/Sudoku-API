@@ -14,6 +14,12 @@ export const gameReducer = (state: GameType, action: GameAction) => {
           forceRestart: action.isSameDifficult
         }
     
+    case 'SET_BOARD_REF' :
+      return {
+        ...state,
+        boardRef: action.ref
+      }
+
     case 'INCREMENT_LIFE':
       const currLifes = state.lifes + 1
 
@@ -70,7 +76,8 @@ export const gameReducer = (state: GameType, action: GameAction) => {
         score: 0,
         time: setTimeByDifficult(state.difficult),
         state: GameStatus.loading,
-        forceRestart: false
+        forceRestart: false,
+        boardRef: null
       }
 
     case 'SET_STATUS':
