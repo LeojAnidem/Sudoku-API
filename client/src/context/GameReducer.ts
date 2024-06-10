@@ -68,16 +68,18 @@ export const gameReducer = (state: GameType, action: GameAction) => {
         }
       }
 
+      const nErrors: errorBoard[] = []
+
       return {
         ...state,
         board: action.board,
         lifes: 3,
-        errors: [],
+        errors: nErrors,
         score: 0,
         time: setTimeByDifficult(state.difficult),
         state: GameStatus.loading,
-        forceRestart: false,
-        boardRef: null
+        forceRestart: undefined,
+        boardRef: undefined
       }
 
     case 'SET_STATUS':

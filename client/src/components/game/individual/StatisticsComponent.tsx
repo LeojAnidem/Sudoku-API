@@ -2,11 +2,11 @@ import { FC } from "react"
 import { statics } from "../../../types/gameTypes"
 
 export const StatisticsComponent: FC<{statics: statics[]}> = ({statics}) => {
-  const sortStatics = structuredClone(statics)
-    .sort((a, b) => a.name.length - b.name.length)
+  const sortStatics: statics[] = structuredClone(statics)
+    .sort((a:statics, b: statics) => a.name.length - b.name.length)
 
-  const INITIAL_VAl : {
-    names: string[], 
+  const INITIAL_VAl: {
+    names: string[],
     values: (number | string)[]
   } = { names: [], values: [] }
 

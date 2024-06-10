@@ -247,7 +247,7 @@ export const convertHtmlToImageUrl = async(ref: RefObject<HTMLElement | null>) =
   if (!ref.current) return ''
 
   try {
-    const dataUrl = await toPng(ref.current)
+    const dataUrl = await toPng(ref.current, { cacheBust: true })
     return dataUrl ?? ''
 
   } catch (err) {

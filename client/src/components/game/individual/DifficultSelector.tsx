@@ -16,7 +16,7 @@ export const DifficultSelector: FC<IScreenComponent> = ({onClick}) => {
 		<div
 			className="
 				flex flex-col justify-center items-center
-				text-center gap-8 relative
+				text-center gap-8 relative row-start-1
 			"
 		>
 			{onClick &&
@@ -29,6 +29,7 @@ export const DifficultSelector: FC<IScreenComponent> = ({onClick}) => {
 						hover:bg-dark-tremor-brand
 						hover:border-dark-tremor-brand
 						hover:text-dark-tremor-background
+						row-start-2
 					"
 					onClick={onClick}
 				>
@@ -40,13 +41,13 @@ export const DifficultSelector: FC<IScreenComponent> = ({onClick}) => {
 				Selecciona una nueva dificultad
 			</span>
 
-			<div className="flex flex-col gap-3">
+			<div className="flex flex-col gap-3 row-start-3">
 				{
 					Object.values(Difficult).map((difficult) => {
 						return (
 							<button
 								key={`button-${difficult}`}
-								className="px-8 py-1 text-xl font-bold button__blue"
+								className="px-8 py-1 text-xl font-bold button__blue row-start-4"
 								onClick={() => handleClic(difficult)}
 							>
 								{difficult}

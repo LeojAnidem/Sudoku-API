@@ -89,16 +89,6 @@ body {
   hover:text-white
 }
 
-.grid_statics {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto;
-  grid-auto-flow: row;
-}
-
-.grid_statics__subgrid_left {
-  grid-column: 1;
-}
 body {
   @apply bg-dark-tremor-background
 }
@@ -188,15 +178,4 @@ body {
 
   hover:bg-red-600
   hover:text-white
-}
-
-.grid_statics {
-  display: grid;
-  grid-template-columns: 1fr min-content;
-  grid-template-rows: auto;
-  grid-auto-flow: row;
-  column-gap: 0.7rem;
-  row-gap: 0.4rem;
-
-  align-items: center;
 }

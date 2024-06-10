@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev:share": "ngrok http 3001",
     "dev:server": "cd api && npm run dev",
     "dev:client": "cd client && npm run dev",
     "git:up": "git add . && git commit && git push -u origin",

@@ -60,6 +60,9 @@ export const ResumeComponent: FC<IScreenComponent> = ({onClick}) => {
         <StatisticsComponent statics={statics} />
       </div>
       <button
+        className='
+          hover:text-dark-tremor-brand-emphasis
+        '
         onClick={onClick}
       >
         Empezar nuevo juego

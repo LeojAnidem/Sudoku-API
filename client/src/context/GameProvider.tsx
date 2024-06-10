@@ -17,6 +17,7 @@ const INITIAL_STATE: GameType = {
 	},
 	score: 0,
 	status: GameStatus.loading,
+
 };
 
 export const GameContext = createContext<IGameContext>({

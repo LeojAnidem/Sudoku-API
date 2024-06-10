@@ -1,4 +1,5 @@
-import { BoardType, Difficult } from "./gameTypes";
+import { Difficult } from "./gameEnum";
+import { BoardType } from "./gameTypes";
 
 export interface ISudokuData {
 	solved: BoardType,
