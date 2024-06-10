@@ -14,28 +14,28 @@ import { WinScreenComponent } from "./screens/WinScreenComponent"
 import { convertHtmlToImageUrl } from "../../utils/boardFn"
 
 export const GameComponent = () => {
-  const { state, dispatch, timer } = useContext(GameContext)
+  const { state, dispatch } = useContext(GameContext)
   const sudokuRef = useRef<HTMLDivElement>(null)
 
   const returnScreenByStatus = (status: GameStatus) => {
-    switch(status) {
-      case GameStatus.gameOver :
-        return <FailScreenComponent /> 
-      case GameStatus.pause :
-        return <PauseScreenComponent /> 
-      case GameStatus.Win :
+    switch (status) {
+      case GameStatus.gameOver:
+        return <FailScreenComponent />
+      case GameStatus.pause:
+        return <PauseScreenComponent />
+      case GameStatus.Win:
         return <WinScreenComponent />
-      default :
+      default:
         return <></>
     }
   }
-  
-	useEffect(() => {
+
+  useEffect(() => {
     if (!sudokuRef.current || state.status !== GameStatus.Win) return
-      convertHtmlToImageUrl(sudokuRef)
-        .then((url) => {
-          dispatch({type: 'SET_BOARD_IMAGE', imageSrc: url})
-        })
+    convertHtmlToImageUrl(sudokuRef)
+      .then((url) => {
+        dispatch({ type: 'SET_BOARD_IMAGE', imageSrc: url })
+      })
   }, [state.status])
 
   return (
@@ -53,13 +53,6 @@ export const GameComponent = () => {
           <PauseButton />
           <DrawComponent />
           <ScoreComponent />
-          <button
-            className="text-white"
-            onClick={() => {
-              dispatch({type:"SET_STATUS", status: GameStatus.Win})
-              timer.pause()
-            }}
-          >Test</button>
         </div>
         <div className="flex justify-between items-center gap-2">
           <LifeComponent />
@@ -67,7 +60,7 @@ export const GameComponent = () => {
         </div>
         <Sudoku />
       </div>
-        {returnScreenByStatus(state.status)}
+      {returnScreenByStatus(state.status)}
     </div>
   )
 }
