@@ -11,6 +11,7 @@ import { ScoreComponent } from "./options/ScoreComponent"
 import { FailScreenComponent } from "./screens/FailScreenComponent"
 import { PauseScreenComponent } from "./screens/PauseScreenComponent"
 import { WinScreenComponent } from "./screens/WinScreenComponent"
+import { convertHtmlToImageUrl } from "../../utils/boardFn"
 
 export const GameComponent = () => {
   const { state, dispatch, timer } = useContext(GameContext)
@@ -30,7 +31,11 @@ export const GameComponent = () => {
   }
   
 	useEffect(() => {
-		dispatch({type: 'SET_BOARD_REF', ref: sudokuRef})
+    if (!sudokuRef.current || state.status !== GameStatus.Win) return
+      convertHtmlToImageUrl(sudokuRef)
+        .then((url) => {
+          dispatch({type: 'SET_BOARD_IMAGE', imageSrc: url})
+        })
   }, [state.status])
 
   return (

@@ -17,7 +17,7 @@ const INITIAL_STATE: GameType = {
 	},
 	score: 0,
 	status: GameStatus.loading,
-
+	boardImageSrc: ''
 };
 
 export const GameContext = createContext<IGameContext>({

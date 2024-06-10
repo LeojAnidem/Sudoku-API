@@ -1,4 +1,4 @@
-import { ReactNode, RefObject } from "react"
+import { ReactNode } from "react"
 import { Difficult, GameStatus } from "./gameEnum"
 
 // _______________________________________________
@@ -86,7 +86,7 @@ import { Difficult, GameStatus } from "./gameEnum"
 		score: number,
 		status: GameStatus
 		forceRestart?: boolean,
-		boardRef?: RefObject<HTMLElement | null>
+		boardImageSrc: string
 	}
 
 	export type GameAction = 
@@ -95,8 +95,8 @@ import { Difficult, GameStatus } from "./gameEnum"
 		| { type: 'UPDATE_BOARD'; board: ElementType[][] }
 		| { type: 'SET_STATUS'; status: GameStatus }
 		| { type: 'INCREMENT_LIFE' }
-		| { type: 'SET_BOARD_REF', ref: RefObject<HTMLElement | null>}
 		| { type: 'CHECK_WIN' }
+		| { type: 'SET_BOARD_IMAGE', imageSrc: string }
 
 // _______________________________________________
 // Hooks Types

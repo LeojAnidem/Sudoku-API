@@ -13,11 +13,11 @@ export const gameReducer = (state: GameType, action: GameAction) => {
           status: GameStatus.loading,
           forceRestart: action.isSameDifficult
         }
-    
-    case 'SET_BOARD_REF' :
+
+    case 'SET_BOARD_IMAGE' :
       return {
         ...state,
-        boardRef: action.ref
+        boardImageSrc: action.imageSrc
       }
 
     case 'INCREMENT_LIFE':
@@ -79,7 +79,7 @@ export const gameReducer = (state: GameType, action: GameAction) => {
         time: setTimeByDifficult(state.difficult),
         state: GameStatus.loading,
         forceRestart: undefined,
-        boardRef: undefined
+        boardImageSrc: ''
       }
 
     case 'SET_STATUS':

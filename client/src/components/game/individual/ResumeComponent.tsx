@@ -1,14 +1,13 @@
 import download from "downloadjs"
-import { StatisticsComponent } from "./StatisticsComponent"
-import { convertHtmlToImageUrl, formatSecondsToString } from "../../../utils/boardFn"
-import { FC, useContext, useEffect, useState } from "react"
-import { statics } from "../../../types/gameTypes"
+import { FC, useContext } from "react"
 import { GameContext } from "../../../context/GameProvider"
 import { IScreenComponent } from "../../../types/gameInterfaces"
+import { statics } from "../../../types/gameTypes"
+import { formatSecondsToString } from "../../../utils/boardFn"
+import { StatisticsComponent } from "./StatisticsComponent"
 
 export const ResumeComponent: FC<IScreenComponent> = ({onClick}) => {
   const {state, timer} = useContext(GameContext)
-  const [imageSrc, setImageSrc] = useState<string>('')
 
   const statics : statics[] = [
     {
@@ -29,19 +28,9 @@ export const ResumeComponent: FC<IScreenComponent> = ({onClick}) => {
     },
   ]
 
-  // Guardar imagen como variable global
-  // hacer esta logica en gameReducer
-  // agregar un dispatch para establecer dos images
-  // del sudoku solo y completo
-  useEffect(() => {
-    if (!state.boardRef) return
-    convertHtmlToImageUrl(state.boardRef)
-      .then((url) => setImageSrc(url))
-  }, [state.boardRef])
-
   const handleDownload = () => {
-    if (!state.boardRef?.current) return
-    download(imageSrc, 'sudoku.png')
+    if (!state.boardImageSrc) return
+    download(state.boardImageSrc, 'sudoku.png')
   }
   
   return (
@@ -54,7 +43,7 @@ export const ResumeComponent: FC<IScreenComponent> = ({onClick}) => {
       <div className="flex items-center gap-6 relative">
         <img
           className="w-32"
-          src={imageSrc}
+          src={state.boardImageSrc}
           onClick={handleDownload}
         />
         <StatisticsComponent statics={statics} />
