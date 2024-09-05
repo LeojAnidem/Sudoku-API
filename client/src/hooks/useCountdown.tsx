@@ -10,7 +10,7 @@ export const useCountdown = (): CountDownHookType => {
   const [timerState, setTimerState] = useState(INITIAL_STATE)
   const {secondsLeft, isPaused} = timerState
 
-  const countdownId = useRef(0)
+  const countdownId = useRef<NodeJS.Timeout | undefined>(undefined)
 
   useEffect(() => {
     if (!isPaused) {

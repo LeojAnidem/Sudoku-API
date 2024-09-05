@@ -18,14 +18,14 @@ export const GameComponent = () => {
   const sudokuRef = useRef<HTMLDivElement>(null)
 
   const returnScreenByStatus = (status: GameStatus) => {
-    switch(status) {
-      case GameStatus.gameOver :
-        return <FailScreenComponent /> 
-      case GameStatus.pause :
-        return <PauseScreenComponent /> 
-      case GameStatus.Win :
+    switch (status) {
+      case GameStatus.gameOver:
+        return <FailScreenComponent />
+      case GameStatus.pause:
+        return <PauseScreenComponent />
+      case GameStatus.Win:
         return <WinScreenComponent />
-      default :
+      default:
         return <></>
     }
   }
@@ -47,10 +47,10 @@ export const GameComponent = () => {
 
 	useEffect(() => {
     if (!sudokuRef.current || state.status !== GameStatus.Win) return
-      convertHtmlToImageUrl(sudokuRef)
-        .then((url) => {
-          dispatch({type: 'SET_BOARD_IMAGE', imageSrc: url})
-        })
+    convertHtmlToImageUrl(sudokuRef)
+      .then((url) => {
+        dispatch({ type: 'SET_BOARD_IMAGE', imageSrc: url })
+      })
   }, [state.status])
 
   return (
@@ -75,7 +75,7 @@ export const GameComponent = () => {
         </div>
         <Sudoku />
       </div>
-        {returnScreenByStatus(state.status)}
+      {returnScreenByStatus(state.status)}
     </div>
   )
 }
