@@ -14,7 +14,7 @@ import { WinScreenComponent } from "./screens/WinScreenComponent"
 import { convertHtmlToImageUrl } from "../../utils/boardFn"
 
 export const GameComponent = () => {
-  const { state, dispatch, timer } = useContext(GameContext)
+  const { state, dispatch } = useContext(GameContext)
   const sudokuRef = useRef<HTMLDivElement>(null)
 
   const returnScreenByStatus = (status: GameStatus) => {
@@ -30,6 +30,21 @@ export const GameComponent = () => {
     }
   }
   
+  // Boton de prueba
+  // const WinTestBtn = () => {
+  //   return (
+  //     <button
+  //       className="text-white"
+  //       onClick={() => {
+  //         dispatch({type:"SET_STATUS", status: GameStatus.Win})
+  //         timer.pause()
+  //       }}
+  //     >
+  //       Test
+  //     </button>
+  //   )
+  // }
+
 	useEffect(() => {
     if (!sudokuRef.current || state.status !== GameStatus.Win) return
       convertHtmlToImageUrl(sudokuRef)
@@ -53,13 +68,6 @@ export const GameComponent = () => {
           <PauseButton />
           <DrawComponent />
           <ScoreComponent />
-          <button
-            className="text-white"
-            onClick={() => {
-              dispatch({type:"SET_STATUS", status: GameStatus.Win})
-              timer.pause()
-            }}
-          >Test</button>
         </div>
         <div className="flex justify-between items-center gap-2">
           <LifeComponent />

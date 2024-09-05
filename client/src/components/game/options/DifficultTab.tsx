@@ -34,7 +34,9 @@ export const DifficultTab = () => {
       || state.status === GameStatus.draw
 
     if (isPossibleChange) {
-      dispatch({ type: 'CHANGE_DIFFICULT', difficult })
+      state.difficult === difficult
+        ? dispatch({type:"CHANGE_DIFFICULT", difficult, isSameDifficult: true})
+        :	dispatch({type:"CHANGE_DIFFICULT", difficult})
     }
   }
 

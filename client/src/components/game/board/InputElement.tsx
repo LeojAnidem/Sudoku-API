@@ -44,11 +44,11 @@ export const InputElement: FC<IInputElement> = ({clickFn, className, position}) 
 		
 		if (state.status === GameStatus.playing) {
 			setArrValues([])
-			
-			val < min || val > max 
+
+			val < min || val > max
 				? setCurVal('')
 				: setCurVal(`${val}`)
-
+				
 			clickFn(val, position)
 			dispatch({type: 'CHECK_WIN'})
 		}
@@ -88,6 +88,10 @@ export const InputElement: FC<IInputElement> = ({clickFn, className, position}) 
 				setArrValues(() => [...nArrVals])
 			}
     }
+		
+		// Evita que el valor digitado se vuelva a repetir en caso de mantener presionada la
+		// tecla
+		if (e.repeat) e.preventDefault()
 	}
 
 	return (
