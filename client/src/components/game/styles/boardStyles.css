@@ -1,0 +1,39 @@
+.grid_sk {
+  @apply grid grid-cols-3 grid-rows-3 border
+  border-tremor-content-strong select-none;
+}
+
+.grid_item_sk {
+  @apply w-10 h-10 text-dark-tremor-content-emphasis
+  flex items-center justify-center
+  bg-dark-tremor-brand-muted border
+  border-tremor-content-strong
+
+  hover:border-dark-tremor-brand-subtle
+  hover:border-2;
+}
+
+.standard_btn {
+  @apply w-full h-full cursor-pointer select-none	
+  flex items-center justify-center text-center;
+}
+
+.selected {
+  @apply bg-dark-tremor-background-muted
+  border-2 border-dark-tremor-brand-muted;
+}
+
+.selected__val {
+  @apply bg-dark-tremor-brand-subtle
+  border-2 border-dark-tremor-brand-muted;
+}
+
+.selected__focus {
+  @apply bg-dark-tremor-background-muted
+  border-2 border-dark-tremor-brand-subtle;
+}
+
+.selected__wrong {
+  @apply !bg-red-700 border-[3px] rounded-sm
+  border-dark-tremor-brand-muted;
+}

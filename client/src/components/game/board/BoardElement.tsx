@@ -4,7 +4,7 @@ import { IBoardElement, IInputElement } from "../../../types/gameInterfaces";
 import { PositionType } from "../../../types/gameTypes";
 import { applyStyle } from "../../../utils/boardFn";
 import { ElementComponent } from "./Element";
-import { InputElement } from "./InputElement";
+import { InputElement } from "./InputElement"; 
 
 export const BoardElement: FC<IBoardElement> = ({ boardElt }) => {
 	const {dispatch} = useContext(GameContext)

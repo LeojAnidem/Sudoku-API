@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef } from "react"
 import { GameContext } from "../../context/GameProvider"
 import { GameStatus } from "../../types/gameEnum"
+import { convertHtmlToImageUrl } from "../../utils/boardFn"
 import { Sudoku } from "./board/Sudoku"
 import { CountDownComponent } from "./options/CountDownComponent"
 import { DifficultTab } from "./options/DifficultTab"
@@ -11,7 +12,9 @@ import { ScoreComponent } from "./options/ScoreComponent"
 import { FailScreenComponent } from "./screens/FailScreenComponent"
 import { PauseScreenComponent } from "./screens/PauseScreenComponent"
 import { WinScreenComponent } from "./screens/WinScreenComponent"
-import { convertHtmlToImageUrl } from "../../utils/boardFn"
+
+import './styles/boardStyles.css'
+import './styles/screensStyles.css'
 
 export const GameComponent = () => {
   const { state, dispatch } = useContext(GameContext)
@@ -58,7 +61,7 @@ export const GameComponent = () => {
       <div
         ref={sudokuRef}
         className="
-          p-2 flex flex-col gap-4
+          flex flex-col gap-4
           items-center justify-center
           bg-dark-tremor-background 
         "
