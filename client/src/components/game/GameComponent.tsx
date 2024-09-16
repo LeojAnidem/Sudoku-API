@@ -62,19 +62,19 @@ export const GameComponent = () => {
         ref={sudokuRef}
         className="
           flex flex-col gap-4
-          items-center justify-center
+          justify-center
           bg-dark-tremor-background 
         "
       >
-        <div className="w-full flex justify-between items-center">
+        <div className="w-full flex gap-4 justify-between items-center">
           <CountDownComponent />
           <PauseButton />
           <DrawComponent />
-          <ScoreComponent />
+          <LifeComponent />
         </div>
         <div className="flex justify-between items-center gap-2">
-          <LifeComponent />
           <DifficultTab />
+          <ScoreComponent />
         </div>
         <Sudoku />
       </div>

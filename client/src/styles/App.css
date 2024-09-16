@@ -3,6 +3,10 @@ body {
 }
 
 .main_bg {
-  @apply w-full h-screen p-4
-  grid justify-center items-center
+  @apply w-full h-screen
+  grid row-auto items-center content-between
+}
+
+.main_bg > * {
+  @apply p-4
 }

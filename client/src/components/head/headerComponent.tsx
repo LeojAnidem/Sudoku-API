@@ -1,9 +1,21 @@
 export const HeaderComponent = () => {
   return (
-    <header>
-      <h1 className="text-white text-4xl">
-        <span>Su</span>
-        <span>doku</span>
+    <header
+      className={`
+        h-full w-full flex justify-between
+      `}
+    >
+      <h1
+        className={`
+          text-white text-5xl font-bold
+        `}
+      >
+        <span
+          className="text-tremor-brand"
+        >
+          Doku
+        </span>
+        <span>Api</span>
       </h1>
     </header>
   )
