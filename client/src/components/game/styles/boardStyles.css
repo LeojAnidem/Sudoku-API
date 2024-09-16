@@ -1,3 +1,16 @@
+.game_board {
+  @apply relative flex items-center justify-center
+}
+
+.game_board__row {
+  @apply max-w-fit flex flex-col gap-4
+  justify-center bg-dark-tremor-background 
+}
+
+.game_board__row > :not(:last-child) {
+  @apply flex justify-between items-center gap-2
+}
+
 .grid_sk {
   @apply grid grid-cols-3 grid-rows-3 border
   border-tremor-content-strong select-none;

@@ -57,22 +57,18 @@ export const GameComponent = () => {
   }, [state.status])
 
   return (
-    <div className="relative">
+    <div className="game_board">
       <div
         ref={sudokuRef}
-        className="
-          flex flex-col gap-4
-          justify-center
-          bg-dark-tremor-background 
-        "
+        className="game_board__row"
       >
-        <div className="w-full flex gap-4 justify-between items-center">
+        <div>
           <CountDownComponent />
           <PauseButton />
           <DrawComponent />
           <LifeComponent />
         </div>
-        <div className="flex justify-between items-center gap-2">
+        <div>
           <DifficultTab />
           <ScoreComponent />
         </div>

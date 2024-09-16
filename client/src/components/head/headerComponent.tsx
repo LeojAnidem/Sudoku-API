@@ -2,7 +2,7 @@ export const HeaderComponent = () => {
   return (
     <header
       className={`
-        h-full w-full flex justify-between
+        h-full w-full flex justify-between pt-8
       `}
     >
       <h1

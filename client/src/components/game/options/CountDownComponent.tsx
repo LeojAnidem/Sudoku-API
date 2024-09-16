@@ -73,18 +73,21 @@ export const CountDownComponent = () => {
           }
         `}
       >
-        <span
-          className={`
-            text-2xl font-extrabold relative z-[1] pr-2
-            bg-dark-tremor-background rounded-md
-            ${state.status !== GameStatus.gameOver
-              ? 'text-tremor-brand-emphasis'
-              : 'text-red-700'
-            }
-          `}
-        >
-          {formatSecondsToString(timer.secondsLeft)}
-        </span>
+        <div className="w-[77px] bg-dark-tremor-background rounded-md">
+          <span
+            className={`
+              text-2xl font-extrabold relative z-[1] pr-2 py-0.5
+              
+              ${state.status !== GameStatus.gameOver
+                ? 'text-tremor-brand-emphasis'
+                : 'text-red-700'
+              }
+            `}
+          >
+            {formatSecondsToString(timer.secondsLeft)}
+          </span>
+          
+        </div>
         <div
           className={`
             h-full w-5 absolute -left-2.5 top-0
