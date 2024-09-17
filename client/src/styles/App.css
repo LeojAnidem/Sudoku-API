@@ -8,5 +8,5 @@ body {
 }
 
 .main_bg > * {
-  @apply p-4
+  @apply py-4 px-12
 }

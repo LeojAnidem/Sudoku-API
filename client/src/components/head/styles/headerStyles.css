@@ -1,0 +1,36 @@
+.header {
+  @apply h-full w-full !pt-8
+  flex justify-between items-center
+}
+
+.logo {
+  @apply relative flex items-center justify-center
+  text-white text-5xl font-bold
+}
+
+.logo__icon {
+  @apply absolute z-[0] w-12 h-12 top-0.5 -right-[17px]
+  border-tremor-brand border-4
+  rotate-45
+}
+
+.logo__icon:after {
+  content: '';
+  position: absolute;
+  rotate: 45deg;
+  top: 14px;
+  left: -8px;
+  height: 40px;
+  width: 40px;
+  background: rgb(17, 24, 39);
+}
+
+.header__opts {
+  @apply flex gap-10
+}
+
+.header__opts > * {
+  @apply text-2xl font-semibold text-white 
+
+  hover:text-tremor-brand
+}

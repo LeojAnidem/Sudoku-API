@@ -76,7 +76,7 @@ export const CountDownComponent = () => {
         <div className="w-[77px] bg-dark-tremor-background rounded-md">
           <span
             className={`
-              text-2xl font-extrabold relative z-[1] pr-2 py-0.5
+              text-2xl font-extrabold relative z-[1] pr-2
               
               ${state.status !== GameStatus.gameOver
                 ? 'text-tremor-brand-emphasis'

@@ -8,7 +8,7 @@
 }
 
 .game_board__row > :not(:last-child) {
-  @apply flex justify-between items-center gap-2
+  @apply flex justify-between items-center gap-4
 }
 
 .grid_sk {

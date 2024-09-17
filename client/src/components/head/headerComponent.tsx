@@ -1,22 +1,21 @@
+import './styles/headerStyles.css'
+
 export const HeaderComponent = () => {
   return (
-    <header
-      className={`
-        h-full w-full flex justify-between pt-8
-      `}
-    >
-      <h1
-        className={`
-          text-white text-5xl font-bold
-        `}
-      >
-        <span
-          className="text-tremor-brand"
-        >
+    <header className="header">
+      <h1 className="logo">
+        <span className="text-tremor-brand">
           Doku
         </span>
-        <span>Api</span>
+        <span className="z-[1]">
+          Api
+        </span>
+        <div className="logo__icon"/>
       </h1>
+      <div className="header__opts">
+        <button>Play</button>
+        <button className=''>Explore Api</button>
+      </div>
     </header>
   )
 }
