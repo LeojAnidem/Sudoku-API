@@ -1,0 +1,18 @@
+.main {
+  @apply flex items-center justify-center
+}
+
+.main__game {
+  @apply max-w-min flex flex-col items-center gap-8
+  text-white font-normal text-center
+}
+
+.main__game__art {
+  @apply px-6 py-3 flex flex-col gap-2 rounded-md
+  bg-dark-tremor-background-subtle
+}
+
+.main__game__title {
+  @apply pb-2 border-b-tremor-brand border-b-2 rounded-sm
+  text-tremor-brand text-2xl font-semibold;
+}

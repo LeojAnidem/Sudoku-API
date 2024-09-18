@@ -3,10 +3,10 @@ body {
 }
 
 .main_bg {
-  @apply w-full h-screen
+  @apply h-screen w-full overflow-hidden
   grid row-auto items-center content-between
 }
 
 .main_bg > * {
-  @apply py-4 px-12
+  @apply py-4 px-[5%]
 }

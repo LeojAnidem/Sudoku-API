@@ -4,7 +4,8 @@
 }
 
 .logo {
-  @apply relative flex items-center justify-center
+  @apply relative select-none cursor-pointer
+  flex items-center justify-center
   text-white text-5xl font-bold
 }
 

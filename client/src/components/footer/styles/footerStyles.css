@@ -1,0 +1,13 @@
+.footer {
+  @apply w-full h-full select-none cursor-pointer 
+  
+  flex justify-center gap-1
+  text-white font-semibold text-base
+  bg-dark-tremor-background-subtle
+}
+
+.footer__link {
+  @apply text-tremor-brand font-bold
+
+  hover:text-tremor-brand-subtle
+}

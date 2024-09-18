@@ -12,10 +12,10 @@ export const HeaderComponent = () => {
         </span>
         <div className="logo__icon"/>
       </h1>
-      <div className="header__opts">
+      <nav className="header__opts">
         <button>Play</button>
-        <button className=''>Explore Api</button>
-      </div>
+        <button>Explore Api</button>
+      </nav>
     </header>
   )
 }
