@@ -1,5 +1,6 @@
 .main {
-  @apply w-full h-full flex items-center justify-center overflow-hidden
+  @apply w-full h-full flex items-center justify-center
+  overflow-hidden
 }
 
 .main__game {

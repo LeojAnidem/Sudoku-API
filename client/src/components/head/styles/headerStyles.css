@@ -1,6 +1,7 @@
 .header {
-  @apply h-full w-full !pt-8
+  @apply h-full w-full
   flex justify-between items-center
+  shadow-2xl
 }
 
 .logo {
@@ -26,12 +27,40 @@
   background: rgb(17, 24, 39);
 }
 
-.header__opts {
-  @apply flex gap-10
+.header__navbar {
+  @apply w-fit h-full relative flex justify-center items-center gap-10
 }
 
-.header__opts > * {
+.header__navbar > * {
   @apply text-2xl font-semibold text-white 
 
   hover:text-tremor-brand
+  hover:cursor-pointer
 }
+
+.header__navbar__chk {
+  @apply flex justify-center items-center 
+}
+
+.left_menu__enable {
+  @apply absolute z-[4] max-w-max h-screen px-20 top-0 right-0
+  flex-col shadow-[-20px_0px_30px_8px_#00000080]
+  bg-dark-tremor-brand-muted
+}
+
+.left_menu__enable > button {
+  @apply !flex
+}
+
+@media (max-width: 600px) {
+  .header__navbar > button{
+    @apply hidden;
+  }
+}
+
+@media (min-width: 600px) {
+  .header__opts > form {
+    @apply hidden;
+  }
+}
+

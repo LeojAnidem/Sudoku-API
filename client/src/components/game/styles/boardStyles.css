@@ -1,11 +1,12 @@
 .game_board {
-  @apply w-full h-full relative flex items-center justify-center
+  @apply w-full h-full overflow-hidden
+  relative flex items-center justify-center
 }
 
 .game_board__row {
   @apply max-w-fit h-full flex flex-col gap-4
-  overflow-x-hidden overflow-y-scroll
-  justify-center bg-dark-tremor-background 
+  overflow-hidden
+  bg-dark-tremor-background 
 }
 
 .game_board__row > :not(:last-child) {
@@ -50,4 +51,10 @@
 .selected__wrong {
   @apply !bg-red-700 border-[3px] rounded-sm
   border-dark-tremor-brand-muted;
+}
+
+@media (max-height: 670px) {
+  .game_board__row {
+    @apply overflow-x-hidden overflow-y-scroll
+  }
 }
