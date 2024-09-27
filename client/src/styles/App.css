@@ -3,7 +3,9 @@ body {
 }
 
 .main_bg {
-  @apply h-screen w-full overflow-hidden
+  height: 100dvh;
+
+  @apply w-full overflow-hidden
   grid row-auto items-center content-between
 }
 

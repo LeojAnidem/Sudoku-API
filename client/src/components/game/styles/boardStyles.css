@@ -1,9 +1,10 @@
 .game_board {
-  @apply relative flex items-center justify-center
+  @apply w-full h-full relative flex items-center justify-center
 }
 
 .game_board__row {
-  @apply max-w-fit flex flex-col gap-4
+  @apply max-w-fit h-full flex flex-col gap-4
+  overflow-x-hidden overflow-y-scroll
   justify-center bg-dark-tremor-background 
 }
 

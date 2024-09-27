@@ -1,9 +1,9 @@
 .main {
-  @apply flex items-center justify-center
+  @apply w-full h-full flex items-center justify-center overflow-hidden
 }
 
 .main__game {
-  @apply max-w-min flex flex-col items-center gap-8
+  @apply max-w-min h-full flex flex-col items-center gap-8
   text-white font-normal text-center
 }
 
@@ -15,4 +15,10 @@
 .main__game__title {
   @apply pb-2 border-b-tremor-brand border-b-2 rounded-sm
   text-tremor-brand text-2xl font-semibold;
+}
+
+@media (max-height: 860px) {
+  .main__game__art{
+    @apply hidden
+  }
 }
