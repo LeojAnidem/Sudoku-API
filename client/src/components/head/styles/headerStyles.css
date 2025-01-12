@@ -4,63 +4,11 @@
   shadow-2xl
 }
 
-.logo {
-  @apply relative select-none cursor-pointer
-  flex items-center justify-center
-  text-white text-5xl font-bold
-}
-
-.logo__icon {
-  @apply absolute z-[0] w-12 h-12 top-0.5 -right-[17px]
-  border-tremor-brand border-4
-  rotate-45
-}
-
-.logo__icon:after {
-  content: '';
-  position: absolute;
-  rotate: 45deg;
-  top: 14px;
-  left: -8px;
-  height: 40px;
-  width: 40px;
-  background: rgb(17, 24, 39);
-}
-
-.header__navbar {
-  @apply w-fit h-full relative flex justify-center items-center gap-10
-}
-
-.header__navbar > * {
-  @apply text-2xl font-semibold text-white 
-
-  hover:text-tremor-brand
-  hover:cursor-pointer
-}
-
-.header__navbar__chk {
-  @apply flex justify-center items-center 
-}
-
-.left_menu__enable {
-  @apply absolute z-[4] max-w-max h-screen px-20 top-0 right-0
-  flex-col shadow-[-20px_0px_30px_8px_#00000080]
-  bg-dark-tremor-brand-muted
-}
-
-.left_menu__enable > button {
-  @apply !flex
-}
-
 @media (max-width: 600px) {
-  .header__navbar > button{
-    @apply hidden;
-  }
+  
 }
 
 @media (min-width: 600px) {
-  .header__opts > form {
-    @apply hidden;
-  }
+  
 }
 

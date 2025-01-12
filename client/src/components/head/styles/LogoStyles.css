@@ -1,0 +1,22 @@
+.logo {
+  @apply relative select-none cursor-pointer
+  flex items-center justify-center
+  text-white text-5xl font-bold;
+}
+
+.logo__icon {
+  @apply absolute z-[0] w-12 h-12 top-0.5 -right-[17px]
+  border-tremor-brand border-4
+  rotate-45;
+}
+
+.logo__icon:after {
+  content: '';
+  position: absolute;
+  rotate: 45deg;
+  top: 14px;
+  left: -8px;
+  height: 40px;
+  width: 40px;
+  background: rgb(17, 24, 39);
+}
