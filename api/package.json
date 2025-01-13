@@ -9,7 +9,11 @@
   "scripts": {
     "compile": "tsc",
     "dev": "nodemon --exec node --loader ts-node/esm src/index.ts",
-    "start": "npm run compile && node ./dist/index.js"
+    "start-a": "npm run compile && node ./dist/index.js",
+    "start": "nodemon src/index.ts",
+    "ts.check": "tsc --project tsconfig.json",
+    "build": "rimraf dist && tsc",
+    "add-build": "git add dist"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
@@ -17,11 +21,18 @@
     "@types/node": "^20.4.5",
     "express": "^4.21.0",
     "nodemon": "^3.0.1",
+    "pre-commit": "^1.0.10",
+    "rimraf": "^6.0.1",
     "rome": "12.1.3",
     "ts-node": "^10.9.1",
     "typescript": "5.1.6"
   },
   "dependencies": {
     "cors": "^2.8.5"
-  }
+  },
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ]
 }
