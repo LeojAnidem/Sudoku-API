@@ -11,8 +11,9 @@ app.use(express.json());
 app.use(cors())
 
 // EndPoints
-app.use(express.static(path.join(__dirname, '../../client/dist')))
-app.use("/api", sudokuRouter);
+// app.use(express.static(path.join(__dirname, '../../client/dist')))
+// app.use("/api", sudokuRouter);
+app.use("/", sudokuRouter);
 
 // Server Running
 app.listen(PORT, () => {
