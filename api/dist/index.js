@@ -8,9 +8,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 // EndPoints
-// app.use(express.static(path.join(__dirname, '../../client/dist')))
-// app.use("/api", sudokuRouter);
-app.use("/", sudokuRouter);
+app.use(express.static(path.join(__dirname, '../../client/dist')));
+app.use("/api", sudokuRouter);
 // Server Running
 app.listen(PORT, () => {
     console.log(`Server Running on port ${PORT}`);
