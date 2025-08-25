@@ -17,7 +17,7 @@ import './styles/boardStyles.css'
 import './styles/screensStyles.css'
 
 export const GameComponent = () => {
-  const { state, dispatch } = useContext(GameContext)
+  const { state, dispatch, timer } = useContext(GameContext)
   const sudokuRef = useRef<HTMLDivElement>(null)
 
   const returnScreenByStatus = (status: GameStatus) => {
@@ -34,19 +34,19 @@ export const GameComponent = () => {
   }
   
   // Boton de prueba
-  // const WinTestBtn = () => {
-  //   return (
-  //     <button
-  //       className="text-white"
-  //       onClick={() => {
-  //         dispatch({type:"SET_STATUS", status: GameStatus.Win})
-  //         timer.pause()
-  //       }}
-  //     >
-  //       Test
-  //     </button>
-  //   )
-  // }
+  const WinTestBtn = () => {
+    return (
+      <button
+        className="text-white"
+        onClick={() => {
+          dispatch({type:"SET_STATUS", status: GameStatus.Win})
+          timer.pause()
+        }}
+      >
+        Test
+      </button>
+    )
+  }
 
 	useEffect(() => {
     if (!sudokuRef.current || state.status !== GameStatus.Win) return
@@ -71,6 +71,7 @@ export const GameComponent = () => {
         <div>
           <DifficultTab />
           <ScoreComponent />
+          {/* <WinTestBtn /> */}
         </div>
         <Sudoku />
       </div>

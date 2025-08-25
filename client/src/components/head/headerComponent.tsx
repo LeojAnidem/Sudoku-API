@@ -7,7 +7,7 @@ export const HeaderComponent = () => {
 
   return (
     <header 
-      className="header" 
+      className="header"
       onContextMenu={(e) => {e.preventDefault()}}
     >
       <Logo />

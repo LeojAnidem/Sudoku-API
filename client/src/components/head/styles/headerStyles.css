@@ -1,14 +1,13 @@
 .header {
   @apply h-full w-full
   flex justify-between items-center
-  shadow-2xl
 }
-
+/* 
 @media (max-width: 600px) {
   
 }
 
 @media (min-width: 600px) {
   
-}
+} */
 

@@ -6,9 +6,17 @@ body {
   height: 100dvh;
 
   @apply w-full overflow-hidden
-  grid row-auto items-center content-between
+  flex flex-row
 }
 
 .main_bg > * {
-  @apply py-4 px-[5%]
+  @apply py-4 
+}
+
+.content {
+  @apply px-[5%] w-full flex flex-col justify-between
+}
+
+.content > * {
+  @apply h-fit
 }

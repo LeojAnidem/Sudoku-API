@@ -1,0 +1,29 @@
+.sidebar {
+  width: 100px;
+  transition: width 0.3s ease-in-out;
+
+  @apply 
+  flex flex-col justify-between items-center
+  bg-dark-tremor-background-subtle;
+}
+
+.sidebar:hover {
+  @apply cursor-pointer
+}
+
+.sidebar > * {
+  transition: color 0.2s ease-in-out;
+
+  @apply w-full px-[20px] pb-[20px]
+  text-dark-tremor-background-emphasis;
+}
+
+.sidebar > *:hover {
+  @apply cursor-pointer text-dark-tremor-brand-emphasis;
+}
+
+.menu
+
+.tag {
+  @apply w-full h-full absolute top-12
+}

@@ -35,7 +35,7 @@ export const GameProvider: FC<ContextProviderProps> = ({ children }) => {
 	const [state, dispatch] = useReducer(gameReducer, INITIAL_STATE);
 	const timer = useCountdown();
 
-	const fetchAPI = async (attemps = 0, maxRetries = 5, retryDelay = 1000) => {
+	const fetchAPI = async (attemps = 0, maxRetries = 100, retryDelay = 5000) => {
 		const board = await getSudokuData({ difficult: state.difficult });
 
 		if (board.length > 0) {
