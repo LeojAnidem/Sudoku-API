@@ -15,6 +15,17 @@ const wideState: wideType = {
   isManual: false
 }
 
+const LabelComponent = ({txt = '', isInBubbleMode = false, isHidden = false}) => {  
+  const flag1 = isInBubbleMode ? 'tooltip': ''
+  const flag2 = isHidden ? 'hidden opacity-0': ''
+  const nwClassName = `tag ${flag1} ${flag2}`
+  
+  return (
+    <p className={nwClassName}>
+      {txt}
+    </p>
+  )
+}
 
 export const SidebarComponent = () => {
 	const [wideMode, setWideMode] = useState<wideType>(wideState)
@@ -54,24 +65,43 @@ export const SidebarComponent = () => {
     setWideMode({...nwWideMode})
   }
 
+  const setTagIsHidden = (isPrimary = true) => {
+    const isWide = wideMode.isAuto || wideMode.isManual
+
+    if (!menuBtnIsHovered) {
+      if (!isWide) return true
+    } 
+      else if (!isPrimary && !isWide) 
+        return true
+
+    return false
+  }
+
   return (
 		<div 
       ref={(bgRef as LegacyRef<HTMLDivElement>)}
-      className={`sidebar ${wideMode.isAuto ? 'w-[400px]' : 'w-[100px]'}`}
+      className={`sidebar ${wideMode.isAuto ? 'w-[400px]' : ''}`}
     >			
+
+    {/*TODO: Volver Componente que contenga un hijo adentro el boton con el icono */}
 			<button
         ref={(menuBtnRef as LegacyRef<HTMLButtonElement>)}
-        className="relative"
+        className="menuBtn pt-5"
         onClick={handleOnClic}
       >
-        <IconMenu className="h-[48px] w-[48px]"/>
-        <p className="tag">
-          {wideMode.isAuto ? 'Contract Menu' : 'Extend Menu' }
-        </p>
-
+        <IconMenu className="h-8 w-8"/>
+        <LabelComponent
+          txt = {`${wideMode.isAuto ? 'Contract Menu' : 'Extend Menu' }`}
+          isInBubbleMode = {!wideMode.isAuto}
+          isHidden = {setTagIsHidden()}
+        />
       </button>
-      <a>
-        <IconPause className="h-12 w-12"/>
+      <a className="menuBtn">
+        <IconPause className="h-8 w-8"/>
+        <LabelComponent
+          txt="Settings"
+          isHidden={setTagIsHidden(false)}
+        />
       </a>
 		</div>
 	)

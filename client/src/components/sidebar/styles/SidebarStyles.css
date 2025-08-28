@@ -1,9 +1,8 @@
 .sidebar {
-  width: 100px;
   transition: width 0.3s ease-in-out;
 
-  @apply 
-  flex flex-col justify-between items-center
+  @apply w-[100px] !pt-0
+  flex flex-col justify-start items-center gap-10
   bg-dark-tremor-background-subtle;
 }
 
@@ -14,7 +13,7 @@
 .sidebar > * {
   transition: color 0.2s ease-in-out;
 
-  @apply w-full px-[20px] pb-[20px]
+  @apply w-full px-3
   text-dark-tremor-background-emphasis;
 }
 
@@ -22,8 +21,21 @@
   @apply cursor-pointer text-dark-tremor-brand-emphasis;
 }
 
-.menu
-
 .tag {
-  @apply w-full h-full absolute top-12
+  transition: display ease-in-out .4s,
+              opacity ease-in-out .4s;
+
+  @apply w-full h-full text-xl
+  flex items-center justify-start
+}
+
+.tooltip {
+  @apply z-10 w-max h-min py-2 px-3 rounded-xl 
+  absolute left-10 top-12
+  text-base font-bold text-dark-tremor-brand-emphasis
+  bg-dark-tremor-brand-muted
+}
+
+.menuBtn {
+  @apply flex relative flex-row justify-center items-center gap-3
 }
