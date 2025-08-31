@@ -2,7 +2,7 @@
   transition: width 0.3s ease-in-out;
 
   @apply w-[100px] !pt-0
-  flex flex-col justify-start items-center gap-10
+  flex flex-col justify-start items-center gap-8
   bg-dark-tremor-background-subtle;
 }
 
@@ -22,10 +22,11 @@
 }
 
 .tag {
+  opacity: 0;
   transition: display ease-in-out .4s,
               opacity ease-in-out .4s;
 
-  @apply w-full h-full text-xl
+  @apply w-full h-full text-xl whitespace-nowrap
   flex items-center justify-start
 }
 
@@ -37,5 +38,11 @@
 }
 
 .menuBtn {
-  @apply flex relative flex-row justify-center items-center gap-3
+  @apply py-3
+  flex relative flex-row 
+  justify-center items-center gap-5
+}
+
+.menuBtn > :first-child {
+  @apply w-7 h-7
 }
