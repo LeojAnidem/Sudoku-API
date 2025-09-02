@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { LabelType, wideType } from "../types/sideMenu/sideMenuTypes"
 import { useHover } from "./useHover"
 
@@ -11,37 +11,41 @@ export const useSideMenu = () => {
   const [wideMode, setWideMode] = useState<wideType>(wideState)
   const [bgRef, bgIsHovered] = useHover()
   const [menuBtnRef, menuBtnIsHovered] = useHover()
+  const hoverTimeoutRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   useEffect(() => {
-    const nwWideMode = {...wideMode}
-    if (wideMode.isManual) return
+    if (wideMode.isManual) {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current)
+        hoverTimeoutRef.current = null
+      }
+      return
+    }
 
     if (bgIsHovered) {
-      if (!menuBtnIsHovered) nwWideMode.isAuto = true
+      if (hoverTimeoutRef.current) return
+      if (!menuBtnIsHovered) {
+        hoverTimeoutRef.current = setTimeout(() => {
+          setWideMode(prevMode => ({...prevMode, isAuto: true}))
+          hoverTimeoutRef.current = null
+        }, 200)
+      }
     }
-      else  nwWideMode.isAuto = false
-
-    setWideMode({...nwWideMode})
+      else  {
+        if (hoverTimeoutRef.current) {
+          clearTimeout(hoverTimeoutRef.current)
+          hoverTimeoutRef.current = null
+        }
+        setWideMode(prevMode => ({...prevMode, isAuto: false}))
+      }
 
   }, [bgIsHovered, menuBtnIsHovered, wideMode.isManual])
 
   const handleOnClic = () => {
-    const nwWideMode = {...wideMode}
-
-    if (nwWideMode.isAuto) {
-      if (!nwWideMode.isManual) {
-        nwWideMode.isManual = true
-
-      } else {
-        nwWideMode.isAuto = false
-        nwWideMode.isManual = false
-      } 
-    } else if (!nwWideMode.isManual) {
-      nwWideMode.isAuto = true,
-      nwWideMode.isManual = true
-    }
-
-    setWideMode({...nwWideMode})
+      setWideMode(prevMode => ({
+      isManual: !prevMode.isManual,
+      isAuto: !prevMode.isManual,
+    }));  
   }
 
   const setTagIsHidden = (isPrimary = false) => {
