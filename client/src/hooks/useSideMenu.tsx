@@ -4,14 +4,15 @@ import { useHover } from "./useHover"
 
 export const useSideMenu = () => {
   const wideState: wideType = {
-      isAuto: false,
-      isManual: false
-    }
+    isAuto: false,
+    isManual: false
+  }
   
   const [wideMode, setWideMode] = useState<wideType>(wideState)
   const [bgRef, bgIsHovered] = useHover()
   const [menuBtnRef, menuBtnIsHovered] = useHover()
   const hoverTimeoutRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const [activeItem, setActiveItem] = useState<String | null>(null)
 
   useEffect(() => {
     if (wideMode.isManual) {
@@ -63,7 +64,7 @@ export const useSideMenu = () => {
   const setLabelProps = (isMain = false):LabelType  => {
     return {
       isInBubbleMode: isMain ? !wideMode.isAuto : false,
-      isHidden: setTagIsHidden(isMain)
+      isHidden: setTagIsHidden(isMain),
     }
   }
   
@@ -73,7 +74,9 @@ export const useSideMenu = () => {
     bgIsHovered,
     menuBtnRef,
     menuBtnIsHovered,
+    activeItem,
     setLabelProps,
-    handleOnClic
+    handleOnClic,
+    setActiveItem,
   }
 }

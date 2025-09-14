@@ -15,5 +15,6 @@ export interface ISideMenuItem extends React.AnchorHTMLAttributes<HTMLAnchorElem
   children?: React.ReactNode
   ref?: LegacyRef<HTMLAnchorElement>
   icon?: React.ReactNode,
-  labelProps?: LabelType
+  labelProps?: LabelType,
+  isActive?: boolean
 }

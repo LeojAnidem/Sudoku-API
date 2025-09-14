@@ -1,14 +1,19 @@
 import { forwardRef } from "react"
+import { ISideMenuItem } from "../../../types/sideMenu/sideMenuInterfaces"
 import { IconFire } from "../../icons/IconFire"
 import { LabelComponent } from "./LabelComponent"
-import { ISideMenuItem } from "../../../types/sideMenu/sideMenuInterfaces"
 
-export const SideMenuItem = forwardRef<HTMLAnchorElement, ISideMenuItem>(({children, icon, labelProps, ...props}, ref) => {
+export const SideMenuItem = forwardRef<HTMLAnchorElement, ISideMenuItem>(({children, icon, labelProps, isActive, ...props}, ref) => {
   return (
     <a
       {...props}
       ref={ref}
-      className={`menuBtn ${props.className || ''}`}
+      className={`
+        menuBtn
+        ${props.className || ''}
+        ${isActive && 'menuBtn_active'}
+        `
+      }
     >
       {icon ?? <IconFire/>}
       <LabelComponent

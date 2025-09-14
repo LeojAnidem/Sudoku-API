@@ -2,7 +2,7 @@
   transition: width 0.3s ease-in-out;
 
   @apply w-[100px] !pt-0
-  flex flex-col justify-start items-center gap-8
+  flex flex-col justify-start items-center gap-5
   bg-dark-tremor-background-subtle;
 }
 
@@ -19,6 +19,10 @@
 
 .sidebar > *:hover {
   @apply cursor-pointer text-dark-tremor-brand-emphasis;
+}
+
+.sidebar_wide > * {
+  @apply pl-6
 }
 
 .tag {
@@ -45,4 +49,16 @@
 
 .menuBtn > :first-child {
   @apply w-7 h-7
+}
+
+.menuBtn_active {
+  @apply bg-tremor-brand
+}
+
+.menuBtn_active:hover {
+  @apply text-white
+}
+
+.menuBtn_opt > :last-child{
+  @apply text-base
 }

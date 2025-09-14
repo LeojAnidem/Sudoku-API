@@ -10,17 +10,27 @@ export const SideMenu: React.FC<ISideMenu> = ({ children }) => {
     wideMode,
     bgRef,
     menuBtnRef,
+    activeItem,
     setLabelProps,
-    handleOnClic
+    handleOnClic,
+    setActiveItem
   } = useSideMenu()
 
-  const updatedChildren = React.Children.map(children, child => {
+  const updatedChildren = React.Children.map(children, (child: React.ReactNode, i) => {
     if (React.isValidElement(child) && child.type === SideMenuItem) {
       const labelProps:LabelType = setLabelProps()
+      const childId = `sideItem-${i}`
+      const isActive = childId === activeItem
 
       return React.cloneElement(child, {
         ...child.props,
-        labelProps
+        labelProps,
+        isActive,
+        onClick: (event: React.MouseEvent) => {
+          event.preventDefault()
+          setActiveItem(childId)
+          child.props.onClick?.(event)
+        }
       })
     }
     return child
@@ -29,10 +39,10 @@ export const SideMenu: React.FC<ISideMenu> = ({ children }) => {
   return (
     <div
       ref={(bgRef as LegacyRef<HTMLDivElement>)}
-      className={`sidebar ${wideMode.isAuto ? 'w-[400px] pl-4' : ''}`}
+      className={`sidebar ${wideMode.isAuto ? 'w-[400px] sidebar_wide' : ''}`}
     >
       <SideMenuItem
-        className="pt-5 pb-2"
+        className="pt-7 pb-6 menuBtn_opt"
         ref={(menuBtnRef as Ref<HTMLAnchorElement>)}
         onClick={handleOnClic}
         icon={<IconMenu/>}

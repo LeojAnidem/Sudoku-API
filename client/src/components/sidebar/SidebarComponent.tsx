@@ -8,15 +8,17 @@ export const SidebarComponent = () => {
   return (
     <SideMenu>
       <SideMenuItem
-        title="Let's check the API"
-        icon = {<IconInformation />}
-      >
-        Documentation
-      </SideMenuItem>
-      <SideMenuItem
         title="Lets play!"
+        href='./'
       >
         Play
+      </SideMenuItem>
+      <SideMenuItem
+        title="Let's check the API"
+        icon = {<IconInformation />}
+        href='./docs'
+      >
+        Documentation
       </SideMenuItem>
     </SideMenu>
   )
