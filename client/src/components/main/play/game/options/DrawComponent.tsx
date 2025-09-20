@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from "react"
-import { GameContext } from "../../../context/GameProvider"
-import { GameStatus } from "../../../types/gameEnum"
-import { IconPencil } from "../../icons/IconPencil"
+import { GameContext } from "../../../../../context/GameProvider"
+import { GameStatus } from "../../../../../types/gameEnum"
+import { IconPencil } from "../../../../icons/IconPencil"
+
 
 export const DrawComponent = () => {
   const {state, dispatch} = useContext(GameContext)

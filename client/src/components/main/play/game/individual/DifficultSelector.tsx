@@ -1,7 +1,8 @@
 import { FC, useContext } from "react"
-import { GameContext } from "../../../context/GameProvider"
-import { Difficult } from "../../../types/gameEnum"
-import { IScreenComponent } from "../../../types/gameInterfaces"
+import { IScreenComponent } from "../../../../../types/gameInterfaces"
+import { GameContext } from "../../../../../context/GameProvider"
+import { Difficult } from "../../../../../types/gameEnum"
+
 
 export const DifficultSelector: FC<IScreenComponent> = ({onClick}) => {
 	const { state, dispatch}  = useContext(GameContext)

@@ -1,7 +1,8 @@
 import { useContext, useState } from "react"
-import { GameContext } from "../../../context/GameProvider"
+
 import { DifficultSelector } from "../individual/DifficultSelector"
 import { RetryOption } from "../individual/RetryOption"
+import { GameContext } from "../../../../../context/GameProvider"
 
 export const FailScreenComponent = () => {
 	const { dispatch } = useContext(GameContext)

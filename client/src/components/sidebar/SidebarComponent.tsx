@@ -9,14 +9,14 @@ export const SidebarComponent = () => {
     <SideMenu>
       <SideMenuItem
         title="Lets play!"
-        href='./'
+        href='/'
       >
         Play
       </SideMenuItem>
       <SideMenuItem
         title="Let's check the API"
         icon = {<IconInformation />}
-        href='./docs'
+        href='/docs'
       >
         Documentation
       </SideMenuItem>

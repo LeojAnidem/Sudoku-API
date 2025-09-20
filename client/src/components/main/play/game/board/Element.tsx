@@ -1,5 +1,6 @@
 import { FC } from "react"
-import { IElement } from "../../../types/gameInterfaces"
+import { IElement } from "../../../../../types/gameInterfaces"
+
 
 export const ElementComponent: FC<IElement> = ({value, clickFn, className, position}) => {
 	return (

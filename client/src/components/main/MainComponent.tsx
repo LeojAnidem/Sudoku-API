@@ -1,24 +1,17 @@
-import { GameComponent } from "../game/GameComponent"
+import { Route, Routes } from "react-router-dom"
+import { PlayComponent } from "./play/PlayComponent"
 import './styles/mainStyles.css'
+import { DocsComponent } from "./docs/DocsComponent"
+import { NotFoundComponent } from "./NotFound/NotFoundComponent"
 
 export const MainComponent = () => {
-  const TipComponent = () => {
-    return (
-      <article className="main__game__art">
-        <h2 className="main__game__title">
-          Sudoku Rules
-        </h2>
-        <p>Fill the grid with numbers from one to nine. Each row, column, and box must have all digits.</p>
-      </article>
-    )
-  }
-
   return (
     <main className="main">
-      <section className="main__game">
-        <TipComponent />
-        <GameComponent />
-      </section>
+      <Routes>
+        <Route index element={<PlayComponent />} />
+        <Route path="/docs" element={<DocsComponent />} />
+        <Route path="*" element={<NotFoundComponent />} />
+      </Routes>
     </main>
   )
 }

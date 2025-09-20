@@ -1,10 +1,11 @@
 import download from "downloadjs"
 import { FC, useContext } from "react"
-import { GameContext } from "../../../context/GameProvider"
-import { IScreenComponent } from "../../../types/gameInterfaces"
-import { statics } from "../../../types/gameTypes"
-import { formatSecondsToString } from "../../../utils/boardFn"
+
 import { StatisticsComponent } from "./StatisticsComponent"
+import { IScreenComponent } from "../../../../../types/gameInterfaces"
+import { GameContext } from "../../../../../context/GameProvider"
+import { statics } from "../../../../../types/gameTypes"
+import { formatSecondsToString } from "../../../../../utils/boardFn"
 
 export const ResumeComponent: FC<IScreenComponent> = ({onClick}) => {
   const {state, timer} = useContext(GameContext)

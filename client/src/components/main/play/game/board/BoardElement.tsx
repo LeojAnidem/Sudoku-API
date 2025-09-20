@@ -1,10 +1,12 @@
 import { FC, useContext } from "react";
-import { GameContext } from "../../../context/GameProvider";
-import { IBoardElement, IInputElement } from "../../../types/gameInterfaces";
-import { PositionType } from "../../../types/gameTypes";
-import { applyStyle } from "../../../utils/boardFn";
+
+
 import { ElementComponent } from "./Element";
 import { InputElement } from "./InputElement"; 
+import { GameContext } from "../../../../../context/GameProvider";
+import { IBoardElement, IInputElement } from "../../../../../types/gameInterfaces";
+import { PositionType } from "../../../../../types/gameTypes";
+import { applyStyle } from "../../../../../utils/boardFn";
 
 export const BoardElement: FC<IBoardElement> = ({ boardElt }) => {
 	const {dispatch} = useContext(GameContext)

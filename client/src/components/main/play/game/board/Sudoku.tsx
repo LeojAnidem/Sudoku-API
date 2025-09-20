@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { GameContext } from "../../../context/GameProvider";
 import { BoardElement } from "./BoardElement";
 import { Loading } from "./Loading";
+import { GameContext } from "../../../../../context/GameProvider";
 
 export const Sudoku = () => { 
 	const { state } = useContext(GameContext)

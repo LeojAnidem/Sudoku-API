@@ -1,5 +1,6 @@
 import { FC } from "react"
-import { IScreenComponent } from "../../../types/gameInterfaces"
+import { IScreenComponent } from "../../../../../types/gameInterfaces"
+
 
 export const RetryOption: FC<IScreenComponent> = ({onClick}) => {
 	const handleClick = (val: boolean) => {

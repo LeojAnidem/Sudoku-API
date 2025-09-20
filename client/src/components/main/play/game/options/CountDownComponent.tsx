@@ -1,8 +1,9 @@
 import { useContext, useEffect } from "react"
-import { GameContext } from "../../../context/GameProvider"
-import { GameStatus } from "../../../types/gameEnum"
-import { formatSecondsToString, timeObjToSeconds } from "../../../utils/boardFn"
-import { IconClock } from "../../icons/IconClock"
+import { GameContext } from "../../../../../context/GameProvider"
+import { GameStatus } from "../../../../../types/gameEnum"
+import { formatSecondsToString, timeObjToSeconds } from "../../../../../utils/boardFn"
+import { IconClock } from "../../../../icons/IconClock"
+
 
 export const CountDownComponent = () => {
   const { state, dispatch, timer } = useContext(GameContext)

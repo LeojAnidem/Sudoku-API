@@ -12,7 +12,6 @@ export const useSideMenu = () => {
   const [bgRef, bgIsHovered] = useHover()
   const [menuBtnRef, menuBtnIsHovered] = useHover()
   const hoverTimeoutRef = useRef<ReturnType<typeof setInterval> | null>(null)
-  const [activeItem, setActiveItem] = useState<String | null>(null)
 
   useEffect(() => {
     if (wideMode.isManual) {
@@ -74,9 +73,7 @@ export const useSideMenu = () => {
     bgIsHovered,
     menuBtnRef,
     menuBtnIsHovered,
-    activeItem,
     setLabelProps,
     handleOnClic,
-    setActiveItem,
   }
 }

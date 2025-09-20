@@ -1,5 +1,6 @@
 import { FC } from "react"
-import { statics } from "../../../types/gameTypes"
+import { statics } from "../../../../../types/gameTypes"
+
 
 export const StatisticsComponent: FC<{statics: statics[]}> = ({statics}) => {
   const sortStatics: statics[] = structuredClone(statics)

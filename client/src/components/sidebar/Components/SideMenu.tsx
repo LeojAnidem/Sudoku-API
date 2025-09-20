@@ -1,5 +1,8 @@
-import React, { LegacyRef, Ref } from "react"
+import React, { LegacyRef, Ref, useContext } from "react"
+import { useLocation } from "react-router-dom"
+import { GameContext } from "../../../context/GameProvider"
 import { useSideMenu } from "../../../hooks/useSideMenu"
+import { Difficult } from "../../../types/gameEnum"
 import { ISideMenu } from "../../../types/sideMenu/sideMenuInterfaces"
 import { LabelType } from "../../../types/sideMenu/sideMenuTypes"
 import { IconMenu } from "../../icons/IconMenu"
@@ -10,26 +13,25 @@ export const SideMenu: React.FC<ISideMenu> = ({ children }) => {
     wideMode,
     bgRef,
     menuBtnRef,
-    activeItem,
     setLabelProps,
     handleOnClic,
-    setActiveItem
   } = useSideMenu()
+  
+  const location = useLocation()
+  const { dispatch } = useContext(GameContext)
 
-  const updatedChildren = React.Children.map(children, (child: React.ReactNode, i) => {
+  const updatedChildren = React.Children.map(children, (child: React.ReactNode) => {
     if (React.isValidElement(child) && child.type === SideMenuItem) {
       const labelProps:LabelType = setLabelProps()
-      const childId = `sideItem-${i}`
-      const isActive = childId === activeItem
+      const isActive = location.pathname === child.props.href
 
       return React.cloneElement(child, {
         ...child.props,
         labelProps,
         isActive,
         onClick: (event: React.MouseEvent) => {
-          event.preventDefault()
-          setActiveItem(childId)
           child.props.onClick?.(event)
+          dispatch({type:"CHANGE_DIFFICULT", difficult:Difficult.Easy, isSameDifficult: false})
         }
       })
     }

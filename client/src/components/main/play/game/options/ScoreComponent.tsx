@@ -1,6 +1,7 @@
 import { useContext } from "react"
-import { GameContext } from "../../../context/GameProvider"
-import { IconFire } from "../../icons/IconFire"
+import { GameContext } from "../../../../../context/GameProvider"
+import { IconFire } from "../../../../icons/IconFire"
+
 
 export const ScoreComponent = () => {
   const { state } = useContext(GameContext)

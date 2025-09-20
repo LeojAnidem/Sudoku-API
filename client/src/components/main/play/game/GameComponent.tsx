@@ -1,7 +1,4 @@
 import { useContext, useEffect, useRef } from "react"
-import { GameContext } from "../../context/GameProvider"
-import { GameStatus } from "../../types/gameEnum"
-import { convertHtmlToImageUrl } from "../../utils/boardFn"
 import { Sudoku } from "./board/Sudoku"
 import { CountDownComponent } from "./options/CountDownComponent"
 import { DifficultTab } from "./options/DifficultTab"
@@ -15,6 +12,10 @@ import { WinScreenComponent } from "./screens/WinScreenComponent"
 
 import './styles/boardStyles.css'
 import './styles/screensStyles.css'
+import { GameContext } from "../../../../context/GameProvider"
+import { GameStatus } from "../../../../types/gameEnum"
+import { convertHtmlToImageUrl } from "../../../../utils/boardFn"
+import { Loading } from "./board/Loading"
 
 export const GameComponent = () => {
   const { state, dispatch, timer } = useContext(GameContext)

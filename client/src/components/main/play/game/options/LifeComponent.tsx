@@ -1,12 +1,24 @@
 import { useContext, useEffect, useState } from "react"
-import { GameContext } from "../../../context/GameProvider"
-import { GameStatus } from "../../../types/gameEnum"
-import { Life } from "../../../types/gameTypes"
-import { IconHeart } from "../../icons/IconHeart"
+import { GameContext } from "../../../../../context/GameProvider"
+import { Life } from "../../../../../types/gameTypes"
+import { GameStatus } from "../../../../../types/gameEnum"
+import { IconHeart } from "../../../../icons/IconHeart"
 
 export const LifeComponent = () => {
-  const INITIAL_STATE:Life[] = []
   const { state, dispatch, timer } = useContext(GameContext)
+
+  const setUpInitialState = (lifes: number):Life[] => {
+    return new Array(lifes)
+      .fill(0)
+      .map((_, i) => {
+        return {
+          isActive: true,
+          id: i
+        }
+    })
+  }
+
+  const INITIAL_STATE = setUpInitialState(state.lifes)
   const [life, setLife] = useState(INITIAL_STATE)
 
   useEffect(() => {

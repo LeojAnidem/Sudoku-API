@@ -1,7 +1,8 @@
 import { useContext } from "react"
-import { GameContext } from "../../../context/GameProvider"
-import { IconPause } from "../../icons/IconPause"
-import { GameStatus } from "../../../types/gameEnum"
+import { GameContext } from "../../../../../context/GameProvider"
+import { GameStatus } from "../../../../../types/gameEnum"
+import { IconPause } from "../../../../icons/IconPause"
+
 
 export const PauseButton = () => {
   const { state, dispatch, timer } = useContext(GameContext)

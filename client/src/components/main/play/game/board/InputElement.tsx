@@ -1,9 +1,10 @@
 import { FC, useContext, useEffect, useState } from "react"
-import { GameContext } from "../../../context/GameProvider"
-import { GameStatus } from "../../../types/gameEnum"
-import { IInputElement } from "../../../types/gameInterfaces"
-import { ChangeEvent, KeyboardEvent } from "../../../types/gameTypes"
-import { fillArrWithBlanks } from "../../../utils/boardFn"
+import { GameContext } from "../../../../../context/GameProvider"
+import { GameStatus } from "../../../../../types/gameEnum"
+import { IInputElement } from "../../../../../types/gameInterfaces"
+import { ChangeEvent } from "../../../../../types/gameTypes"
+import { fillArrWithBlanks } from "../../../../../utils/boardFn"
+
 
 export const InputElement: FC<IInputElement> = ({clickFn, className, position}) => {
 	const {state, dispatch} = useContext(GameContext)
@@ -128,7 +129,7 @@ export const InputElement: FC<IInputElement> = ({clickFn, className, position}) 
 				value={curVal}
 				onChange={handleOnChange}
 				onInput={handleOnInput}
-				onKeyDown={handleOnKeyDown}
+				onKeyDown={() => handleOnKeyDown}
 				onFocus={handleOnFocus}
 				disabled={
 					state.status !== GameStatus.playing
