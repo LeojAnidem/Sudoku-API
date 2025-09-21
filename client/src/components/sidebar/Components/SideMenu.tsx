@@ -7,18 +7,20 @@ import { ISideMenu } from "../../../types/sideMenu/sideMenuInterfaces"
 import { LabelType } from "../../../types/sideMenu/sideMenuTypes"
 import { IconMenu } from "../../icons/IconMenu"
 import { SideMenuItem } from "./SideMenuItem"
+import { useHover } from "../../../hooks/useHover"
 
 export const SideMenu: React.FC<ISideMenu> = ({ children }) => {
+    const [bgRef, bgIsHovered] = useHover()
+    const [menuBtnRef, menuBtnIsHovered] = useHover()
+    const location = useLocation()
+    const { dispatch } = useContext(GameContext)
+  
   const {
     wideMode,
-    bgRef,
-    menuBtnRef,
     setLabelProps,
     handleOnClic,
-  } = useSideMenu()
+  } = useSideMenu(bgIsHovered, menuBtnIsHovered)
   
-  const location = useLocation()
-  const { dispatch } = useContext(GameContext)
 
   const updatedChildren = React.Children.map(children, (child: React.ReactNode) => {
     if (React.isValidElement(child) && child.type === SideMenuItem) {

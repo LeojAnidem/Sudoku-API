@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-export type useHoverType = (React.RefObject<HTMLElement> | boolean)[]
+export type useHoverType = [React.RefObject<HTMLElement>, boolean]
 
 export const useHover = ():useHoverType => {
   const [isHovered, setHovered] = useState(false)

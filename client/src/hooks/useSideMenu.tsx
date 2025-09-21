@@ -1,16 +1,14 @@
 import { useEffect, useRef, useState } from "react"
 import { LabelType, wideType } from "../types/sideMenu/sideMenuTypes"
-import { useHover } from "./useHover"
 
-export const useSideMenu = () => {
+
+export const useSideMenu = (bgIsHovered: boolean, menuBtnIsHovered: boolean) => {
   const wideState: wideType = {
     isAuto: false,
     isManual: false
   }
   
   const [wideMode, setWideMode] = useState<wideType>(wideState)
-  const [bgRef, bgIsHovered] = useHover()
-  const [menuBtnRef, menuBtnIsHovered] = useHover()
   const hoverTimeoutRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   useEffect(() => {
@@ -69,10 +67,6 @@ export const useSideMenu = () => {
   
   return {
     wideMode,
-    bgRef,
-    bgIsHovered,
-    menuBtnRef,
-    menuBtnIsHovered,
     setLabelProps,
     handleOnClic,
   }
