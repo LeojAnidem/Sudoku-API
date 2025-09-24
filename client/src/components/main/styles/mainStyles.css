@@ -1,4 +1,4 @@
 .main {
-  @apply w-full h-full flex items-center justify-center
+  @apply w-full !h-4/5 flex items-center justify-center
   overflow-hidden
 }

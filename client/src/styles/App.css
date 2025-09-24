@@ -9,14 +9,25 @@ body {
   flex flex-row
 }
 
-.main_bg > * {
-  @apply py-4 
-}
-
 .content {
-  @apply px-[5%] w-full flex flex-col justify-between
+  @apply p-10 h-full
+  w-full flex flex-col 
+  justify-between
 }
 
-.content > * {
-  @apply h-fit
+*::-webkit-scrollbar {
+  width: .5rem;
 }
+
+*::-webkit-scrollbar-track {
+  @apply bg-dark-tremor-background-subtle rounded-md
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply bg-dark-tremor-brand rounded-md
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  @apply bg-dark-tremor-brand-emphasis
+}
+

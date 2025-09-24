@@ -1,35 +1,53 @@
 .docs {
-
+  @apply w-2/3 h-full 
+  flex flex-col gap-10
 }
 
 .docs__title {
+  @apply w-full text-4xl
+  border-t-[.1rem] pt-4 border-dark-tremor-content-subtle
+  text-white font-medium
+}
 
+.docs__list__bg {
+  @apply w-full h-full p-6 pr-4 flex
+  border-[.1rem] border-dark-tremor-content-subtle
+  overflow-hidden
 }
 
 .docs__list {
-
+  @apply w-full h-full pr-6
+  flex flex-col gap-12
+  overflow-y-auto
 }
 
 .docs__article {
-
+  @apply w-full h-fit
+  flex flex-col gap-4
 }
 
 .docs__article__title {
-
+  @apply text-3xl font-medium text-white
 }
 
 .docs__article__text {
-
+  @apply text-xl font-light
+  text-white
 }
 
 .docs__codeSpace {
-
+  @apply w-full px-4 py-2 rounded-md
+  flex items-center justify-between
+  bg-dark-tremor-brand-muted
 }
 
 .docs__codeSpace__text {
-
+  @apply text-lg font-normal
+  text-dark-tremor-brand
 }
 
 .docs__codeSpace__btn {
-
+  @apply text-lg font-bold
+  text-dark-tremor-brand
+  pl-3 border-l-[.12rem] border-dark-tremor-brand
 }

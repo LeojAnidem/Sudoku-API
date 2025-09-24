@@ -1,5 +1,5 @@
 .header {
-  @apply h-full w-full
+  @apply h-fit w-full
   flex justify-between items-center
 }
 /* 

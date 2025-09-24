@@ -1,5 +1,5 @@
 .game_board {
-  @apply w-full h-full overflow-hidden
+  @apply w-full h-fit overflow-hidden
   relative flex items-center justify-center
 }
 

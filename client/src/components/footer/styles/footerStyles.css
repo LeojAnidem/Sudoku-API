@@ -1,5 +1,5 @@
 .footer {
-  @apply w-full h-full select-none cursor-pointer 
+  @apply w-full h-fit select-none cursor-pointer 
   
   flex justify-center gap-1
   text-white font-semibold text-base
