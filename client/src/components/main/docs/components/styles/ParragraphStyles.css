@@ -1,0 +1,11 @@
+.parragraph__text {
+  @apply text-2xl font-light
+  text-white;
+}
+
+.parragraph__highlight {
+  @apply px-2 rounded-md
+  text-lg font-normal 
+  text-dark-tremor-brand
+  bg-dark-tremor-brand-muted;
+}

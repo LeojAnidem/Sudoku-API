@@ -1,0 +1,40 @@
+.linkSpace {
+  @apply w-full px-4 py-2 rounded-md
+  flex items-center justify-between
+  bg-dark-tremor-brand-muted;
+}
+
+.linkSpace__text {
+  @apply text-lg font-normal
+  text-dark-tremor-brand;
+}
+
+.linkSpace__btn {
+  @apply relative text-lg font-bold
+  text-dark-tremor-brand
+  pl-3 border-l-[.12rem] border-dark-tremor-brand;
+}
+
+.linkSpace__tooltip {
+  transition: opacity .5s ease-in-out .1s;
+
+  @apply absolute py-1 px-2
+  cursor-default select-none
+  rounded-md -top-11 -left-[1.3rem]
+  bg-dark-tremor-brand
+  text-dark-tremor-brand-muted
+  text-base
+}
+
+.linkSpace__tooltip::after {
+  content: '';
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 0 .8rem .8rem .8rem;
+  border-color: transparent transparent #3b82f6 transparent;
+  transform: rotate(180deg);
+
+
+  @apply absolute top-7 right-4
+}

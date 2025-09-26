@@ -1,128 +1,32 @@
+import { LinkSpace } from "./components/LinkSpace"
+import { ParragraphComponent } from "./components/ParragraphComponent"
 import "./styles/DocsStyles.css"
 
 export const DocsComponent = () => {
   return (
     <div className="docs">
-      <h1 className="docs__title">
+      <h1>
         API documentation
       </h1>
       <div className="docs__list__bg">
-        <ul className="docs__list">
-          {/* structure for each item */}
-          <li className="docs__article">
-            <h2 className="docs__article__title">
+        <ul>
+          <li>
+            <h2>
               REST
             </h2>
-            <div className="docs__codeSpace">
-              <span className="docs__codeSpace__text">
-                https://www.leojanidem.com/api
-              </span>
-              <button className="docs__codeSpace__btn">
-                X
-              </button>
-            </div>
-            <p className="docs__article__text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias in architecto blanditiis vitae perspiciatis animi doloremque velit temporibus ipsa dignissimos quisquam repellat, laudantium minima sint similique ullam non? Aperiam, eligendi.
-            </p>
-          </li>
-          <li className="docs__article">
-            <h2 className="docs__article__title">
-              Url Api
-            </h2>
-            <div className="docs__codeSpace">
-              <span className="docs__codeSpace__text">
-                space for code and url api
-              </span>
-              <button className="docs__codeSpace__btn">
-                X
-              </button>
-            </div>
-            <p className="docs__article__text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias in architecto blanditiis vitae perspiciatis animi doloremque velit temporibus ipsa dignissimos quisquam repellat, laudantium minima sint similique ullam non? Aperiam, eligendi.
-            </p>
-          </li>
-          <li className="docs__article">
-            <h2 className="docs__article__title">
-              Url Api
-            </h2>
-            <div className="docs__codeSpace">
-              <span className="docs__codeSpace__text">
-                space for code and url api
-              </span>
-              <button className="docs__codeSpace__btn">
-                X
-              </button>
-            </div>
-            <p className="docs__article__text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias in architecto blanditiis vitae perspiciatis animi doloremque velit temporibus ipsa dignissimos quisquam repellat, laudantium minima sint similique ullam non? Aperiam, eligendi.
-            </p>
-          </li>
-          <li className="docs__article">
-            <h2 className="docs__article__title">
-              Url Api
-            </h2>
-            <div className="docs__codeSpace">
-              <span className="docs__codeSpace__text">
-                space for code and url api
-              </span>
-              <button className="docs__codeSpace__btn">
-                X
-              </button>
-            </div>
-            <p className="docs__article__text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias in architecto blanditiis vitae perspiciatis animi doloremque velit temporibus ipsa dignissimos quisquam repellat, laudantium minima sint similique ullam non? Aperiam, eligendi.
-            </p>
-          </li>
-          <li className="docs__article">
-            <h2 className="docs__article__title">
-              Url Api
-            </h2>
-            <div className="docs__codeSpace">
-              <span className="docs__codeSpace__text">
-                space for code and url api
-              </span>
-              <button className="docs__codeSpace__btn">
-                X
-              </button>
-            </div>
-            <p className="docs__article__text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias in architecto blanditiis vitae perspiciatis animi doloremque velit temporibus ipsa dignissimos quisquam repellat, laudantium minima sint similique ullam non? Aperiam, eligendi.
-            </p>
-          </li>
-          <li className="docs__article">
-            <h2 className="docs__article__title">
-              Url Api
-            </h2>
-            <div className="docs__codeSpace">
-              <span className="docs__codeSpace__text">
-                space for code and url api
-              </span>
-              <button className="docs__codeSpace__btn">
-                X
-              </button>
-            </div>
-            <p className="docs__article__text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias in architecto blanditiis vitae perspiciatis animi doloremque velit temporibus ipsa dignissimos quisquam repellat, laudantium minima sint similique ullam non? Aperiam, eligendi.
-            </p>
-          </li>
-          <li className="docs__article">
-            <h2 className="docs__article__title">
-              Url Api
-            </h2>
-            <div className="docs__codeSpace">
-              <span className="docs__codeSpace__text">
-                space for code and url api
-              </span>
-              <button className="docs__codeSpace__btn">
-                X
-              </button>
-            </div>
-            <p className="docs__article__text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias in architecto blanditiis vitae perspiciatis animi doloremque velit temporibus ipsa dignissimos quisquam repellat, laudantium minima sint similique ullam non? Aperiam, eligendi.
-            </p>
+            <LinkSpace>
+              https://www.leojanidem.com/api
+            </LinkSpace>
+            <ParragraphComponent>
+              The base url contains information about all
+              available API's resources. All requests are
+              **GET** requests and go over **https**. All responses will 
+              return data in **json**.
+            </ParragraphComponent>
           </li>
         </ul>
       </div>
     </div>
   )
 }
+
