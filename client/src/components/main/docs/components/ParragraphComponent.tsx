@@ -21,18 +21,13 @@ export const ParragraphComponent: React.FC<IParragraph> = ({children, className,
       {...props}
     >
       {highLightText(children).map((fragment, i) => {
-        if (fragment.highlight) {
-          return (
-            <span key={`Parragraph-highlight-${i}`} className={`${className ?? 'parragraph'}__highlight`}>
-              {fragment.text}
-            </span>
-          )
-        }
-        
         return(
-          <>
+          <span
+            key={`Parragraph-${i}`}
+            className={`${fragment.highlight && `${className ?? 'parragraph'}__highlight`}`}
+          >
             {fragment.text}
-          </>
+          </span>
         )
       })}
     </p>

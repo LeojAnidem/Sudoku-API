@@ -29,6 +29,7 @@ export const LinkSpace:React.FC<ILinkSpace> = ({children, className, ...props}) 
 
   const handleOnClic = () => {
     if (spaceRef.current) {
+      debugger
       const htmlToCopy = formatHtml(spaceRef.current.innerHTML)
       navigator.clipboard.writeText(htmlToCopy.trim())
         .then(() => {
