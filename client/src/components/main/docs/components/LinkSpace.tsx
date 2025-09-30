@@ -1,4 +1,5 @@
-import React, { ReactNode, useRef, useState } from "react"
+import React, { ReactNode, useEffect, useRef, useState } from "react"
+import { nodifity } from "../../../../utils/convertStrToNode"
 import { formatHtml } from "../../../../utils/formatHtml"
 import { IconCopy } from "../../../icons/IconCopy"
 import "./styles/linkSpace.css"
@@ -25,38 +26,62 @@ interface ILinkSpace extends React.HtmlHTMLAttributes<HTMLDivElement> {
 export const LinkSpace:React.FC<ILinkSpace> = ({children, className, ...props}) => {
   const [isVisible, setIsVisible] = useState(false)
   const [isStartFadeOut, setIsStartFadeOut] = useState(false)
+  const [parseTxt, setParseTxt] = useState('')
   const spaceRef = useRef<HTMLDivElement>(null)
 
-  const handleOnClic = () => {
+  useEffect(() => {
     if (spaceRef.current) {
-      debugger
-      const htmlToCopy = formatHtml(spaceRef.current.innerHTML)
-      navigator.clipboard.writeText(htmlToCopy.trim())
-        .then(() => {
-          setIsVisible(true)
-
-          setTimeout(() => {
-            setIsStartFadeOut(true)
-          }, 1000)
-      
-          setTimeout(() => {
-            setIsVisible(false)
-            setIsStartFadeOut(false)
-          }, 1600)
-        })
-        .catch(err => {
-          console.error('Error to copy:', err)
-        })
+      const htmlToStr = formatHtml(spaceRef.current.innerHTML)
+      setParseTxt(htmlToStr)
     }
+
+  }, [])
+
+  const convertStrToNode = (str: string): ReactNode => {
+    const tokens = str.split('\n')
+    
+    // debes pintar en pantalla los objetos contenidos en
+    // nodifity, el orden de los elementos indica el 
+    // parentezco. ej:  [0]:[padre], [1]:[hijo] 
+    console.log(tokens)
+    console.log(nodifity(tokens))
+    
+    return (
+      <>
+        {
+          tokens
+        }
+      </>
+    )
+  }
+
+
+  const handleOnClic = () => {
+    navigator.clipboard.writeText(parseTxt.trim())
+      .then(() => {
+        setIsVisible(true)
+
+        setTimeout(() => {
+          setIsStartFadeOut(true)
+        }, 1000)
+    
+        setTimeout(() => {
+          setIsVisible(false)
+          setIsStartFadeOut(false)
+        }, 1600)
+      })
+      .catch(err => {
+        console.error('Error to copy:', err)
+      })
   }
 
   return (
     <div
       className={`${className ?? "linkSpace"}`}
       {...props}
-    >
-      <span ref={spaceRef} className={`${className ?? "linkSpace"}__text`}>
-        {children}
+    > 
+      <span className={`${className ?? "linkSpace"}__text`}>
+        {convertStrToNode(parseTxt)}
       </span>
       <button
         className={`${className ?? "linkSpace"}__btn`}
@@ -71,6 +96,12 @@ export const LinkSpace:React.FC<ILinkSpace> = ({children, className, ...props}) 
           Copied!
         </span>
       </button>
+
+      {/* Este span contiene una version que no se puede ver del hijo
+      renderizado */}
+      <span ref={spaceRef} className="hidden">
+        {children}
+      </span>
     </div>
   )
 }
