@@ -16,13 +16,6 @@ export const DocsComponent = () => {
             </h2>
             <LinkSpace>
               https://www.leojanidem.com/
-              {/* <div>
-                <span>
-                  <span>
-                    h
-                  </span>
-                </span>
-              </div> */}
             </LinkSpace>
             <ParragraphComponent>
               The base url contains information about all
@@ -30,6 +23,20 @@ export const DocsComponent = () => {
               **GET** requests and go over **https**. All responses will 
               return data in **json**.
             </ParragraphComponent>
+            <LinkSpace>
+              <div>
+                <span>
+                  <span>
+                    Example
+                  </span>
+                  <div>
+                    <p>
+                      Test
+                    </p>
+                  </div>
+                </span>
+              </div>
+            </LinkSpace>
           </li>
         </ul>
       </div>

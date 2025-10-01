@@ -10,7 +10,8 @@
 }
 
 .linkSpace__btn {
-  @apply relative text-lg font-bold
+  @apply relative h-full text-lg font-bold
+  flex justify-center items-start
   text-dark-tremor-brand
   pl-3 border-l-[.12rem] border-dark-tremor-brand;
 }

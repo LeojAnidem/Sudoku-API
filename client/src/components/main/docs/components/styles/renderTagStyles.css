@@ -1,0 +1,18 @@
+.linkSpace__tag {
+  @apply flex
+}
+
+.linkSpace__tag_keys {
+  @apply font-bold
+  text-dark-tremor-brand
+}
+
+.linkSpace__tag_text {
+  @apply font-semibold
+  text-dark-tremor-brand-emphasis
+}
+
+.linkSpace__tag__text {
+  @apply font-medium
+  text-white
+}
